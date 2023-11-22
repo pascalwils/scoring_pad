@@ -1,0 +1,22 @@
+{
+    "@@locale": "fr",
+    "appTitle": "Feuille de score",
+    "players": "Joueurs",
+    "skBid": "Pari",
+    "skBonusPoints": "Points bonus",
+    "skTricksWon": "Plis gagnés",
+    "skStandard14s": "14 standard",
+    "skBlack14s": "14 noir",
+    "skMermaidsCaptured": "Sirènes capturées",
+    "skPiratesCaptured": "Pirates capturés",
+    "skSkullKingCaptured": "Skull King capturé",
+    "skLootEarned": "Butins gagnés",
+    "skRascalBid": "Pari de Rascal Le Flambeur",
+    "diceGames": "Jeux de dés",
+    "cardGames": "Jeux de cartes",
+    "boardGames": "Jeux de société",
+    "freeGame": "Jeu libre",
+    "skullking": "Skull King",
+    "papayoo": "Papayoo",
+    "prophecy": "Prophétie"
+}

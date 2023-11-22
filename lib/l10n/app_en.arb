@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "appTitle": "Scoring Pad",
+    "players": "Players",
+    "skBid": "Bid",
+    "skTricksWon": "Tricks Won",
+    "skBonusPoints": "Bonus Points",
+    "skStandard14s": "Standard 14s",
+    "skBlack14s": "Black 14s",
+    "skMermaidsCaptured": "Mermaids Captured",
+    "skPiratesCaptured": "Pirates Captured",
+    "skSkullKingCaptured": "Skull King Captured",
+    "skLootEarned": "Loots Earned",
+    "skRascalBid": "Rascal of Roatan Bid",
+    "diceGames": "Dice Games",
+    "cardGames": "Card Games",
+    "boardGames": "Board Games",
+    "freeGame": "Free Game",
+    "skullking": "Skull King",
+    "papayoo": "Papayoo",
+    "prophecy": "Prophecy"
+}
