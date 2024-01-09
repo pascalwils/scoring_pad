@@ -1,11 +1,10 @@
-import 'package:scoring_pad/domain/entities/player.dart';
+import 'game_type.dart';
+import 'player.dart';
 
-class Game {
-  final List<Player> players;
-  late final List<int> scores;
-  int currentRound = 0;
-
-  Game({required this.players}) {
-    scores = List.filled(players.length, 0);
-  }
+abstract class Game {
+  List<Player> getPlayers();
+  List<List<int>> getRounds();
+  DateTime getStartTime();
+  bool isFinished();
+  GameType getGameType();
 }

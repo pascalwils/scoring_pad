@@ -91,6 +91,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: da9591d1f8d5881628ccd5c25c40e74fc3eef50ba45e40c3905a06e1712412d5
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -105,18 +113,18 @@ packages:
     dependency: "direct main"
     description:
       name: get_it
-      sha256: f79870884de16d689cf9a7d15eedf31ed61d750e813c538a6efb92660fea83c3
+      sha256: d0b88dc35a7f97fd91fec0cf8f165abd97a57977968d8fc02ba0bc92e14ba07e
       url: "https://pub.dev"
     source: hosted
-    version: "7.6.4"
+    version: "7.6.6"
   go_router:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: c247a4f76071c3b97bb5ae8912968870d5565644801c5e09f3bc961b4d874895
+      sha256: "3b40e751eaaa855179b416974d59d29669e750d2e50fcdb2b37f1cb0ca8c803a"
       url: "https://pub.dev"
     source: hosted
-    version: "12.1.1"
+    version: "13.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -173,6 +181,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
+  riverpod:
+    dependency: transitive
+    description:
+      name: riverpod
+      sha256: "942999ee48b899f8a46a860f1e13cee36f2f77609eb54c5b7a669bb20d550b11"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.9"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -186,6 +202,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  spring_button:
+    dependency: "direct main"
+    description:
+      name: spring_button
+      sha256: b6d0839fc711a691d14159cf3feb499f9067ba5542630d1db0effac3c9fd2dae
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -194,6 +218,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -214,10 +246,10 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: "9c587c0269e194ea5c161b01fa5c4e4120926f4b8fedcf9b3bd2466cb500b880"
+      sha256: "1e4351253560219859a8e757f5b8dbd266d5c289a50dd90d12da4f3041184392"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.4"
+    version: "3.2.0"
   talker_logger:
     dependency: transitive
     description:
@@ -260,4 +292,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=3.7.0"
+  flutter: ">=3.10.0"

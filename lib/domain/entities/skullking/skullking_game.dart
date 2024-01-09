@@ -1,16 +1,23 @@
 import 'dart:math';
 
-import 'package:scoring_pad/domain/entities/game.dart';
+import 'package:scoring_pad/domain/entities/game_type.dart';
 import 'package:scoring_pad/domain/entities/player.dart';
 import 'package:scoring_pad/domain/entities/skullking/skullking_game_mode.dart';
 import 'package:scoring_pad/domain/entities/skullking/skullking_player_round.dart';
 
-class SkullkingGame extends Game {
+import '../game.dart';
+
+class SkullkingGame implements Game {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
   static const nbMaxCardsFor8Players = 8;
   static const nbPirates = 5;
   static const nbMermaids = 2;
+
+  final List<Player> players;
+  int currentRound = 0;
+  bool _finished = false;
+  late final DateTime _startTime;
 
   final SkullkingGameMode mode;
   final bool lootCardsPresent;
@@ -20,15 +27,17 @@ class SkullkingGame extends Game {
   late final List<List<SkullkingPlayerRound>> rounds;
 
   SkullkingGame({
+    required this.players,
     required this.mode,
-    required List<Player> players,
     this.lootCardsPresent = true,
     this.mermaidCardsPresent = true,
     this.advancedPirateAbitilitiesEnabled = true,
     this.rascalScoringEnabled = false,
-  }) : super(players: players) {
+  }) {
     assert(players.length >= nbMinPlayers);
     assert(players.length <= nbMaxPlayers);
+
+    _startTime = DateTime.now();
 
     int nbRounds = mode.nbCards.length;
     rounds = List.filled(players.length, List.filled(nbRounds, SkullkingPlayerRound()));
@@ -47,10 +56,23 @@ class SkullkingGame extends Game {
   }
 
   void editRound(int roundNumber, List<SkullkingPlayerRound> round) {
-    int i = 0;
-    for (SkullkingPlayerRound r in round) {
-      rounds[roundNumber - 1][i] = r;
-      i++;
-    }
+    rounds[roundNumber - 1] = round;
   }
+
+  @override
+  List<Player> getPlayers() => players;
+
+  @override
+  List<List<int>> getRounds() {
+    return rounds.map((it) => it.map((round) => round.score).toList()).toList();
+  }
+
+  @override
+  DateTime getStartTime() => _startTime;
+
+  @override
+  bool isFinished() => _finished;
+
+  @override
+  GameType getGameType() => GameType.Skullking;
 }

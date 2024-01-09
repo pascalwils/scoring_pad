@@ -15,8 +15,19 @@
     "diceGames": "Dice Games",
     "cardGames": "Card Games",
     "boardGames": "Board Games",
-    "freeGame": "Free Game",
     "skullking": "Skull King",
     "papayoo": "Papayoo",
-    "prophecy": "Prophecy"
+    "prophecy": "Prophecy",
+    "freeGames": "Free Games",
+    "newPlayer": "New\nplayer",
+    "playerName": "Player name",
+    "cancel": "Cancel",
+    "add": "Add",
+    "update": "Update",
+    "createNewGame": "Create new game",
+    "settings": "Settings",
+    "playersList": "Players list",
+    "gamesList": "Games list",
+    "continueGame": "Continue",
+    "favoriteGames": "Favorites"
 }

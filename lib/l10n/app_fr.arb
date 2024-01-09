@@ -15,8 +15,19 @@
     "diceGames": "Jeux de dés",
     "cardGames": "Jeux de cartes",
     "boardGames": "Jeux de société",
-    "freeGame": "Jeu libre",
     "skullking": "Skull King",
     "papayoo": "Papayoo",
-    "prophecy": "Prophétie"
+    "prophecy": "Prophétie",
+    "freeGames": "Jeux libres",
+    "newPlayer": "Nouveau\njoueur",
+    "playerName": "Nom du joueur",
+    "cancel": "Annuler",
+    "add": "Ajouter",
+    "update": "Modifier",
+    "createNewGame": "Créer une nouvelle partie",
+    "settings": "Paramètres",
+    "playersList": "Liste des joueurs",
+    "gamesList": "Liste des parties",
+    "continueGame": "Continuer",
+    "favoriteGames": "Favoris"
 }

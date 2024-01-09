@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-class DiceGamesScreen extends StatelessWidget {
-  const DiceGamesScreen({super.key});
+class FreeGamesScreen extends StatelessWidget {
+  static const String path = 'free-games';
+
+  const FreeGamesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class DiceGamesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr.diceGames),
+        title: Text(tr.freeGames),
         leading: TextButton(
           onPressed: () => context.go("/"),
           child: Icon(

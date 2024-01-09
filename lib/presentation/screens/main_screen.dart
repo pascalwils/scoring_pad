@@ -1,95 +1,83 @@
-import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/presentation/screens/games_screen.dart';
 
-import '../widgets/IntegerField.dart';
+import '../widgets/default_button.dart';
 
 class MainScreen extends StatelessWidget {
+  final bool gameRunning = false;
+
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const double buttonWidth = 250;
+    const double buttonSpacing = 20;
+
     AppLocalizations tr = AppLocalizations.of(context);
+
+    List<_MenuEntry> entries = List.empty(growable: true);
+    if (gameRunning) {
+      entries.add(_MenuEntry(title: tr.continueGame, path: "", style: StyleEnum.filled));
+    }
+    entries.add(_MenuEntry(
+      title: tr.createNewGame,
+      path: GamesScreen.path,
+      style: gameRunning ? StyleEnum.filledTonal : StyleEnum.filled,
+    ));
+    entries.add(_MenuEntry(title: tr.gamesList, path: "", style: StyleEnum.filledTonal));
+    entries.add(_MenuEntry(title: tr.playersList, path: "", style: StyleEnum.filledTonal));
+    entries.add(_MenuEntry(title: tr.settings, path: "", style: StyleEnum.outlined));
 
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.appTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.info,
+              color: Colors.white,
+            ),
+            onPressed: () => _showAboutDialog(context),
+          ),
+        ],
       ),
       body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(12),
-          child: Ink(
-            decoration: BoxDecoration(
-              color: Colors.amberAccent,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              title: Row(children: [
-                Expanded(
-                  child: Text("Pascal"),
+        child: Wrap(
+          direction: Axis.vertical,
+          spacing: buttonSpacing,
+          children: [
+            for (final entry in entries)
+              SizedBox(
+                width: buttonWidth,
+                child: DefaultButton(
+                  onPressed: () => context.push(entry.path),
+                  label: entry.title,
+                  styleEnum: entry.style,
                 ),
-                Text("0"),
-              ]),
-              subtitle: Column(
-                children: [
-                  _buildLine(context, tr.skBid, 0, 2),
-                  _buildLine(context, tr.skTricksWon, 0,2),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Expandable(
-                    firstChild: Text(tr.skBonusPoints),
-                    secondChild: Padding(
-                      padding: EdgeInsets.only(
-                        left: 4,
-                        right: 4,
-                        bottom: 6,
-                      ),
-                      child: Column(
-                        children: [
-                          _buildLine(context, tr.skStandard14s, 0, 3),
-                          _buildLine(context, tr.skBlack14s, 0, 1),
-                          _buildLine(context, tr.skMermaidsCaptured, 0, 2),
-                          _buildLine(context, tr.skPiratesCaptured, 0, 5),
-                          _buildLine(context, tr.skSkullKingCaptured, 0, 1),
-                          _buildLine(context, tr.skLootEarned, 0, 2),
-                          _buildLine(context, tr.skRascalBid, 20, 20, step: 10),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+              )
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildLine(BuildContext context, String text, int value, int maxValue, {int step = 1}) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 4,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              text,
-              textAlign: TextAlign.end,
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          IntegerField(
-            initialValue: value,
-            maxValue: maxValue,
-            step: step,
-          ),
-        ],
-      ),
+  void _showAboutDialog(BuildContext context) {
+    AppLocalizations tr = AppLocalizations.of(context);
+    showAboutDialog(
+      context: context,
+      applicationName: tr.appTitle,
+      applicationVersion: "1.0.0",
+      applicationLegalese: "(c) 2024 - Pascal WILS",
     );
   }
+}
+
+class _MenuEntry {
+  final String title;
+  final String path;
+  final StyleEnum style;
+
+  _MenuEntry({required this.title, required this.path, required this.style});
 }
