@@ -29,5 +29,7 @@
     "playersList": "Liste des joueurs",
     "gamesList": "Liste des parties",
     "continueGame": "Continuer",
-    "favoriteGames": "Favoris"
+    "favoriteGames": "Favoris",
+    "selectPlayers": "Sélectionner les joueurs",
+    "emptyPlayerList": "Sélectionner les joueurs pour cette partie"
 }

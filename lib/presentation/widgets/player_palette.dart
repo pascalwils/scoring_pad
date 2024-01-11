@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../domain/entities/player.dart';
-import '../graphic_tools.dart';
 
 const double rowHeight = 48.0;
 
 class PlayerPalette extends StatelessWidget {
+  static const String addButtonKey = "__";
   final List<Player> items;
   final void Function(String key) listener;
 
@@ -14,7 +14,7 @@ class PlayerPalette extends StatelessWidget {
 
   factory PlayerPalette.fromItems(List<Player> items, void Function(String key) listener) {
     List<Player> result = List.from(items);
-    result.insert(0, Player(name: "__", color: Colors.black));
+    result.insert(0, Player(name: addButtonKey));
     return PlayerPalette._internal(items: result, listener: listener);
   }
 
@@ -46,16 +46,21 @@ class PlayerPalette extends StatelessWidget {
   }
 
   Widget _buildWidget(BuildContext context, Player item) {
-    return Container(
-      color: item.color,
-      width: double.infinity,
-      height: rowHeight,
-      alignment: Alignment.center,
+    final scheme = Theme.of(context).colorScheme;
+    final background = item.name == "__" ? scheme.primary : scheme.secondaryContainer;
+    final foreground = item.name == "__" ? scheme.onPrimary : scheme.onSecondaryContainer;
+    return Material(
+      color: background,
       child: InkWell(
         onTap: () {
           listener(item.name);
         },
-        child: (item.name == '__') ? _buildIconAndText(context, item.color) : _buildText(item.name, item.color),
+        child: Container(
+          width: double.infinity,
+          height: rowHeight,
+          alignment: Alignment.center,
+          child: (item.name == addButtonKey) ? _buildIconAndText(context, foreground) : _buildText(item.name, foreground),
+        ),
       ),
     );
   }
@@ -65,7 +70,7 @@ class PlayerPalette extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Icon(Icons.add, color: computeColorForText(color)),
+        Icon(Icons.add, color: color),
         _buildText(tr.newPlayer, color),
       ],
     );
@@ -76,7 +81,7 @@ class PlayerPalette extends StatelessWidget {
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: computeColorForText(color),
+        color: color,
         fontWeight: FontWeight.bold,
       ),
     );
