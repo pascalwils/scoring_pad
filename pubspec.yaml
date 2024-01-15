@@ -33,6 +33,7 @@ dependencies:
   get_it: ^7.6.6
   intl: ^0.18.1
   talker: ^3.2.0
+  talker_flutter: ^3.6.0
   expandable_widgets: ^1.0.3+1
 
   # The following adds the Cupertino Icons font to your application.

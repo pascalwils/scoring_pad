@@ -1,5 +1,8 @@
+import 'package:talker/talker.dart';
 import 'package:scoring_pad/domain/entities/player.dart';
 import 'package:scoring_pad/domain/repositories/player_repository.dart';
+
+final talker = Talker();
 
 class InMemoryPlayerRepository implements PlayerRepository {
   final List<Player> _players = List<Player>.empty(growable: true);
@@ -8,6 +11,7 @@ class InMemoryPlayerRepository implements PlayerRepository {
   bool addPlayer(Player player) {
     if (!_players.contains(player)) {
       _players.add(player);
+      talker.debug("Add player ${player.name} to database.");
       return true;
     }
     return false;
@@ -19,10 +23,8 @@ class InMemoryPlayerRepository implements PlayerRepository {
   }
 
   @override
-  List<Player> getAllPlayers() => _players;
-
-  @override
-  bool containsPlayer(String name) {
-    return _players.any((e) => e.name == name);
+  Future<List<Player>> getAllPlayers() async {
+    talker.debug("Get all players.");
+    return _players;
   }
 }

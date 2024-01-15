@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/presentation/screens/players_selection_screen.dart';
-import 'package:scoring_pad/translation_support.dart';
 
+import 'players_selection/players_selection_screen.dart';
 import '../../di.dart';
+import '../../translation_support.dart';
 import '../../domain/entities/game_type.dart';
 
 class FavoriteGamesScreen extends StatelessWidget {

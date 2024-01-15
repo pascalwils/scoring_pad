@@ -11,6 +11,7 @@ import 'data/in_memory_player_repository.dart';
 final getIt = GetIt.instance;
 
 final favoritesProvider = NotifierProvider<FavoriteManager, List<GameType>>(FavoriteManager.new);
+final playersProvider = FutureProvider((ref) => getIt<PlayerRepository>().getAllPlayers());
 
 void initDependencies() {
   getIt.registerLazySingleton<PlayerRepository>(() => InMemoryPlayerRepository());

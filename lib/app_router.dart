@@ -5,13 +5,17 @@ import 'package:scoring_pad/presentation/screens/favorite_games_screen.dart';
 import 'package:scoring_pad/presentation/screens/game_categories_screen.dart';
 import 'package:scoring_pad/presentation/screens/games_screen.dart';
 import 'package:scoring_pad/presentation/screens/main_screen.dart';
-import 'package:scoring_pad/presentation/screens/players_selection_screen.dart';
+import 'package:scoring_pad/presentation/screens/players_selection/players_selection_screen.dart';
+import 'package:talker_flutter/talker_flutter.dart';
+
+final talker = Talker();
 
 class AppRouter {
   // all the route paths. So that we can access them easily across the app
   static const root = '/';
 
   static final GoRouter _router = GoRouter(
+    observers: [TalkerRouteObserver(talker)],
     routes: <GoRoute>[
       GoRoute(path: root, pageBuilder: _createBuilder(const MainScreen())),
       GoRoute(path: GamesScreen.path, pageBuilder: _createBuilder(const GameCategoriesScreen())),
