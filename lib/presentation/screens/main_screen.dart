@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/presentation/screens/games_screen.dart';
 
+import 'games_screen.dart';
+import 'players_list_screen.dart';
 import '../widgets/default_button.dart';
 
 class MainScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class MainScreen extends StatelessWidget {
       style: gameRunning ? StyleEnum.filledTonal : StyleEnum.filled,
     ));
     entries.add(_MenuEntry(title: tr.gamesList, path: "", style: StyleEnum.filledTonal));
-    entries.add(_MenuEntry(title: tr.playersList, path: "", style: StyleEnum.filledTonal));
+    entries.add(_MenuEntry(title: tr.playersList, path: PlayersListScreen.path, style: StyleEnum.filledTonal));
     entries.add(_MenuEntry(title: tr.settings, path: "", style: StyleEnum.outlined));
 
     return Scaffold(

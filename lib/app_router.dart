@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/domain/entities/game_category.dart';
-import 'package:scoring_pad/presentation/screens/favorite_games_screen.dart';
-import 'package:scoring_pad/presentation/screens/game_categories_screen.dart';
-import 'package:scoring_pad/presentation/screens/games_screen.dart';
-import 'package:scoring_pad/presentation/screens/main_screen.dart';
-import 'package:scoring_pad/presentation/screens/players_selection/players_selection_screen.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+import 'package:scoring_pad/presentation/screens/player_details_screen.dart';
 
-final talker = Talker();
+import 'domain/entities/game_category.dart';
+import 'presentation/screens/favorite_games_screen.dart';
+import 'presentation/screens/game_categories_screen.dart';
+import 'presentation/screens/games_screen.dart';
+import 'presentation/screens/main_screen.dart';
+import 'presentation/screens/players_list_screen.dart';
+import 'presentation/screens/players_selection/players_selection_screen.dart';
 
 class AppRouter {
   // all the route paths. So that we can access them easily across the app
   static const root = '/';
 
   static final GoRouter _router = GoRouter(
-    observers: [TalkerRouteObserver(talker)],
     routes: <GoRoute>[
       GoRoute(path: root, pageBuilder: _createBuilder(const MainScreen())),
       GoRoute(path: GamesScreen.path, pageBuilder: _createBuilder(const GameCategoriesScreen())),
@@ -30,6 +29,8 @@ class AppRouter {
       ),
       GoRoute(path: FavoriteGamesScreen.path, pageBuilder: _createBuilder(const FavoriteGamesScreen())),
       GoRoute(path: PlayersSelectionScreen.path, pageBuilder: _createBuilder(const PlayersSelectionScreen())),
+      GoRoute(path: PlayersListScreen.path, pageBuilder: _createBuilder(const PlayersListScreen())),
+      GoRoute(path: PlayerDetailsScreen.path, pageBuilder: _createBuilder(const PlayerDetailsScreen())),
     ],
   );
 

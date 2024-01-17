@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'players_selection/players_selection_screen.dart';
-import '../../di.dart';
+import '../../presentation/screens/players_selection/players_selection_screen.dart';
 import '../../translation_support.dart';
+import '../../data/favorites/favorite_notifier.dart';
 import '../../domain/entities/game_type.dart';
 
 class FavoriteGamesScreen extends StatelessWidget {
@@ -27,7 +27,7 @@ class FavoriteGamesScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (_, ref, __) {
-          var entries = ref.watch(favoritesProvider);
+          var entries = ref.watch(favoritesProvider).favorites;
           return ListView.separated(
             padding: const EdgeInsets.all(8),
             itemCount: entries.length,
@@ -54,9 +54,9 @@ class FavoriteGamesScreen extends StatelessWidget {
     return IconButton(
       onPressed: () {
         if (isFavorite) {
-          ref.read(favoritesProvider.notifier).remove(entry);
+          ref.read(favoritesProvider.notifier).removeFavorite(entry);
         } else {
-          ref.read(favoritesProvider.notifier).add(entry);
+          ref.read(favoritesProvider.notifier).addFavorite(entry);
         }
       },
       icon: Icon(

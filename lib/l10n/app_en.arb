@@ -31,5 +31,16 @@
     "continueGame": "Continue",
     "favoriteGames": "Favorites",
     "selectPlayers": "Select players",
-    "emptyPlayerList": "Select players for this game"
+    "emptyPlayerList": "Select players for this game",
+    "yes": "Yes",
+    "no": "No",
+    "deletePlayer": "Delete the player",
+    "deletePlayerMessage": "Do you really want to delete the {playerName} player ? This action is irreversible.",
+    "@deletePlayerMessage": {
+        "placeholders": {
+            "playerName": {
+                "type": "String"
+            }
+        }
+    }
 }

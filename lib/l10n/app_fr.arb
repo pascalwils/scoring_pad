@@ -31,5 +31,9 @@
     "continueGame": "Continuer",
     "favoriteGames": "Favoris",
     "selectPlayers": "Sélectionner les joueurs",
-    "emptyPlayerList": "Sélectionner les joueurs pour cette partie"
+    "emptyPlayerList": "Sélectionner les joueurs pour cette partie",
+    "yes": "Oui",
+    "no": "Non",
+    "deletePlayer": "Supprimer le joueur",
+    "deletePlayerMessage": "Voulez-vous vraiment supprimer le joueur {playerName} ? Cette opération est irréversible."
 }

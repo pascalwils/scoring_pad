@@ -3,14 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/favorites/favorite_notifier.dart';
 import 'players_selection/players_selection_screen.dart';
-import '../../di.dart';
 import '../../translation_support.dart';
 import '../../domain/entities/game_type.dart';
 import '../../domain/entities/game_category.dart';
 import '../game_catalog.dart';
 
-class GamesScreen extends StatelessWidget {
+class GamesScreen extends ConsumerWidget {
   static const String path = "/games";
 
   final GameCategory category;
@@ -18,13 +18,9 @@ class GamesScreen extends StatelessWidget {
   const GamesScreen({super.key, required this.category});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
-
-    final GameCatalog catalog = getIt.get<GameCatalog>();
-
-    final entries = catalog.getGamesWithCategory(category);
-
+    final entries = ref.read(gameCatalogProvider).getGamesWithCategory(category);
     return Scaffold(
       appBar: AppBar(
         title: Text(category.getTitle(tr)),
@@ -55,13 +51,13 @@ class GamesScreen extends StatelessWidget {
   Widget _buildFavoriteIcon(GameType entry) {
     return Consumer(
       builder: (_, ref, __) {
-        bool isFavorite = ref.watch(favoritesProvider).contains(entry);
+        bool isFavorite = ref.watch(favoritesProvider).favorites.contains(entry);
         return IconButton(
           onPressed: () {
             if (isFavorite) {
-              ref.read(favoritesProvider.notifier).remove(entry);
+              ref.read(favoritesProvider.notifier).removeFavorite(entry);
             } else {
-              ref.read(favoritesProvider.notifier).add(entry);
+              ref.read(favoritesProvider.notifier).addFavorite(entry);
             }
           },
           icon: Icon(

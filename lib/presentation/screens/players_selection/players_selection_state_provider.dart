@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talker/talker.dart';
 
-import '../../../di.dart';
+import '../../../data/players/players_notifier.dart';
 import '../../../domain/entities/player.dart';
 import 'players_selection_state.dart';
 
@@ -11,7 +11,7 @@ class PlayersSelectionScreenNotifier extends AutoDisposeNotifier<PlayersSelectio
   @override
   PlayersSelectionState build() {
     talker.debug("Build players selection state");
-    return PlayersSelectionState.initial(ref.read(playersProvider).value);
+    return PlayersSelectionState.initial(ref.read(playersProvider).players);
   }
 
   void addNewPlayer(Player player) {

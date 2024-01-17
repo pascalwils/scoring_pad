@@ -32,7 +32,7 @@ class _PlayerSelectionContent extends StatelessWidget {
           builder: (context, ref, _) {
             final field = ref.watch(playerEditionDialogNotifierProvider).name;
             return TextFormField(
-              initialValue: field.isValid ? field.value : "",
+              initialValue: field.isValid ? field.value : player?.name ?? "",
               onChanged: (value) => ref.read(playerEditionDialogNotifierProvider.notifier).setName(value),
               decoration: InputDecoration(
                 hintText: tr.playerName,

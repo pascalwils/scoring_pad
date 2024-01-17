@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:scoring_pad/domain/repositories/player_repository.dart';
+import 'package:scoring_pad/data/players/players_notifier.dart';
 
-import '../../../di.dart';
 import '../../../domain/entities/player.dart';
 import '../../widgets/player_edition/player_edition_dialog.dart';
 import '../../widgets/player_palette.dart';
@@ -97,7 +96,7 @@ class PlayersSelectionScreen extends ConsumerWidget {
                     if (key == PlayerPalette.addButtonKey) {
                       var player = await _displayTextInputDialog(context);
                       if (player != null) {
-                        getIt.get<PlayerRepository>().addPlayer(player);
+                        ref.read(playersProvider.notifier).addPlayer(player);
                         ref.read(playersSelectionScreenNotifierProvider.notifier).addNewPlayer(player);
                       }
                     } else {
