@@ -10,10 +10,7 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   FavoriteRepositoryImpl(this._dataSource);
 
   @override
-  Future<void> add(GameType entry) async => _dataSource.addFavorite(entry);
-
-  @override
-  Future<void> remove(GameType entry) async => _dataSource.removeFavorite(entry);
+  Future<void> toggleFavorite(GameType entry) async => _dataSource.toggleFavorite(entry);
 
   @override
   Future<List<GameType>> getAllFavorites() async => _dataSource.getAllFavorites();

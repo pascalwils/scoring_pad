@@ -53,11 +53,7 @@ class FavoriteGamesScreen extends StatelessWidget {
     bool isFavorite = entries.contains(entry);
     return IconButton(
       onPressed: () {
-        if (isFavorite) {
-          ref.read(favoritesProvider.notifier).removeFavorite(entry);
-        } else {
-          ref.read(favoritesProvider.notifier).addFavorite(entry);
-        }
+        ref.read(favoritesProvider.notifier).toggleFavorite(entry);
       },
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,

@@ -15,21 +15,12 @@ class FavoriteNotifier extends StateNotifier<FavoriteState> {
     _updateState();
   }
 
-  Future<void> addFavorite(GameType entry) async {
+  Future<void> toggleFavorite(GameType entry) async {
     try {
-      await _repository.add(entry);
+      await _repository.toggleFavorite(entry);
       _updateState();
     } catch (e) {
       talker.debug("Unable to add favorite '$entry' in repository", e);
-    }
-  }
-
-  Future<void> removeFavorite(GameType entry) async {
-    try {
-      await _repository.remove(entry);
-      _updateState();
-    } catch (e) {
-      talker.debug("Unable to remove favorite '$entry' in repository", e);
     }
   }
 

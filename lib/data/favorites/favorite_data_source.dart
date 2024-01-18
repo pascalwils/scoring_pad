@@ -8,19 +8,15 @@ import '../../domain/entities/game_type.dart';
 final talker = Talker();
 
 class FavoriteDataSource {
-  Future<void> addFavorite(GameType entry) async {
+  Future<void> toggleFavorite(GameType entry) async {
     final box = Hive.box(favoriteBoxName);
     if (!box.containsKey(entry.name)) {
       box.put(entry.name, 0);
       talker.debug("Add favorite '$entry' to database.");
     }
-  }
-
-  Future<void> removeFavorite(GameType entry) async {
-    final box = Hive.box(favoriteBoxName);
-    if (box.containsKey(entry.name)) {
-      talker.debug("Remove favorite '$entry' from database.");
+    else {
       box.delete(entry.name);
+      talker.debug("Remove favorite '$entry' to database.");
     }
   }
 
