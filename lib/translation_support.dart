@@ -21,25 +21,25 @@ extension GameCategoryTranslation on GameCategory {
 extension GameTypeTranslation on GameType {
   String getName(AppLocalizations loc) {
     switch (this) {
-      case GameType.Papayoo:
+      case GameType.papayoo:
         return loc.papayoo;
-      case GameType.Prophecy:
+      case GameType.prophecy:
         return loc.prophecy;
-      case GameType.Skullking:
+      case GameType.skullking:
         return loc.skullking;
-      case GameType.Take5:
+      case GameType.take5:
         return "take5";
-      case GameType.Default:
+      case GameType.defaultGame:
         return "";
     }
   }
 
   Image getIcon() {
     String iconName = switch (this) {
-      GameType.Papayoo => "papayoo",
-      GameType.Prophecy => "prophecy",
-      GameType.Skullking => "skullking",
-      GameType.Take5 => "take5",
+      GameType.papayoo => "papayoo",
+      GameType.prophecy => "prophecy",
+      GameType.skullking => "skullking",
+      GameType.take5 => "take5",
       _ => "",
     };
     return Image.asset("assets/game-icons/$iconName.webp");

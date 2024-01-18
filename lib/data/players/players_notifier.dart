@@ -3,7 +3,7 @@ import 'package:talker/talker.dart';
 
 import '../../domain/repositories/player_repository.dart';
 import '../../domain/entities/player.dart';
-import '../in_memory_player_repository.dart';
+import 'player_repository_impl.dart';
 import 'players_state.dart';
 
 final talker = Talker();

@@ -44,7 +44,7 @@ class PapayooGame extends StandardGame {
 
   PapayooGame({required super.players})
       : super(
-          type: GameType.Papayoo,
+          type: GameType.papayoo,
           nbMinPlayers: nbMinPlayers,
           nbMaxPlayers: nbMaxPlayers,
         );
@@ -56,7 +56,7 @@ class ProphecyGame extends StandardGame {
 
   ProphecyGame({required super.players})
       : super(
-          type: GameType.Prophecy,
+          type: GameType.prophecy,
           nbMinPlayers: nbMinPlayers,
           nbMaxPlayers: nbMaxPlayers,
         );
@@ -68,7 +68,7 @@ class Take5Game extends StandardGame {
 
   Take5Game({required super.players})
       : super(
-          type: GameType.Take5,
+          type: GameType.take5,
           nbMinPlayers: nbMinPlayers,
           nbMaxPlayers: nbMaxPlayers,
         );

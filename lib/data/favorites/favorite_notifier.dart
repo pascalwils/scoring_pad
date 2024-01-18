@@ -4,7 +4,7 @@ import 'package:talker/talker.dart';
 import '../../domain/entities/game_type.dart';
 import '../../domain/repositories/favorite_repository.dart';
 import 'favorite_state.dart';
-import 'in_memory_favorite_repository.dart';
+import 'favorite_repository_impl.dart';
 
 final talker = Talker();
 

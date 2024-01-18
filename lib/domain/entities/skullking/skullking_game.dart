@@ -74,5 +74,5 @@ class SkullkingGame implements Game {
   bool isFinished() => _finished;
 
   @override
-  GameType getGameType() => GameType.Skullking;
+  GameType getGameType() => GameType.skullking;
 }

@@ -19,9 +19,9 @@ class DefaultGameCatalog extends GameCatalog {
 
   List<GameType> _createBoardGames() {
     return [
-      GameType.Papayoo,
-      GameType.Prophecy,
-      GameType.Skullking,
+      GameType.papayoo,
+      GameType.prophecy,
+      GameType.skullking,
     ];
   }
 }
