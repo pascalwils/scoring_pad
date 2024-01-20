@@ -4,14 +4,15 @@ import 'package:go_router/go_router.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scoring_pad/data/players/players_notifier.dart';
+import 'package:scoring_pad/presentation/screens/players_selection/player_selection_state.dart';
 
 import '../../../domain/entities/player.dart';
 import '../../widgets/player_edition/player_edition_dialog.dart';
 import '../../widgets/player_palette.dart';
 import '../../palettes.dart';
-import 'players_selection_state_provider.dart';
+import 'player_selection_state_provider.dart';
 
-class PlayersSelectionScreen extends ConsumerWidget {
+class PlayerSelectionScreen extends ConsumerWidget {
   static const String path = '/select-players';
   static const int defaultMinPlayers = 2;
   static const int defaultMaxPlayers = 10;
@@ -19,7 +20,7 @@ class PlayersSelectionScreen extends ConsumerWidget {
   final int minPlayers;
   final int maxPlayers;
 
-  const PlayersSelectionScreen({
+  const PlayerSelectionScreen({
     super.key,
     this.minPlayers = defaultMinPlayers,
     this.maxPlayers = defaultMaxPlayers,
@@ -29,7 +30,7 @@ class PlayersSelectionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final List<Color> palette = getColorPalette(Theme.of(context).brightness);
-    final state = ref.watch(playersSelectionScreenNotifierProvider);
+    final state = ref.watch(playerSelectionProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.selectPlayers),
@@ -78,29 +79,29 @@ class PlayersSelectionScreen extends ConsumerWidget {
                           trailing: IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () {
-                              ref.read(playersSelectionScreenNotifierProvider.notifier).deletePlayer(index);
+                              ref.read(playerSelectionProvider.notifier).deletePlayer(index);
                             },
                           ),
                         ),
                     ],
                     onReorder: (int oldIndex, int newIndex) {
-                      ref.read(playersSelectionScreenNotifierProvider.notifier).reorderPlayers(oldIndex, newIndex);
+                      ref.read(playerSelectionProvider.notifier).reorderPlayers(oldIndex, newIndex);
                     },
                   )
                 : Center(child: Text(tr.emptyPlayerList)),
           ),
           state.selectedPlayers.length < maxPlayers
               ? PlayerPalette.fromItems(
-                  state.availablePlayers,
+                  _getPaletteItems(ref.watch(playersProvider).players, state),
                   (String key) async {
                     if (key == PlayerPalette.addButtonKey) {
                       var player = await _displayTextInputDialog(context);
                       if (player != null) {
                         ref.read(playersProvider.notifier).addPlayer(player);
-                        ref.read(playersSelectionScreenNotifierProvider.notifier).addNewPlayer(player);
+                        ref.read(playerSelectionProvider.notifier).addPlayer(player.name);
                       }
                     } else {
-                      ref.read(playersSelectionScreenNotifierProvider.notifier).addPlayer(key);
+                      ref.read(playerSelectionProvider.notifier).addPlayer(key);
                     }
                   },
                 )
@@ -115,5 +116,9 @@ class PlayersSelectionScreen extends ConsumerWidget {
       context: context,
       builder: (context) => createPlayerEditionDialog(context, null),
     );
+  }
+
+  List<Player> _getPaletteItems(List<Player> players, PlayerSelectionState state) {
+    return players.where((e) => !state.contains(e)).toList();
   }
 }

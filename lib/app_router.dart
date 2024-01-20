@@ -8,7 +8,7 @@ import 'presentation/screens/game_categories_screen.dart';
 import 'presentation/screens/games_screen.dart';
 import 'presentation/screens/main_screen.dart';
 import 'presentation/screens/players_list_screen.dart';
-import 'presentation/screens/players_selection/players_selection_screen.dart';
+import 'presentation/screens/players_selection/player_selection_screen.dart';
 
 class AppRouter {
   // all the route paths. So that we can access them easily across the app
@@ -28,7 +28,7 @@ class AppRouter {
         ),
       ),
       GoRoute(path: FavoriteGamesScreen.path, pageBuilder: _createBuilder(const FavoriteGamesScreen())),
-      GoRoute(path: PlayersSelectionScreen.path, pageBuilder: _createBuilder(const PlayersSelectionScreen())),
+      GoRoute(path: PlayerSelectionScreen.path, pageBuilder: _createBuilder(const PlayerSelectionScreen())),
       GoRoute(path: PlayersListScreen.path, pageBuilder: _createBuilder(const PlayersListScreen())),
       GoRoute(path: PlayerDetailsScreen.path, pageBuilder: _createBuilder(const PlayerDetailsScreen())),
     ],

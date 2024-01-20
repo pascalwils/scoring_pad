@@ -12,33 +12,33 @@ class SelectedPlayer {
   }
 }
 
-class PlayersSelectionState {
+class PlayerSelectionState {
   final List<SelectedPlayer> selectedPlayers;
-  final List<Player> availablePlayers;
   final List<int> availableColorIndices;
 
-  PlayersSelectionState({required this.selectedPlayers, required this.availablePlayers, required this.availableColorIndices});
+  PlayerSelectionState({required this.selectedPlayers, required this.availableColorIndices});
 
-  PlayersSelectionState copyWith({
+  PlayerSelectionState copyWith({
     List<SelectedPlayer>? selectedPlayers,
     List<Player>? availablePlayers,
     List<int>? availableColorIndices,
   }) {
-    return PlayersSelectionState(
+    return PlayerSelectionState(
       selectedPlayers: selectedPlayers ?? this.selectedPlayers,
-      availablePlayers: availablePlayers ?? this.availablePlayers,
       availableColorIndices: availableColorIndices ?? this.availableColorIndices,
     );
   }
 
-  factory PlayersSelectionState.initial(List<Player>? players) => PlayersSelectionState(
+  factory PlayerSelectionState.initial() => PlayerSelectionState(
         selectedPlayers: List<SelectedPlayer>.empty(),
-        availablePlayers: players ?? List<Player>.empty(),
         availableColorIndices: List<int>.generate(lightColors.length, (index) => index, growable: true),
       );
 
-  // TODO extract this logic in notifier
   bool isValid({required int minPlayers, required int maxPlayers}) {
     return selectedPlayers.length >= minPlayers && selectedPlayers.length <= maxPlayers;
+  }
+
+  bool contains(Player player) {
+    return selectedPlayers.any((e) => e.name == player.name);
   }
 }
