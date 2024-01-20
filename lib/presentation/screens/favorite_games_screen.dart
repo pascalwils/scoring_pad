@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/presentation/widgets/game_list_tile.dart';
 
-import '../../presentation/screens/players_selection/players_selection_screen.dart';
-import '../../translation_support.dart';
 import '../../data/favorites/favorite_notifier.dart';
-import '../../domain/entities/game_type.dart';
 
 class FavoriteGamesScreen extends StatelessWidget {
   static const String path = "/favorite-games";
@@ -16,7 +14,6 @@ class FavoriteGamesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations tr = AppLocalizations.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.favoriteGames),
@@ -33,31 +30,11 @@ class FavoriteGamesScreen extends StatelessWidget {
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
               var entry = entries[index];
-              return ListTile(
-                title: Text(entry.getName(tr)),
-                leading: entry.getIcon(),
-                onTap: () {
-                  context.push(PlayersSelectionScreen.path);
-                },
-                trailing: _buildFavoriteIcon(ref, entries, entry),
-              );
+              return GameListTile(entry: entry);
             },
             separatorBuilder: (BuildContext context, int index) => const Divider(),
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildFavoriteIcon(WidgetRef ref, List<GameType> entries, GameType entry) {
-    bool isFavorite = entries.contains(entry);
-    return IconButton(
-      onPressed: () {
-        ref.read(favoritesProvider.notifier).toggleFavorite(entry);
-      },
-      icon: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite ? const Color(0xffff7785) : null,
       ),
     );
   }

@@ -3,12 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/favorites/favorite_notifier.dart';
-import 'players_selection/players_selection_screen.dart';
 import '../../translation_support.dart';
-import '../../domain/entities/game_type.dart';
 import '../../domain/entities/game_category.dart';
 import '../game_catalog.dart';
+import '../widgets/game_list_tile.dart';
 
 class GamesScreen extends ConsumerWidget {
   static const String path = "/games";
@@ -34,34 +32,10 @@ class GamesScreen extends ConsumerWidget {
         itemCount: entries.length,
         itemBuilder: (BuildContext context, int index) {
           final entry = entries[index];
-          return ListTile(
-            title: Text(entry.getName(tr)),
-            leading: entry.getIcon(),
-            onTap: () {
-              context.push(PlayersSelectionScreen.path);
-            },
-            trailing: _buildFavoriteIcon(entry),
-          );
+          return GameListTile(entry: entry);
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
-    );
-  }
-
-  Widget _buildFavoriteIcon(GameType entry) {
-    return Consumer(
-      builder: (_, ref, __) {
-        bool isFavorite = ref.watch(favoritesProvider).favorites.contains(entry);
-        return IconButton(
-          onPressed: () {
-            ref.read(favoritesProvider.notifier).toggleFavorite(entry);
-          },
-          icon: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite ? const Color(0xffff7785) : null,
-          ),
-        );
-      },
     );
   }
 }

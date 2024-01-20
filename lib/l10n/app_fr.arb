@@ -35,5 +35,6 @@
     "yes": "Oui",
     "no": "Non",
     "deletePlayer": "Supprimer le joueur",
-    "deletePlayerMessage": "Voulez-vous vraiment supprimer le joueur {playerName} ? Cette opération est irréversible."
+    "deletePlayerMessage": "Voulez-vous vraiment supprimer le joueur {playerName} ? Cette opération est irréversible.",
+    "gameCategories": "Catégories de jeux"
 }

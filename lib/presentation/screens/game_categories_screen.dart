@@ -23,7 +23,7 @@ class GameCategoriesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr.appTitle),
+        title: Text(tr.gameCategories),
         leading: TextButton(
           onPressed: () => context.pop(),
           child: const Icon(Icons.arrow_back),
