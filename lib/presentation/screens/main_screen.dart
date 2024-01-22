@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/current_game/current_game_notifier.dart';
+import '../../application/game_states/game_state.dart';
 import 'games_screen.dart';
 import 'players_list_screen.dart';
+import 'settings_screen.dart';
 import '../widgets/default_button.dart';
 
-class MainScreen extends StatelessWidget {
-  final bool gameRunning = false;
-
+class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const double buttonWidth = 250;
     const double buttonSpacing = 20;
 
     AppLocalizations tr = AppLocalizations.of(context);
 
+    GameState gameState = ref.watch(currentGameProvider);
+
     List<_MenuEntry> entries = List.empty(growable: true);
-    if (gameRunning) {
+    if (gameState is! NoGameState) {
       entries.add(_MenuEntry(title: tr.continueGame, path: "", style: StyleEnum.filled));
     }
     entries.add(_MenuEntry(
       title: tr.createNewGame,
       path: GamesScreen.path,
-      style: gameRunning ? StyleEnum.filledTonal : StyleEnum.filled,
+      style: gameState is! NoGameState ? StyleEnum.filledTonal : StyleEnum.filled,
     ));
     entries.add(_MenuEntry(title: tr.gamesList, path: "", style: StyleEnum.filledTonal));
     entries.add(_MenuEntry(title: tr.playersList, path: PlayersListScreen.path, style: StyleEnum.filledTonal));
-    entries.add(_MenuEntry(title: tr.settings, path: "", style: StyleEnum.outlined));
+    entries.add(_MenuEntry(title: tr.settings, path: SettingsScreen.path, style: StyleEnum.outlined));
 
     return Scaffold(
       appBar: AppBar(

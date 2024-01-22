@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_pad/presentation/screens/player_details_screen.dart';
+import 'package:scoring_pad/presentation/screens/settings_screen.dart';
 
 import 'domain/entities/game_category.dart';
 import 'presentation/screens/favorite_games_screen.dart';
@@ -31,6 +32,7 @@ class AppRouter {
       GoRoute(path: PlayerSelectionScreen.path, pageBuilder: _createBuilder(const PlayerSelectionScreen())),
       GoRoute(path: PlayersListScreen.path, pageBuilder: _createBuilder(const PlayersListScreen())),
       GoRoute(path: PlayerDetailsScreen.path, pageBuilder: _createBuilder(const PlayerDetailsScreen())),
+      GoRoute(path: SettingsScreen.path, pageBuilder: _createBuilder(const SettingsScreen())),
     ],
   );
 

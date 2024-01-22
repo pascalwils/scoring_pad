@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'presentation/pref_theme.dart';
 import 'domain/entities/game_category.dart';
 import 'domain/entities/game_type.dart';
 
@@ -28,9 +30,7 @@ extension GameTypeTranslation on GameType {
       case GameType.skullking:
         return loc.skullking;
       case GameType.take5:
-        return "take5";
-      case GameType.defaultGame:
-        return "";
+        return loc.take5;
     }
   }
 
@@ -40,8 +40,20 @@ extension GameTypeTranslation on GameType {
       GameType.prophecy => "prophecy",
       GameType.skullking => "skullking",
       GameType.take5 => "take5",
-      _ => "",
     };
     return Image.asset("assets/game-icons/$iconName.webp");
+  }
+}
+
+extension PrefThemeTranslation on PrefTheme {
+  String getName(AppLocalizations loc) {
+    switch (this) {
+      case PrefTheme.system:
+        return loc.systemTheme;
+      case PrefTheme.light:
+        return loc.lightTheme;
+      case PrefTheme.dark:
+        return loc.darkTheme;
+    }
   }
 }

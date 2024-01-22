@@ -36,5 +36,13 @@
     "no": "Non",
     "deletePlayer": "Supprimer le joueur",
     "deletePlayerMessage": "Voulez-vous vraiment supprimer le joueur {playerName} ? Cette opération est irréversible.",
-    "gameCategories": "Catégories de jeux"
+    "gameCategories": "Catégories de jeux",
+    "take5": "6 qui prend !",
+    "theme": "Thème",
+    "systemTheme": "Valeur par défaut du système",
+    "lightTheme": "Clair",
+    "darkTheme": "Sombre",
+    "themeColor": "Couleur",
+    "prefTitleAppearance": "Apparence",
+    "ok": "OK"
 }

@@ -31,6 +31,7 @@ class GameCatalog {
       GameType.papayoo,
       GameType.prophecy,
       GameType.skullking,
+      GameType.take5,
     ];
   }
 }

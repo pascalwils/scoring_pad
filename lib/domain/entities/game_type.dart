@@ -1,5 +1,4 @@
 enum GameType {
-  defaultGame(0),
   papayoo(73365),
   prophecy(373435),
   take5(432),

@@ -43,5 +43,13 @@
             }
         }
     },
-    "gameCategories": "Game Categories"
+    "gameCategories": "Game Categories",
+    "take5": "Take5!",
+    "theme": "Theme",
+    "systemTheme": "System default",
+    "lightTheme": "Light",
+    "darkTheme": "Dark",
+    "themeColor": "Color",
+    "prefTitleAppearance": "Appearance",
+    "ok": "OK"
 }
