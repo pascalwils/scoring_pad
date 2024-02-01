@@ -22,7 +22,7 @@ class SkullkingGame implements Game {
   final SkullkingGameMode mode;
   final bool lootCardsPresent;
   final bool mermaidCardsPresent;
-  final bool advancedPirateAbitilitiesEnabled;
+  final bool advancedPirateAbilitiesEnabled;
   final bool rascalScoringEnabled;
   late final List<List<SkullkingPlayerRound>> rounds;
 
@@ -31,7 +31,7 @@ class SkullkingGame implements Game {
     required this.mode,
     this.lootCardsPresent = true,
     this.mermaidCardsPresent = true,
-    this.advancedPirateAbitilitiesEnabled = true,
+    this.advancedPirateAbilitiesEnabled = true,
     this.rascalScoringEnabled = false,
   }) {
     assert(players.length >= nbMinPlayers);

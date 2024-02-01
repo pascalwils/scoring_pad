@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:pref/pref.dart';
+import 'package:scoring_pad/infrastructure/settings/pref_keys.dart';
+
 enum SkullkingGameMode {
   regular([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
   evenKeeled([2, 2, 4, 4, 6, 6, 8, 8, 10, 10]),
@@ -9,4 +13,12 @@ enum SkullkingGameMode {
   final List<int> nbCards;
 
   const SkullkingGameMode(this.nbCards);
+
+  static SkullkingGameMode fromPreferences(BuildContext context) {
+    final name = PrefService.of(context).get(skModePrefKey);
+    return SkullkingGameMode.values.firstWhere(
+          (e) => e.name == name,
+      orElse: () => SkullkingGameMode.regular,
+    );
+  }
 }

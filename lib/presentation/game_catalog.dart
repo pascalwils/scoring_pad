@@ -5,8 +5,8 @@ import 'package:scoring_pad/domain/entities/game_category.dart';
 import 'package:scoring_pad/domain/entities/game_type.dart';
 
 import '../application/game_engines/game_engine.dart';
-import '../application/game_engines/papayoo_game.dart';
-import '../application/game_engines/skullking_game.dart';
+import '../application/game_engines/papayoo_game_engine.dart';
+import '../application/game_engines/skullking_game_engine.dart';
 
 class GameCatalog {
   final Map<GameCategory, List<GameType>> _entries = HashMap();

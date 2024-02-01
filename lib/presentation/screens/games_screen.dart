@@ -9,7 +9,7 @@ import '../game_catalog.dart';
 import '../widgets/game_list_tile.dart';
 
 class GamesScreen extends ConsumerWidget {
-  static const String path = "/games";
+  static const String path = "games";
 
   final GameCategory category;
 

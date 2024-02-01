@@ -11,6 +11,11 @@ class CurrentGameRepositoryImpl implements CurrentGameRepository {
 
   @override
   Future<GameState> getCurrentGame() => dataSource.getCurrentGame();
+
+  @override
+  Future<void> saveCurrentGame(GameState currentGame) async {
+    dataSource.saveCurrentGame(currentGame);
+  }
 }
 
 final currentGameRepositoryProvider = Provider<CurrentGameRepository>(

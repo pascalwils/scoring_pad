@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:scoring_pad/domain/entities/skullking/skullking_game_mode.dart';
 
-import 'presentation/pref_theme.dart';
+import 'infrastructure/settings/pref_theme.dart';
 import 'domain/entities/game_category.dart';
 import 'domain/entities/game_type.dart';
 
@@ -54,6 +55,42 @@ extension PrefThemeTranslation on PrefTheme {
         return loc.lightTheme;
       case PrefTheme.dark:
         return loc.darkTheme;
+    }
+  }
+}
+
+extension SkullkingGameModeTranslation on SkullkingGameMode {
+  String getName(AppLocalizations loc) {
+    switch (this) {
+      case SkullkingGameMode.regular:
+        return loc.skModeRegular;
+      case SkullkingGameMode.broadsideBarrage:
+        return loc.skModeBroadside;
+      case SkullkingGameMode.evenKeeled:
+        return loc.skModeEvenKeeled;
+      case SkullkingGameMode.skipToTheBrawl:
+        return loc.skModeSkipBrawl;
+      case SkullkingGameMode.swiftNSalty:
+        return loc.skModeSwiftNSalty;
+      case SkullkingGameMode.whirlpool:
+        return loc.skModeWhirpool;
+    }
+  }
+
+  String getSubTitle(AppLocalizations loc) {
+    switch (this) {
+      case SkullkingGameMode.regular:
+        return loc.skModeRegularSubTitle;
+      case SkullkingGameMode.broadsideBarrage:
+        return loc.skModeBroadsideSubTitle;
+      case SkullkingGameMode.evenKeeled:
+        return loc.skModeEvenKeeledSubTitle;
+      case SkullkingGameMode.skipToTheBrawl:
+        return loc.skModeSkipBrawlSubTitle;
+      case SkullkingGameMode.swiftNSalty:
+        return loc.skModeSwiftNSaltySubTitle;
+      case SkullkingGameMode.whirlpool:
+        return loc.skModeWhirpoolSubTitle;
     }
   }
 }

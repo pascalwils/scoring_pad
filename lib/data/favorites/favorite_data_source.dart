@@ -13,8 +13,7 @@ class FavoriteDataSource {
     if (!box.containsKey(entry.name)) {
       box.put(entry.name, 0);
       talker.debug("Add favorite '$entry' to database.");
-    }
-    else {
+    } else {
       box.delete(entry.name);
       talker.debug("Remove favorite '$entry' to database.");
     }
@@ -23,12 +22,12 @@ class FavoriteDataSource {
   Future<List<GameType>> getAllFavorites() async {
     final box = Hive.box(favoriteBoxName);
     talker.debug("Get all favorites.");
-    return box.keys.map((e) => GameType.fromString(e.toString())).toList();
+    return box.keys.map((e) => GameType.fromString(e.toString())).toList().whereType<GameType>().toList();
   }
 }
 
 final favoriteDataSourceProvider = Provider<FavoriteDataSource>(
-      (ref) {
+  (ref) {
     return FavoriteDataSource();
   },
 );

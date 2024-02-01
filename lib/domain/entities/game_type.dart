@@ -5,9 +5,15 @@ enum GameType {
   skullking(150145);
 
   const GameType(this.id);
+
   final num id;
 
-  static GameType fromString(String name) {
-    return GameType.values.firstWhere((element) => element.name == name);
+  static GameType? fromString(String name) {
+    try {
+      return GameType.values.firstWhere((e) => e.name == name);
+    }
+    on StateError {
+      return null;
+    }
   }
 }

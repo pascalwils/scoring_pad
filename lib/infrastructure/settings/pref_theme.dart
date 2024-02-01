@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pref/pref.dart';
 
-import 'settings_keys.dart';
+import 'pref_keys.dart';
 
 enum PrefTheme {
   system,
@@ -9,7 +9,7 @@ enum PrefTheme {
   dark;
 
   static PrefTheme fromPreferences(BuildContext context) {
-    final name = PrefService.of(context).get(uiThemeSettingsKey);
+    final name = PrefService.of(context).get(uiThemePrefKey);
     return PrefTheme.values.firstWhere(
           (e) => e.name == name,
       orElse: () => PrefTheme.system,

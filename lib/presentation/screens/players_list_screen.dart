@@ -9,7 +9,7 @@ import '../../data/players/players_notifier.dart';
 import '../widgets/player_edition/player_edition_dialog.dart';
 
 class PlayersListScreen extends ConsumerWidget {
-  static const String path = '/players-list';
+  static const String path = 'players-list';
 
   const PlayersListScreen({super.key});
 
@@ -33,11 +33,10 @@ class PlayersListScreen extends ConsumerWidget {
           return GestureDetector(
             onTap: () {
               ref.read(currentPlayerProvider.notifier).setPlayer(players[index]);
-              context.push(PlayerDetailsScreen.path);
+              context.go('/${PlayersListScreen.path}/${PlayerDetailsScreen.path}');
             },
             child: ListTile(
               title: Text(players[index].name),
-              subtitle: const Text("3 parties jouées, 1 partie gagnée"),
             ),
           );
         },

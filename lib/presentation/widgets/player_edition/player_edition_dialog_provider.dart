@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scoring_pad/data/players/players_notifier.dart';
 
 import '../../../domain/entities/player.dart';
-import '../../../common/field/field.dart';
+import '../../../infrastructure/common/field.dart';
 import 'player_edition_state.dart';
 
 class PlayerEditionDialogNotifier extends StateNotifier<PlayerEditionState> {

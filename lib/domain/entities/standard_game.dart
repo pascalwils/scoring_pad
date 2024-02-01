@@ -27,10 +27,8 @@ sealed class StandardGame implements Game {
   List<Player> getPlayers() => _players;
 
   @override
-  List<List<int>> getRounds() => _rounds;
-
-  @override
   DateTime getStartTime() => _startTime;
+
   @override
   bool isFinished() => _finished;
 

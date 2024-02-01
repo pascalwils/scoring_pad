@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/data/current_game/current_game_notifier.dart';
+import 'package:scoring_pad/presentation/screens/game_start_screen.dart';
 
 import '../../data/favorites/favorite_notifier.dart';
 import '../../domain/entities/game_type.dart';
@@ -19,10 +22,8 @@ class GameListTile extends ConsumerWidget {
       title: Text(entry.getName(tr)),
       leading: entry.getIcon(),
       onTap: () {
-        final engine = ref.read(gameCatalogProvider).getGameEngine(entry);
-        if (engine != null) {
-          engine.startGame(context);
-        }
+        ref.read(currentGameProvider.notifier).setGameType(entry);
+        context.go(GameStartScreen.path);
       },
       trailing: _buildFavoriteIcon(ref, entry),
     );

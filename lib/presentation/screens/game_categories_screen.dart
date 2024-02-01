@@ -7,6 +7,8 @@ import 'package:scoring_pad/presentation/screens/games_screen.dart';
 import 'package:scoring_pad/translation_support.dart';
 
 class GameCategoriesScreen extends StatelessWidget {
+  static String path = "/game_categories";
+
   const GameCategoriesScreen({super.key});
 
   @override
@@ -14,7 +16,11 @@ class GameCategoriesScreen extends StatelessWidget {
     AppLocalizations tr = AppLocalizations.of(context);
 
     final List<_Entry> entries = [
-      _Entry.favorites(iconName: "favorite", title: tr.favoriteGames, path: FavoriteGamesScreen.path),
+      _Entry.favorites(
+        iconName: "favorite",
+        title: tr.favoriteGames,
+        path: '${GameCategoriesScreen.path}/${FavoriteGamesScreen.path}',
+      ),
       _Entry.category(iconName: "dices", translation: tr, category: GameCategory.Dice),
       _Entry.category(iconName: "cards", translation: tr, category: GameCategory.Card),
       _Entry.category(iconName: "board-game", translation: tr, category: GameCategory.Board),
@@ -25,7 +31,7 @@ class GameCategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(tr.gameCategories),
         leading: TextButton(
-          onPressed: () => context.pop(),
+          onPressed: () => context.go('/'),
           child: const Icon(Icons.arrow_back),
         ),
       ),
@@ -38,7 +44,7 @@ class GameCategoriesScreen extends StatelessWidget {
             title: Text(entry.title),
             leading: Image.asset("assets/icons/${entry.iconName}.webp"),
             onTap: () {
-              context.push(entry.path);
+              context.go(entry.path);
             },
           );
         },
@@ -57,5 +63,5 @@ class _Entry {
 
   _Entry.category({required this.iconName, required AppLocalizations translation, required GameCategory category})
       : title = category.getTitle(translation),
-        path = '${GamesScreen.path}/${category.name}';
+        path = '${GameCategoriesScreen.path}/${GamesScreen.path}/${category.name}';
 }

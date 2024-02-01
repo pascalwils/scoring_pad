@@ -1,25 +1,37 @@
 import '../../domain/entities/game_type.dart';
-import '../../domain/entities/player.dart';
+import '../../presentation/screens/players_selection/player_selection_state.dart';
 
-abstract class GameState {
-  static const String gameTypeKey = "gameType";
-  static const String playersKey = "players";
+enum GameStatus {
+  notStarted,
+  selectingPlayers,
+  started;
 
-  GameType getGameType();
-
-  List<Player> getPlayers();
-
-
+  static GameStatus fromString(String name) => GameStatus.values.firstWhere(
+        (e) => e.name == name,
+        orElse: () => GameStatus.notStarted,
+      );
 }
 
-class NoGameState implements GameState {
-  @override
-  GameType getGameType() {
-    throw UnimplementedError();
-  }
+class GameState {
+  static const String gameTypeKey = "gameType";
+  static const String playersKey = "players";
+  static const String statusKey = "status";
 
-  @override
-  List<Player> getPlayers() {
-    throw UnimplementedError();
+  final GameType? gameType;
+  final List<SelectedPlayer>? players;
+  final GameStatus status;
+
+  const GameState({
+    this.gameType,
+    this.players,
+    this.status = GameStatus.notStarted,
+  });
+
+  GameState copyWith({GameType? gameType, GameStatus? status, List<SelectedPlayer>? players}) {
+    return GameState(
+      gameType: gameType ?? this.gameType,
+      players: players ?? this.players,
+      status: status ?? this.status,
+    );
   }
 }

@@ -7,7 +7,7 @@ import 'package:scoring_pad/presentation/widgets/game_list_tile.dart';
 import '../../data/favorites/favorite_notifier.dart';
 
 class FavoriteGamesScreen extends StatelessWidget {
-  static const String path = "/favorite-games";
+  static const String path = "favorite-games";
 
   const FavoriteGamesScreen({super.key});
 

@@ -6,25 +6,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scoring_pad/data/players/players_notifier.dart';
 import 'package:scoring_pad/presentation/screens/players_selection/player_selection_state.dart';
 
+import '../../../data/current_game/current_game_notifier.dart';
 import '../../../domain/entities/player.dart';
 import '../../widgets/player_edition/player_edition_dialog.dart';
 import '../../widgets/player_palette.dart';
 import '../../palettes.dart';
+import '../specific/skullking_round_screen.dart';
 import 'player_selection_state_provider.dart';
 
 class PlayerSelectionScreen extends ConsumerWidget {
-  static const String path = '/select-players';
-  static const int defaultMinPlayers = 2;
-  static const int defaultMaxPlayers = 10;
+  static const String path = 'select-players';
 
   final int minPlayers;
   final int maxPlayers;
 
-  const PlayerSelectionScreen({
-    super.key,
-    this.minPlayers = defaultMinPlayers,
-    this.maxPlayers = defaultMaxPlayers,
-  });
+  const PlayerSelectionScreen({super.key, required this.minPlayers, required this.maxPlayers});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +41,8 @@ class PlayerSelectionScreen extends ConsumerWidget {
             icon: const Icon(Icons.check),
             onPressed: state.isValid(minPlayers: minPlayers, maxPlayers: maxPlayers)
                 ? () {
-                    context.pop(state.selectedPlayers);
+                    ref.read(currentGameProvider.notifier).setPlayers(state.selectedPlayers);
+                    ref.read(currentEngineProvider)?.startGame(context);
                   }
                 : null,
           ),

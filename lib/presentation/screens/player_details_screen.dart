@@ -8,7 +8,7 @@ import '../../domain/entities/player.dart';
 import '../widgets/player_edition/player_edition_dialog.dart';
 
 class PlayerDetailsScreen extends ConsumerWidget {
-  static const String path = '/player-details';
+  static const String path = 'player-details';
 
   const PlayerDetailsScreen({super.key});
 
