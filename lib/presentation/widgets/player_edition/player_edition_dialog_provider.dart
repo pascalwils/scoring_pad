@@ -19,7 +19,6 @@ class PlayerEditionDialogNotifier extends StateNotifier<PlayerEditionState> {
     } else {
       nameField = state.name.copyWith(
         value: name,
-        errorMessage: 'Enter a valid name',
         isValid: false,
       );
     }

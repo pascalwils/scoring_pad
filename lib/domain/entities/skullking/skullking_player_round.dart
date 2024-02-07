@@ -8,7 +8,6 @@ class SkullkingPlayerRound {
   final int skullking;
   final int loots;
   final int rascalBid;
-  final int score;
 
   SkullkingPlayerRound({
     this.bids = 0,
@@ -20,6 +19,5 @@ class SkullkingPlayerRound {
     this.skullking = 0,
     this.loots = 0,
     this.rascalBid = 0,
-    this.score = 0,
   });
 }

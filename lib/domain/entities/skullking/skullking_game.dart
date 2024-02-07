@@ -1,20 +1,23 @@
 import 'dart:math';
 
-import 'package:scoring_pad/domain/entities/game_type.dart';
-import 'package:scoring_pad/domain/entities/player.dart';
-import 'package:scoring_pad/domain/entities/skullking/skullking_game_mode.dart';
-import 'package:scoring_pad/domain/entities/skullking/skullking_player_round.dart';
+import 'skullking_game_mode.dart';
+import 'skullking_player_round.dart';
 
 import '../game.dart';
+import '../game_player.dart';
+import '../game_type.dart';
+import '../player.dart';
 
 class SkullkingGame implements Game {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
   static const nbMaxCardsFor8Players = 8;
-  static const nbPirates = 5;
+  static const nbPirates = 6;
   static const nbMermaids = 2;
+  static const nbLoots = 2;
+  static const nbStandard14s = 3;
 
-  final List<Player> players;
+  final List<GamePlayer> players;
   int currentRound = 0;
   bool _finished = false;
   late final DateTime _startTime;
@@ -43,6 +46,20 @@ class SkullkingGame implements Game {
     rounds = List.filled(players.length, List.filled(nbRounds, SkullkingPlayerRound()));
   }
 
+  SkullkingGame.fromDatasource({
+    required this.players,
+    required this.currentRound,
+    required bool finished,
+    required DateTime startTime,
+    required this.mode,
+    required this.lootCardsPresent,
+    required this.mermaidCardsPresent,
+    required this.advancedPirateAbilitiesEnabled,
+    required this.rascalScoringEnabled,
+    required this.rounds,
+  })  : _finished = finished,
+        _startTime = startTime;
+
   int nbCards() {
     int result = mode.nbCards[currentRound];
     if (players.length == nbMaxPlayers) {
@@ -51,21 +68,12 @@ class SkullkingGame implements Game {
     return result;
   }
 
-  int nbMaxPiratesCaptured() {
-    return max(players.length - 1, nbPirates);
-  }
-
   void editRound(int roundNumber, List<SkullkingPlayerRound> round) {
     rounds[roundNumber - 1] = round;
   }
 
   @override
-  List<Player> getPlayers() => players;
-
-  @override
-  List<List<int>> getRounds() {
-    return rounds.map((it) => it.map((round) => round.score).toList()).toList();
-  }
+  List<Player> getPlayers() => players.map((e) => Player(name: e.name)).toList();
 
   @override
   DateTime getStartTime() => _startTime;

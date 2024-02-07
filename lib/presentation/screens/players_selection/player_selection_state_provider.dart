@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talker/talker.dart';
 
+import '../../../domain/entities/game_player.dart';
 import 'player_selection_state.dart';
 
 final talker = Talker();
@@ -10,7 +11,7 @@ class PlayerSelectionNotifier extends StateNotifier<PlayerSelectionState> {
 
   void addPlayer(String player) {
     final currentlyAvailableColorIndices = List<int>.from(state.availableColorIndices);
-    final newPlayer = SelectedPlayer(name: player, colorIndex: currentlyAvailableColorIndices.removeAt(0));
+    final newPlayer = GamePlayer(name: player, colorIndex: currentlyAvailableColorIndices.removeAt(0));
     state = state.copyWith(
       selectedPlayers: [...state.selectedPlayers, newPlayer],
       availableColorIndices: currentlyAvailableColorIndices,
@@ -19,7 +20,7 @@ class PlayerSelectionNotifier extends StateNotifier<PlayerSelectionState> {
 
   void deletePlayer(int index) {
     final currentlySelectedPlayers = state.selectedPlayers;
-    final SelectedPlayer player = currentlySelectedPlayers.removeAt(index);
+    final GamePlayer player = currentlySelectedPlayers.removeAt(index);
     state = state.copyWith(
       selectedPlayers: currentlySelectedPlayers,
       availableColorIndices: [...state.availableColorIndices, player.colorIndex],
@@ -32,7 +33,7 @@ class PlayerSelectionNotifier extends StateNotifier<PlayerSelectionState> {
     }
 
     final currentlySelectedPlayers = state.selectedPlayers;
-    final SelectedPlayer item = currentlySelectedPlayers.removeAt(oldIndex);
+    final GamePlayer item = currentlySelectedPlayers.removeAt(oldIndex);
     currentlySelectedPlayers.insert(newIndex, item);
     state = state.copyWith(selectedPlayers: currentlySelectedPlayers);
   }

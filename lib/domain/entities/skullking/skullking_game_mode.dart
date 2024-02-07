@@ -14,11 +14,14 @@ enum SkullkingGameMode {
 
   const SkullkingGameMode(this.nbCards);
 
-  static SkullkingGameMode fromPreferences(BuildContext context) {
-    final name = PrefService.of(context).get(skModePrefKey);
+  static SkullkingGameMode fromString(String name) {
     return SkullkingGameMode.values.firstWhere(
-          (e) => e.name == name,
+      (e) => e.name == name,
       orElse: () => SkullkingGameMode.regular,
     );
+  }
+
+  static SkullkingGameMode fromPreferences(BuildContext context) {
+    return fromString(PrefService.of(context).get(skModePrefKey));
   }
 }

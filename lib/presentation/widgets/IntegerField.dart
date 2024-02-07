@@ -50,7 +50,7 @@ class IntegerFieldState extends State<IntegerField> {
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: Row(
         children: [
@@ -58,9 +58,9 @@ class IntegerFieldState extends State<IntegerField> {
               onTap: () {
                 _decrement();
               },
-              child: const Icon(
+              child: Icon(
                 Icons.remove,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 size: 24,
               )),
           Container(
@@ -68,13 +68,13 @@ class IntegerFieldState extends State<IntegerField> {
             padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: SizedBox(
               width: 40,
               child: Text(
                 '$_value',
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -83,9 +83,9 @@ class IntegerFieldState extends State<IntegerField> {
               onTap: () {
                 _increment();
               },
-              child: const Icon(
+              child: Icon(
                 Icons.add,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 size: 24,
               )),
         ],

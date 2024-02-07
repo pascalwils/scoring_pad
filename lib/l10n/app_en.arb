@@ -6,7 +6,6 @@
     "skTricksWon": "Tricks Won",
     "skBonusPoints": "Bonus Points",
     "skStandard14s": "Standard 14s",
-    "skBlack14s": "Black 14s",
     "skMermaidsCaptured": "Mermaids Captured",
     "skPiratesCaptured": "Pirates Captured",
     "skSkullKingCaptured": "Skull King Captured",
@@ -72,5 +71,14 @@
     "skRascalMode": "Rascal Mode",
     "cardsSettings": "Cards Settings",
     "gameSettings": "Game Settings",
-    "scoreSettings": "Score Settings"
+    "scoreSettings": "Score Settings",
+    "newGameWarningMessage": "A game is in progress. Do you really want to create a new one?\\n(You can still access unfinished games in the game list)",
+    "warning": "Warning",
+    "skPiratesCapturedEmoji": "🔴 Captured",
+    "skStandard14sEmoji": "🟢🟡🟣 14s",
+    "skBlack14Emoji": "⚫ 14",
+    "skBlack14": "Black 14s",
+    "skMermaidsCapturedEmoji": "🧜‍ Captured",
+    "skLootEarnedEmoji": "💰 Earned",
+    "skSkullKingCapturedEmoji": "💀👑 Captured"
 }

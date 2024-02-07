@@ -11,7 +11,6 @@ import '../../../domain/entities/player.dart';
 import '../../widgets/player_edition/player_edition_dialog.dart';
 import '../../widgets/player_palette.dart';
 import '../../palettes.dart';
-import '../specific/skullking_round_screen.dart';
 import 'player_selection_state_provider.dart';
 
 class PlayerSelectionScreen extends ConsumerWidget {
@@ -41,8 +40,12 @@ class PlayerSelectionScreen extends ConsumerWidget {
             icon: const Icon(Icons.check),
             onPressed: state.isValid(minPlayers: minPlayers, maxPlayers: maxPlayers)
                 ? () {
-                    ref.read(currentGameProvider.notifier).setPlayers(state.selectedPlayers);
-                    ref.read(currentEngineProvider)?.startGame(context);
+                    final engine = ref.read(currentEngineProvider);
+                    ref.read(currentGameProvider.notifier).setPlayers(
+                          state.selectedPlayers,
+                          engine!.createGame(context, state.selectedPlayers),
+                        );
+                    engine.startGame(context);
                   }
                 : null,
           ),

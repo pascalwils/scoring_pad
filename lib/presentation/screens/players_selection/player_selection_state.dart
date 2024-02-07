@@ -1,25 +1,15 @@
+import '../../../domain/entities/game_player.dart';
 import '../../../domain/entities/player.dart';
 import '../../palettes.dart';
 
-class SelectedPlayer {
-  final String name;
-  final int colorIndex;
-
-  SelectedPlayer({required this.name, required this.colorIndex});
-
-  factory SelectedPlayer.fromPlayer(Player player, int colorIndex) {
-    return SelectedPlayer(name: player.name, colorIndex: colorIndex);
-  }
-}
-
 class PlayerSelectionState {
-  final List<SelectedPlayer> selectedPlayers;
+  final List<GamePlayer> selectedPlayers;
   final List<int> availableColorIndices;
 
   PlayerSelectionState({required this.selectedPlayers, required this.availableColorIndices});
 
   PlayerSelectionState copyWith({
-    List<SelectedPlayer>? selectedPlayers,
+    List<GamePlayer>? selectedPlayers,
     List<Player>? availablePlayers,
     List<int>? availableColorIndices,
   }) {
@@ -30,7 +20,7 @@ class PlayerSelectionState {
   }
 
   factory PlayerSelectionState.initial() => PlayerSelectionState(
-        selectedPlayers: List<SelectedPlayer>.empty(),
+        selectedPlayers: List<GamePlayer>.empty(),
         availableColorIndices: List<int>.generate(lightColors.length, (index) => index, growable: true),
       );
 

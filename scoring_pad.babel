@@ -305,6 +305,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>newGameWarningMessage</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>newPlayer</name>
 						<description/>
 						<comment/>
@@ -530,7 +545,22 @@
 						</translations>
 					</concept_node>
 					<concept_node>
-						<name>skBlack14s</name>
+						<name>skBlack14</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skBlack14Emoji</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -605,6 +635,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>skLootEarnedEmoji</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>skMermaidCards</name>
 						<description/>
 						<comment/>
@@ -621,6 +666,21 @@
 					</concept_node>
 					<concept_node>
 						<name>skMermaidsCaptured</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skMermaidsCapturedEmoji</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -830,6 +890,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>skPiratesCapturedEmoji</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>skRascalBid</name>
 						<description/>
 						<comment/>
@@ -875,7 +950,37 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>skSkullKingCapturedEmoji</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>skStandard14s</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skStandard14sEmoji</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -981,6 +1086,21 @@
 					</concept_node>
 					<concept_node>
 						<name>update</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>warning</name>
 						<description/>
 						<comment/>
 						<translations>

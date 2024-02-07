@@ -6,7 +6,6 @@
     "skBonusPoints": "Points bonus",
     "skTricksWon": "Plis gagnés",
     "skStandard14s": "14 standard",
-    "skBlack14s": "14 noir",
     "skMermaidsCaptured": "Sirènes capturées",
     "skPiratesCaptured": "Pirates capturés",
     "skSkullKingCaptured": "Skull King capturé",
@@ -65,5 +64,14 @@
     "skRascalMode": "Mode \"Rascal\"",
     "cardsSettings": "Paramètres des cartes",
     "gameSettings": "Paramètres de jeu",
-    "scoreSettings": "Paramètres de score"
+    "scoreSettings": "Paramètres de score",
+    "newGameWarningMessage": "Une partie est en cours. Voulez-vous vraiment en créer une nouvelle ?\\n(Vous pouvez toujours accéder aux parties inachevées dans la liste des parties)",
+    "warning": "Avertissement",
+    "skPiratesCapturedEmoji": "🔴 capturés",
+    "skStandard14sEmoji": "🟢🟡🟣 14s",
+    "skBlack14Emoji": "⚫ 14",
+    "skBlack14": "14 noir",
+    "skMermaidsCapturedEmoji": "🧜‍ capturées",
+    "skLootEarnedEmoji": "💰 gagnés",
+    "skSkullKingCapturedEmoji": "💀👑 capturé"
 }
