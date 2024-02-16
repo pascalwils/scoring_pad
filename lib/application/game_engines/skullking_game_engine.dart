@@ -15,6 +15,7 @@ import 'game_engine.dart';
 class SkullkingGameEngine extends GameEngine {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
+  static const nbMaxPlayersOldRules = 6;
 
   @override
   void startGame(BuildContext context) {
@@ -38,10 +39,10 @@ class SkullkingGameEngine extends GameEngine {
     return SkullkingGame(
       players: players,
       mode: SkullkingGameMode.fromPreferences(context),
+      rules: SkullkingRules.fromPreferences(context),
       lootCardsPresent: pref.get(skLootCardsPrefKey),
-      mermaidCardsPresent: pref.get(skMermaidCardsPrefKey),
       advancedPirateAbilitiesEnabled: pref.get(skAdvancedPiratesPrefKey),
-      rascalScoringEnabled: pref.get(skRascalScorePrefKey),
+      additionalBonuses: pref.get(skAdditionalBonusesPrefKey),
     );
   }
 

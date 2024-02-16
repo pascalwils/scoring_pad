@@ -18,6 +18,7 @@ class SkullkingPlayerRoundAdapter extends TypeAdapter<SkullkingPlayerRound> {
     final int skullking = reader.readInt();
     final int loots = reader.readInt();
     final int rascalBid = reader.readInt();
+    final int additionalBonuses = reader.readInt();
     return SkullkingPlayerRound(
       bids: bids,
       won: won,
@@ -28,6 +29,7 @@ class SkullkingPlayerRoundAdapter extends TypeAdapter<SkullkingPlayerRound> {
       skullking: skullking,
       loots: loots,
       rascalBid: rascalBid,
+      additionalBonuses: additionalBonuses,
     );
   }
 
@@ -42,5 +44,6 @@ class SkullkingPlayerRoundAdapter extends TypeAdapter<SkullkingPlayerRound> {
     writer.writeInt(obj.skullking);
     writer.writeInt(obj.loots);
     writer.writeInt(obj.rascalBid);
+    writer.writeInt(obj.additionalBonuses);
   }
 }

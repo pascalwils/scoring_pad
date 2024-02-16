@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pref/pref.dart';
+import 'package:scoring_pad/infrastructure/settings/pref_keys.dart';
 
+import '../../../domain/entities/skullking/skullking_score_calculator.dart';
 import '../../widgets/expandable.dart';
 import 'skullking_round_state.dart';
 import '../../../domain/entities/game_player.dart';
@@ -10,7 +13,7 @@ import '../../../domain/entities/skullking/skullking_game.dart';
 import '../../../data/current_game/current_game_notifier.dart';
 import '../../palettes.dart';
 import '../../graphic_tools.dart';
-import '../../widgets/IntegerField.dart';
+import '../../widgets/integer_field.dart';
 
 class SkullkingRoundScreen extends ConsumerWidget {
   static const String path = "/skullking-round";
@@ -22,6 +25,11 @@ class SkullkingRoundScreen extends ConsumerWidget {
     AppLocalizations tr = AppLocalizations.of(context);
     final players = ref.watch(currentGameProvider).players;
     final game = ref.watch(currentGameProvider).game as SkullkingGame;
+    final textStyle = TextStyle(
+      color: Theme.of(context).colorScheme.onPrimaryContainer,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.skullking),
@@ -33,23 +41,38 @@ class SkullkingRoundScreen extends ConsumerWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: players.length,
-        itemBuilder: (BuildContext context, int itemIndex) {
-          return _buildTile(players[itemIndex], game, context, tr);
-        },
-      ),
+      body: Column(children: [
+        Container(
+          padding: const EdgeInsets.all(4),
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Text(tr.round(game.currentRound + 1, game.nbRounds()), style: textStyle),
+            Text(tr.cards(game.nbCards()), style: textStyle),
+          ]),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: players.length,
+            itemBuilder: (BuildContext context, int itemIndex) {
+              return _buildTile(players[itemIndex], itemIndex, game, context, tr);
+            },
+          ),
+        ),
+      ]),
     );
   }
 
-  Widget _buildTile(GamePlayer player, SkullkingGame game, BuildContext context, AppLocalizations tr) {
-    final Color color = getColorPalette(Theme.of(context).brightness)[player.colorIndex];
-    final Color textColor = computeColorForText(color);
+  Widget _buildTile(GamePlayer player, int index, SkullkingGame game, BuildContext context, AppLocalizations tr) {
+    final scheme = getColorScheme(Theme.of(context).brightness, player.colorIndex);
+    final normalTextStyle = TextStyle(color: computeColorForText(scheme.text), fontSize: 20);
+    final boldTextStyle = normalTextStyle.copyWith(fontWeight: FontWeight.bold);
+    final bonusTextStyle = normalTextStyle.copyWith(color: scheme.base, fontWeight: FontWeight.bold);
+    final useEmoji = PrefService.of(context).get<bool>(skEmojiForBonusTypes) ?? false;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Ink(
         decoration: BoxDecoration(
-          color: color,
+          color: scheme.background,
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
@@ -57,26 +80,40 @@ class SkullkingRoundScreen extends ConsumerWidget {
             Expanded(
               child: Text(
                 player.name,
-                style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+                style: boldTextStyle,
               ),
             ),
             Text(
-              "0",
-              style: TextStyle(color: textColor),
+              getSkullkingScoreCalculator(game.rules).getScore(game.rounds[index], game.currentRound - 1).toString(),
+              style: boldTextStyle,
+            ),
+            Text(
+              " pts",
+              style: normalTextStyle,
             ),
           ]),
           subtitle: Column(
             children: [
-              _buildLine(context, tr.skBid, textColor, 0, 2),
-              _buildLine(context, tr.skTricksWon, textColor, 0, 2),
+              IntegerField(
+                text: tr.skBid,
+                style: normalTextStyle,
+                buttonBackground: scheme.buttonBackground,
+                maxValue: game.nbCards(),
+              ),
+              IntegerField(
+                text: tr.skTricksWon,
+                style: normalTextStyle,
+                buttonBackground: scheme.buttonBackground,
+                maxValue: game.nbCards(),
+              ),
               const SizedBox(height: 8),
               Expandable(
-                backgroundColor: color,
+                backgroundColor: scheme.background,
                 boxShadow: const [],
-                arrowColor: textColor,
+                arrowColor: scheme.base,
                 firstChild: Text(
                   tr.skBonusPoints,
-                  style: TextStyle(color: textColor),
+                  style: bonusTextStyle,
                 ),
                 secondChild: Padding(
                   padding: const EdgeInsets.only(
@@ -85,7 +122,7 @@ class SkullkingRoundScreen extends ConsumerWidget {
                     bottom: 6,
                   ),
                   child: Column(
-                    children: _buildBonusLines(game, context, tr, textColor),
+                    children: _buildBonusLines(game, tr, normalTextStyle, scheme, useEmoji),
                   ),
                 ),
               ),
@@ -96,55 +133,84 @@ class SkullkingRoundScreen extends ConsumerWidget {
     );
   }
 
-  List<Widget> _buildBonusLines(SkullkingGame game, BuildContext context, AppLocalizations tr, Color textColor) {
+  List<Widget> _buildBonusLines(SkullkingGame game, AppLocalizations tr, TextStyle style, PlayerColorScheme scheme, bool useEmoji) {
     List<Widget> result = List<Widget>.empty(growable: true);
-    result.add(_buildLine(context, tr.skStandard14sEmoji, textColor, 0, SkullkingGame.nbStandard14s));
-    result.add(_buildLine(context, tr.skBlack14Emoji, textColor, 0, 1));
-    if (game.mermaidCardsPresent) {
-      result.add(_buildLine(context, tr.skMermaidsCapturedEmoji, textColor, 0, SkullkingGame.nbMermaids));
-    }
-    result.add(_buildLine(context, tr.skPiratesCapturedEmoji, textColor, 0, SkullkingGame.nbPirates));
-    if (game.mermaidCardsPresent) {
-      result.add(_buildLine(context, tr.skSkullKingCapturedEmoji, textColor, 0, 1));
-    }
-    if (game.lootCardsPresent) {
-      result.add(_buildLine(context, tr.skLootEarnedEmoji, textColor, 0, SkullkingGame.nbLoots));
-    }
-    if (game.rascalScoringEnabled) {
-      result.add(_buildLine(context, tr.skRascalBid, textColor, 0, 20, step: 10));
-    }
-    return result;
-  }
-
-  Widget _buildLine(BuildContext context, String text, Color textColor, int value, int maximal, {int step = 1}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4),
-      child: Row(
-        children: [
-          Text(
-            "0",
-            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: textColor),
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          IntegerField(
-            initialValue: value,
-            maxValue: maximal,
-            step: step,
-          ),
-        ],
+    result.add(
+      IntegerField(
+        text: useEmoji ? tr.skPiratesCapturedEmoji : tr.skPiratesCaptured,
+        style: style,
+        buttonBackground: scheme.buttonBackground,
+        maxValue: SkullkingGame.nbPirates,
       ),
     );
+    result.add(
+      IntegerField(
+        text: useEmoji ? tr.skSkullKingCapturedEmoji : tr.skSkullKingCaptured,
+        style: style,
+        buttonBackground: scheme.buttonBackground,
+        maxValue: 1,
+      ),
+    );
+    if (game.rules == SkullkingRules.since2021) {
+      result.add(
+        IntegerField(
+          text: useEmoji ? tr.skStandard14sEmoji : tr.skStandard14s,
+          style: style,
+          buttonBackground: scheme.buttonBackground,
+          maxValue: SkullkingGame.nbStandard14s,
+        ),
+      );
+      result.add(
+        IntegerField(
+          text: useEmoji ? tr.skBlack14Emoji : tr.skBlack14,
+          style: style,
+          buttonBackground: scheme.buttonBackground,
+          maxValue: 1,
+        ),
+      );
+      result.add(
+        IntegerField(
+          text: useEmoji ? tr.skMermaidsCapturedEmoji : tr.skMermaidsCaptured,
+          style: style,
+          buttonBackground: scheme.buttonBackground,
+          maxValue: SkullkingGame.nbMermaids,
+        ),
+      );
+      if (game.lootCardsPresent) {
+        result.add(
+          IntegerField(
+            text: useEmoji ? tr.skLootEarnedEmoji : tr.skLootEarned,
+            style: style,
+            buttonBackground: scheme.buttonBackground,
+            maxValue: SkullkingGame.nbLoots,
+          ),
+        );
+      }
+      if (game.advancedPirateAbilitiesEnabled) {
+        result.add(
+          IntegerField(
+            text: tr.skRascalBid,
+            style: style,
+            buttonBackground: scheme.buttonBackground,
+            maxValue: 20,
+            step: 10,
+          ),
+        );
+      }
+      if (game.additionalBonuses) {
+        result.add(
+          IntegerField(
+            text: tr.skAdditionalBonuses,
+            style: style,
+            buttonBackground: scheme.buttonBackground,
+            minValue: -100,
+            maxValue: 100,
+            step: 10,
+          ),
+        );
+      }
+    }
+    return result;
   }
 }
 

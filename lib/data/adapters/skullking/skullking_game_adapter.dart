@@ -17,21 +17,21 @@ class SkullkingGameAdapter extends TypeAdapter<SkullkingGame> {
     final bool finished = reader.readBool();
     final DateTime startTime = DateTime.fromMillisecondsSinceEpoch(reader.readInt());
     final SkullkingGameMode mode = SkullkingGameMode.fromString(reader.readString());
+    final SkullkingRules rules = SkullkingRules.fromString(reader.readString());
     final bool lootCardsPresent = reader.readBool();
-    final bool mermaidCardsPresent = reader.readBool();
     final bool advancedPirateAbilitiesEnabled = reader.readBool();
-    final bool rascalScoringEnabled = reader.readBool();
-    final rounds = reader.readList().map((e) => List<SkullkingPlayerRound>.from(e)).toList();
+    final bool additionalBonuses = reader.readBool();
+    final rounds = reader.readList().map((e) => e as SkullkingPlayerGame).toList();
     return SkullkingGame.fromDatasource(
       players: players,
       currentRound: currentRound,
       finished: finished,
       startTime: startTime,
       mode: mode,
+      rules: rules,
       lootCardsPresent: lootCardsPresent,
-      mermaidCardsPresent: mermaidCardsPresent,
       advancedPirateAbilitiesEnabled: advancedPirateAbilitiesEnabled,
-      rascalScoringEnabled: rascalScoringEnabled,
+      additionalBonuses: additionalBonuses,
       rounds: rounds,
     );
   }
@@ -43,10 +43,10 @@ class SkullkingGameAdapter extends TypeAdapter<SkullkingGame> {
     writer.writeBool(obj.isFinished());
     writer.writeInt(obj.getStartTime().millisecondsSinceEpoch);
     writer.writeString(obj.mode.name);
+    writer.writeString(obj.rules.name);
     writer.writeBool(obj.lootCardsPresent);
-    writer.writeBool(obj.mermaidCardsPresent);
     writer.writeBool(obj.advancedPirateAbilitiesEnabled);
-    writer.writeBool(obj.rascalScoringEnabled);
+    writer.writeBool(obj.additionalBonuses);
     writer.writeList(obj.rounds);
   }
 }

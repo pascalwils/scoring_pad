@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:scoring_pad/domain/entities/skullking/skullking_game_mode.dart';
 
+import 'domain/entities/skullking/skullking_game_mode.dart';
+import 'domain/entities/skullking/skullking_game.dart';
 import 'infrastructure/settings/pref_theme.dart';
 import 'domain/entities/game_category.dart';
 import 'domain/entities/game_type.dart';
@@ -91,6 +92,17 @@ extension SkullkingGameModeTranslation on SkullkingGameMode {
         return loc.skModeSwiftNSaltySubTitle;
       case SkullkingGameMode.whirlpool:
         return loc.skModeWhirpoolSubTitle;
+    }
+  }
+}
+
+extension SkullkingRulesTranslation on SkullkingRules {
+  String getName(AppLocalizations loc) {
+    switch (this) {
+      case SkullkingRules.initial:
+        return loc.skRulesInitial;
+      case SkullkingRules.since2021:
+        return loc.skRulesSince2021;
     }
   }
 }

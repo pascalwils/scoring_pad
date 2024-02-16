@@ -2,6 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'adapters/game_player_adapter.dart';
 import 'adapters/skullking/skullking_game_adapter.dart';
+import 'adapters/skullking/skullking_player_game_adapter.dart';
 import 'adapters/skullking/skullking_player_round_adapter.dart';
 
 const String favoriteBoxName = "favorites";
@@ -14,6 +15,7 @@ Future<void> initDatasource() async {
   Hive.registerAdapter(GamePlayerAdapter());
   Hive.registerAdapter(SkullkingGameAdapter());
   Hive.registerAdapter(SkullkingPlayerRoundAdapter());
+  Hive.registerAdapter(SkullkingPlayerGameAdapter());
 
   await Hive.openBox(favoriteBoxName);
   await Hive.openBox(playerBoxName);

@@ -1,4 +1,4 @@
-enum SkullkingField { bid, won, standard14, black14, mermaids, pirates, skullking, loots, rascal }
+enum SkullkingField { bid, won, standard14, black14, mermaids, pirates, skullking, loots, rascal, additionalBonuses }
 
 class SkullkingRoundState {
   final Map<SkullkingField, int> fields;

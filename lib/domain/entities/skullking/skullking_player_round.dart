@@ -8,8 +8,9 @@ class SkullkingPlayerRound {
   final int skullking;
   final int loots;
   final int rascalBid;
+  final int additionalBonuses;
 
-  SkullkingPlayerRound({
+  const SkullkingPlayerRound({
     this.bids = 0,
     this.won = 0,
     this.standard14 = 0,
@@ -19,5 +20,22 @@ class SkullkingPlayerRound {
     this.skullking = 0,
     this.loots = 0,
     this.rascalBid = 0,
+    this.additionalBonuses = 0,
   });
+}
+
+class SkullkingPlayerGame {
+  final List<SkullkingPlayerRound> rounds;
+
+  SkullkingPlayerGame(int nbRounds) : rounds = List.filled(nbRounds, const SkullkingPlayerRound());
+
+  SkullkingPlayerGame._(this.rounds);
+
+  SkullkingPlayerRound getRound(int index) => rounds[index];
+
+  void changeRound(int index, SkullkingPlayerRound round) {
+    rounds[index] = round;
+  }
+
+  static SkullkingPlayerGame fromDatasource({required List<SkullkingPlayerRound> rounds}) => SkullkingPlayerGame._(rounds);
 }

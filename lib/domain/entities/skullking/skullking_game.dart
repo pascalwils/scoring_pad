@@ -1,17 +1,34 @@
-import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:pref/pref.dart';
 
 import 'skullking_game_mode.dart';
 import 'skullking_player_round.dart';
 
+import '../../../infrastructure/settings/pref_keys.dart';
 import '../game.dart';
 import '../game_player.dart';
 import '../game_type.dart';
 import '../player.dart';
 
+enum SkullkingRules {
+  initial,
+  since2021;
+
+  static SkullkingRules fromString(String name) {
+    return SkullkingRules.values.firstWhere(
+      (e) => e.name == name,
+      orElse: () => SkullkingRules.initial,
+    );
+  }
+
+  static SkullkingRules fromPreferences(BuildContext context) {
+    return fromString(PrefService.of(context).get(skRulesPrefKey));
+  }
+}
+
 class SkullkingGame implements Game {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
-  static const nbMaxCardsFor8Players = 8;
   static const nbPirates = 6;
   static const nbMermaids = 2;
   static const nbLoots = 2;
@@ -23,19 +40,19 @@ class SkullkingGame implements Game {
   late final DateTime _startTime;
 
   final SkullkingGameMode mode;
+  final SkullkingRules rules;
   final bool lootCardsPresent;
-  final bool mermaidCardsPresent;
   final bool advancedPirateAbilitiesEnabled;
-  final bool rascalScoringEnabled;
-  late final List<List<SkullkingPlayerRound>> rounds;
+  final bool additionalBonuses;
+  late final List<SkullkingPlayerGame> rounds;
 
   SkullkingGame({
     required this.players,
     required this.mode,
-    this.lootCardsPresent = true,
-    this.mermaidCardsPresent = true,
-    this.advancedPirateAbilitiesEnabled = true,
-    this.rascalScoringEnabled = false,
+    required this.rules,
+    this.lootCardsPresent = false,
+    this.advancedPirateAbilitiesEnabled = false,
+    this.additionalBonuses = false,
   }) {
     assert(players.length >= nbMinPlayers);
     assert(players.length <= nbMaxPlayers);
@@ -43,7 +60,7 @@ class SkullkingGame implements Game {
     _startTime = DateTime.now();
 
     int nbRounds = mode.nbCards.length;
-    rounds = List.filled(players.length, List.filled(nbRounds, SkullkingPlayerRound()));
+    rounds = List.filled(players.length, SkullkingPlayerGame(nbRounds));
   }
 
   SkullkingGame.fromDatasource({
@@ -52,24 +69,20 @@ class SkullkingGame implements Game {
     required bool finished,
     required DateTime startTime,
     required this.mode,
+    required this.rules,
     required this.lootCardsPresent,
-    required this.mermaidCardsPresent,
     required this.advancedPirateAbilitiesEnabled,
-    required this.rascalScoringEnabled,
+    required this.additionalBonuses,
     required this.rounds,
   })  : _finished = finished,
         _startTime = startTime;
 
   int nbCards() {
-    int result = mode.nbCards[currentRound];
-    if (players.length == nbMaxPlayers) {
-      result = min(result, nbMaxCardsFor8Players);
-    }
-    return result;
+    return mode.nbCards[currentRound];
   }
 
-  void editRound(int roundNumber, List<SkullkingPlayerRound> round) {
-    rounds[roundNumber - 1] = round;
+  int nbRounds() {
+    return rounds[0].rounds.length;
   }
 
   @override

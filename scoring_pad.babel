@@ -35,6 +35,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>appearance</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>appTitle</name>
 						<description/>
 						<comment/>
@@ -81,6 +96,21 @@
 					</concept_node>
 					<concept_node>
 						<name>cardGames</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>cards</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -455,6 +485,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>round</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>rules</name>
 						<description/>
 						<comment/>
@@ -501,6 +546,21 @@
 					</concept_node>
 					<concept_node>
 						<name>settings</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skAdditionalBonuses</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -590,6 +650,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>skEmojiBonusTypes</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>skGameMode</name>
 						<description/>
 						<comment/>
@@ -636,21 +711,6 @@
 					</concept_node>
 					<concept_node>
 						<name>skLootEarnedEmoji</name>
-						<description/>
-						<comment/>
-						<translations>
-							<translation>
-								<language>en-US</language>
-								<approved>false</approved>
-							</translation>
-							<translation>
-								<language>fr-FR</language>
-								<approved>false</approved>
-							</translation>
-						</translations>
-					</concept_node>
-					<concept_node>
-						<name>skMermaidCards</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -920,7 +980,37 @@
 						</translations>
 					</concept_node>
 					<concept_node>
-						<name>skRascalMode</name>
+						<name>skRules</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skRulesInitial</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skRulesSince2021</name>
 						<description/>
 						<comment/>
 						<translations>

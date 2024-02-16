@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scoring_pad/domain/entities/skullking/skullking_game_mode.dart';
 import 'package:scoring_pad/translation_support.dart';
 
+import '../../../domain/entities/skullking/skullking_game.dart';
 import '../../../infrastructure/settings/pref_keys.dart';
 
 class SkullkingGameSettings extends StatelessWidget {
@@ -35,31 +36,54 @@ class SkullkingGameSettings extends StatelessWidget {
             ],
           ),
         ),
+        PrefDialogButton(
+          title: Text(tr.skRules),
+          subtitle: Text(SkullkingRules.fromPreferences(context).getName(tr)),
+          dialog: PrefDialog(
+            cancel: Text(tr.cancel),
+            submit: Text(tr.ok),
+            title: Text(tr.skRules),
+            children: [
+              for (final val in SkullkingRules.values)
+                PrefRadio(
+                  title: Text(val.getName(tr)),
+                  value: val.name,
+                  pref: skRulesPrefKey,
+                ),
+            ],
+          ),
+        ),
+        PrefHiderGeneric<String>(
+          nullValue: SkullkingRules.initial.name,
+          pref: skRulesPrefKey,
+          children: [
+            PrefTitle(
+              title: Text(tr.cardsSettings),
+            ),
+            PrefSwitch(
+              title: Text(tr.skLootCards),
+              switchActiveColor: Theme.of(context).colorScheme.primary,
+              pref: skLootCardsPrefKey,
+            ),
+            PrefSwitch(
+              title: Text(tr.skAdvancedPirateAbilities),
+              switchActiveColor: Theme.of(context).colorScheme.primary,
+              pref: skAdvancedPiratesPrefKey,
+            ),
+            PrefSwitch(
+              title: Text(tr.skAdditionalBonuses),
+              switchActiveColor: Theme.of(context).colorScheme.primary,
+              pref: skAdditionalBonusesPrefKey,
+            ),
+          ],
+        ),
         PrefTitle(
-          title: Text(tr.cardsSettings),
+          title: Text(tr.appearance),
         ),
         PrefSwitch(
-          title: Text(tr.skLootCards),
+          title: Text(tr.skEmojiBonusTypes),
           switchActiveColor: Theme.of(context).colorScheme.primary,
-          pref: skLootCardsPrefKey,
-        ),
-        PrefSwitch(
-          title: Text(tr.skMermaidCards),
-          switchActiveColor: Theme.of(context).colorScheme.primary,
-          pref: skMermaidCardsPrefKey,
-        ),
-        PrefTitle(
-          title: Text(tr.scoreSettings),
-        ),
-        PrefSwitch(
-          title: Text(tr.skAdvancedPirateAbilities),
-          switchActiveColor: Theme.of(context).colorScheme.primary,
-          pref: skAdvancedPiratesPrefKey,
-        ),
-        PrefSwitch(
-          title: Text(tr.skRascalMode),
-          switchActiveColor: Theme.of(context).colorScheme.primary,
-          pref: skRascalScorePrefKey,
+          pref: skEmojiForBonusTypes,
         ),
       ],
     );

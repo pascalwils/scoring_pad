@@ -21,7 +21,7 @@ class PlayerSelectionState {
 
   factory PlayerSelectionState.initial() => PlayerSelectionState(
         selectedPlayers: List<GamePlayer>.empty(),
-        availableColorIndices: List<int>.generate(lightColors.length, (index) => index, growable: true),
+        availableColorIndices: List<int>.generate(getNbColorsInPalette(), (index) => index, growable: true),
       );
 
   bool isValid({required int minPlayers, required int maxPlayers}) {
