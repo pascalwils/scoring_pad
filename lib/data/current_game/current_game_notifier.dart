@@ -34,6 +34,11 @@ class CurrentGameNotifier extends StateNotifier<GameState> {
     await _repository.saveCurrentGame(state);
   }
 
+  void updateGame(Game game) async {
+    state = state.copyWith(game: game);
+    await _repository.saveCurrentGame(state);
+  }
+
   void _updateState() async {
     try {
       state = await _repository.getCurrentGame();

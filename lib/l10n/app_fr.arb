@@ -74,10 +74,12 @@
     "skSkullKingCapturedEmoji": "💀👑 capturé",
     "appearance": "Apparence",
     "skEmojiBonusTypes": "Emoji pour les bonus",
-    "round": "Tour {roundNumber}/{totalNumber}",
     "cards": "Cartes : {cardNumber}",
     "skRulesInitial": "Initiales",
     "skRulesSince2021": "Depuis 2021",
     "skRules": "Règles",
-    "skAdditionalBonuses": "Bonus supplémentaires"
+    "skAdditionalBonuses": "Bonus/Malus  suppl.",
+    "pointsAbbr": "pts",
+    "roundNumber": "Tour {roundNumber}",
+    "roundOnTotal": "Tour {roundNumber}/{totalNumber}"
 }

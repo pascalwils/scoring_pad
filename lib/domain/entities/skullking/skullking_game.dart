@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pref/pref.dart';
 
@@ -29,15 +31,18 @@ enum SkullkingRules {
 class SkullkingGame implements Game {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
+  static const nbMaxPlayersOldRules = 6;
+  static const nbMaxCardsFor8Players = 9;
+
   static const nbPirates = 6;
   static const nbMermaids = 2;
   static const nbLoots = 2;
   static const nbStandard14s = 3;
 
   final List<GamePlayer> players;
-  int currentRound = 0;
-  bool _finished = false;
-  late final DateTime _startTime;
+  final int currentRound;
+  final bool finished;
+  late final DateTime startTime;
 
   final SkullkingGameMode mode;
   final SkullkingRules rules;
@@ -46,18 +51,33 @@ class SkullkingGame implements Game {
   final bool additionalBonuses;
   late final List<SkullkingPlayerGame> rounds;
 
+  SkullkingGame._({
+    required this.players,
+    required this.mode,
+    required this.rules,
+    required this.currentRound,
+    required this.lootCardsPresent,
+    required this.advancedPirateAbilitiesEnabled,
+    required this.additionalBonuses,
+    required this.finished,
+    required this.startTime,
+    required this.rounds,
+  });
+
   SkullkingGame({
     required this.players,
     required this.mode,
     required this.rules,
+    required this.currentRound,
     this.lootCardsPresent = false,
     this.advancedPirateAbilitiesEnabled = false,
     this.additionalBonuses = false,
+    this.finished = false,
   }) {
     assert(players.length >= nbMinPlayers);
     assert(players.length <= nbMaxPlayers);
 
-    _startTime = DateTime.now();
+    startTime = DateTime.now();
 
     int nbRounds = mode.nbCards.length;
     rounds = List.filled(players.length, SkullkingPlayerGame(nbRounds));
@@ -66,19 +86,50 @@ class SkullkingGame implements Game {
   SkullkingGame.fromDatasource({
     required this.players,
     required this.currentRound,
-    required bool finished,
-    required DateTime startTime,
+    required this.finished,
+    required this.startTime,
     required this.mode,
     required this.rules,
     required this.lootCardsPresent,
     required this.advancedPirateAbilitiesEnabled,
     required this.additionalBonuses,
     required this.rounds,
-  })  : _finished = finished,
-        _startTime = startTime;
+  });
+
+  SkullkingGame copyWith({
+    List<GamePlayer>? players,
+    int? currentRound,
+    bool? finished,
+    SkullkingGameMode? mode,
+    SkullkingRules? rules,
+    bool? lootCardsPresent,
+    bool? advancedPirateAbilitiesEnabled,
+    bool? additionalBonuses,
+    List<SkullkingPlayerGame>? rounds,
+  }) {
+    return SkullkingGame._(
+      players: players ?? this.players,
+      mode: mode ?? this.mode,
+      rules: rules ?? this.rules,
+      currentRound: currentRound ?? this.currentRound,
+      finished: finished ?? this.finished,
+      lootCardsPresent: lootCardsPresent ?? this.lootCardsPresent,
+      advancedPirateAbilitiesEnabled: advancedPirateAbilitiesEnabled ?? this.advancedPirateAbilitiesEnabled,
+      additionalBonuses: additionalBonuses ?? this.additionalBonuses,
+      rounds: rounds ?? this.rounds,
+      startTime: startTime,
+    );
+  }
+
+  static int getNbMaxPlayers(SkullkingRules rules) =>
+      switch (rules) { SkullkingRules.initial => nbMaxPlayersOldRules, _ => nbMaxPlayers };
 
   int nbCards() {
-    return mode.nbCards[currentRound];
+    int result = mode.nbCards[currentRound];
+    if (players.length == nbMaxPlayers) {
+      result = min(result, nbMaxCardsFor8Players);
+    }
+    return result;
   }
 
   int nbRounds() {
@@ -89,10 +140,10 @@ class SkullkingGame implements Game {
   List<Player> getPlayers() => players.map((e) => Player(name: e.name)).toList();
 
   @override
-  DateTime getStartTime() => _startTime;
+  DateTime getStartTime() => startTime;
 
   @override
-  bool isFinished() => _finished;
+  bool isFinished() => finished;
 
   @override
   GameType getGameType() => GameType.skullking;

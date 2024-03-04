@@ -13,10 +13,6 @@ import 'package:scoring_pad/presentation/screens/specific/skullking_round_screen
 import 'game_engine.dart';
 
 class SkullkingGameEngine extends GameEngine {
-  static const nbMinPlayers = 2;
-  static const nbMaxPlayers = 8;
-  static const nbMaxPlayersOldRules = 6;
-
   @override
   void startGame(BuildContext context) {
     context.go(SkullkingRoundScreen.path);
@@ -31,7 +27,8 @@ class SkullkingGameEngine extends GameEngine {
   Widget? getSettingsWidget() => const SkullkingGameSettings();
 
   @override
-  Bounds<int> getPlayerNumberBounds() => const Bounds(min: nbMinPlayers, max: nbMaxPlayers);
+  Bounds<int> getPlayerNumberBounds(BuildContext context) =>
+      Bounds(min: SkullkingGame.nbMinPlayers, max: SkullkingGame.getNbMaxPlayers(SkullkingRules.fromPreferences(context)));
 
   @override
   Game createGame(BuildContext context, List<GamePlayer> players) {
@@ -40,6 +37,7 @@ class SkullkingGameEngine extends GameEngine {
       players: players,
       mode: SkullkingGameMode.fromPreferences(context),
       rules: SkullkingRules.fromPreferences(context),
+      currentRound: 0,
       lootCardsPresent: pref.get(skLootCardsPrefKey),
       advancedPirateAbilitiesEnabled: pref.get(skAdvancedPiratesPrefKey),
       additionalBonuses: pref.get(skAdditionalBonusesPrefKey),

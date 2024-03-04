@@ -7,20 +7,21 @@ abstract class SkullkingScoreCalculator {
   static const pointsPerWonRound = 10;
   static const pointsForPirate = 30;
 
-  int getScore(SkullkingPlayerGame game, int toRoundIndex) {
+  int getScore({required SkullkingGame game, required int playerIndex, int? toRoundIndex}) {
     int result = 0;
+    toRoundIndex = toRoundIndex ?? game.currentRound;
     for (int i = 0; i <= toRoundIndex; i++) {
-      final round = game.rounds[i];
-      result += getScoreForRound(round, i);
+      final round = game.rounds[playerIndex].getRound(i);
+      result += getScoreForRound(round, game.mode.nbCards[i]);
     }
     return result;
   }
 
-  int getScoreForRound(SkullkingPlayerRound round, int index) {
+  int getScoreForRound(SkullkingPlayerRound round, int nbCards) {
     int result = 0;
     if (round.bids == round.won) {
       if (round.bids == 0) {
-        result += (index + 1) * pointsPerWonRound;
+        result += nbCards * pointsPerWonRound;
       } else {
         result += round.bids * pointsForWonBids;
       }
@@ -28,7 +29,7 @@ abstract class SkullkingScoreCalculator {
       result += _getSpecificWinScoreForRound(round);
     } else {
       if (round.bids == 0) {
-        result -= (index + 1) * pointsForLostBids;
+        result -= nbCards * pointsForLostBids;
       } else {
         result -= (round.bids - round.won).abs() * pointsForLostBids;
       }
@@ -69,12 +70,13 @@ class Sin2021SkullkingScoreCalculator extends SkullkingScoreCalculator {
     result += round.standard14 * pointsForStandard14;
     result += round.black14 * pointsForBlack14;
     result += round.rascalBid;
+    result += round.additionalBonuses;
     return result;
   }
 
   @override
   int _getSpecificLostScoreForRound(SkullkingPlayerRound round) {
-    return round.rascalBid;
+    return round.rascalBid - round.additionalBonuses;
   }
 }
 

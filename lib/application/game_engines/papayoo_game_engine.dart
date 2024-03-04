@@ -14,8 +14,7 @@ class PapayooGameEngine extends GameEngine {
   static const int nbMaxPlayers = 8;
 
   @override
-  void startGame(BuildContext context) async {
-  }
+  void startGame(BuildContext context) async {}
 
   @override
   void continueGame(BuildContext context) {}
@@ -24,7 +23,7 @@ class PapayooGameEngine extends GameEngine {
   Widget? getSettingsWidget() => null;
 
   @override
-  Bounds<int> getPlayerNumberBounds() => const Bounds(min: nbMinPlayers, max: nbMaxPlayers);
+  Bounds<int> getPlayerNumberBounds(BuildContext context) => const Bounds(min: nbMinPlayers, max: nbMaxPlayers);
 
   @override
   Game createGame(BuildContext context, List<GamePlayer> players) {

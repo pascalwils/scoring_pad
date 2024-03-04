@@ -81,17 +81,6 @@
     "skSkullKingCapturedEmoji": "💀👑 Captured",
     "appearance": "Appearance",
     "skEmojiBonusTypes": "Emoji for bonus types",
-    "round": "Round {roundNumber}/{totalNumber}",
-    "@round": {
-        "placeholders": {
-            "roundNumber": {
-                "type": "int"
-            },
-            "totalNumber": {
-                "type": "int"
-            }
-        }
-    },
     "cards": "Cards: {cardNumber}",
     "@cards": {
         "placeholders": {
@@ -103,5 +92,25 @@
     "skRulesInitial": "Initial",
     "skRulesSince2021": "Since 2021",
     "skRules": "Rules",
-    "skAdditionalBonuses": "Additional bonuses"
+    "skAdditionalBonuses": "Additional bonuses",
+    "pointsAbbr": "pts",
+    "roundNumber": "Round {roundNumber}",
+    "@roundNumber": {
+        "placeholders": {
+            "roundNumber": {
+                "type": "int"
+            }
+        }
+    },
+    "roundOnTotal": "Round {roundNumber}/{totalNumber}",
+    "@roundOnTotal": {
+        "placeholders": {
+            "roundNumber": {
+                "type": "int"
+            },
+            "totalNumber": {
+                "type": "int"
+            }
+        }
+    }
 }

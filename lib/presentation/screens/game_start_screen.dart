@@ -61,7 +61,7 @@ class GameStartScreen extends ConsumerWidget {
   }
 
   void _onSelectPlayers(BuildContext context, WidgetRef ref) {
-    final bounds = ref.read(currentEngineProvider)?.getPlayerNumberBounds();
+    final bounds = ref.read(currentEngineProvider)?.getPlayerNumberBounds(context);
     final nbMinPlayers = bounds?.min ?? defaultMin;
     final nbMaxPlayers = bounds?.max ?? defaultMax;
     context.push('${GameStartScreen.path}/${PlayerSelectionScreen.path}/$nbMinPlayers/$nbMaxPlayers');
