@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/presentation/widgets/game_list_tile.dart';
 
-import '../../data/favorites/favorite_notifier.dart';
+import '../widgets/game_list_tile.dart';
+import '../../managers/favorites_manager.dart';
 
 class FavoriteGamesScreen extends StatelessWidget {
   static const String path = "favorite-games";
@@ -24,7 +24,7 @@ class FavoriteGamesScreen extends StatelessWidget {
       ),
       body: Consumer(
         builder: (_, ref, __) {
-          var entries = ref.watch(favoritesProvider).favorites;
+          var entries = ref.watch(favoritesManager).entries;
           return ListView.separated(
             padding: const EdgeInsets.all(8),
             itemCount: entries.length,

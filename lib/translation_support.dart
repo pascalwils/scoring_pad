@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'domain/entities/skullking/skullking_game_mode.dart';
-import 'domain/entities/skullking/skullking_game.dart';
-import 'infrastructure/settings/pref_theme.dart';
-import 'domain/entities/game_category.dart';
-import 'domain/entities/game_type.dart';
+import 'models/skull_king/skull_king_game_mode.dart';
+import 'models/skull_king/skull_king_rules.dart';
+import 'settings/pref_theme.dart';
+import 'models/game_category.dart';
+import 'models/game_type.dart';
 
 extension GameCategoryTranslation on GameCategory {
   String getTitle(AppLocalizations loc) {
@@ -60,48 +60,48 @@ extension PrefThemeTranslation on PrefTheme {
   }
 }
 
-extension SkullkingGameModeTranslation on SkullkingGameMode {
+extension SkullkingGameModeTranslation on SkullKingGameMode {
   String getName(AppLocalizations loc) {
     switch (this) {
-      case SkullkingGameMode.regular:
+      case SkullKingGameMode.regular:
         return loc.skModeRegular;
-      case SkullkingGameMode.broadsideBarrage:
+      case SkullKingGameMode.broadsideBarrage:
         return loc.skModeBroadside;
-      case SkullkingGameMode.evenKeeled:
+      case SkullKingGameMode.evenKeeled:
         return loc.skModeEvenKeeled;
-      case SkullkingGameMode.skipToTheBrawl:
+      case SkullKingGameMode.skipToTheBrawl:
         return loc.skModeSkipBrawl;
-      case SkullkingGameMode.swiftNSalty:
+      case SkullKingGameMode.swiftNSalty:
         return loc.skModeSwiftNSalty;
-      case SkullkingGameMode.whirlpool:
+      case SkullKingGameMode.whirlpool:
         return loc.skModeWhirpool;
     }
   }
 
   String getSubTitle(AppLocalizations loc) {
     switch (this) {
-      case SkullkingGameMode.regular:
+      case SkullKingGameMode.regular:
         return loc.skModeRegularSubTitle;
-      case SkullkingGameMode.broadsideBarrage:
+      case SkullKingGameMode.broadsideBarrage:
         return loc.skModeBroadsideSubTitle;
-      case SkullkingGameMode.evenKeeled:
+      case SkullKingGameMode.evenKeeled:
         return loc.skModeEvenKeeledSubTitle;
-      case SkullkingGameMode.skipToTheBrawl:
+      case SkullKingGameMode.skipToTheBrawl:
         return loc.skModeSkipBrawlSubTitle;
-      case SkullkingGameMode.swiftNSalty:
+      case SkullKingGameMode.swiftNSalty:
         return loc.skModeSwiftNSaltySubTitle;
-      case SkullkingGameMode.whirlpool:
+      case SkullKingGameMode.whirlpool:
         return loc.skModeWhirpoolSubTitle;
     }
   }
 }
 
-extension SkullkingRulesTranslation on SkullkingRules {
+extension SkullkingRulesTranslation on SkullKingRules {
   String getName(AppLocalizations loc) {
     switch (this) {
-      case SkullkingRules.initial:
+      case SkullKingRules.initial:
         return loc.skRulesInitial;
-      case SkullkingRules.since2021:
+      case SkullKingRules.since2021:
         return loc.skRulesSince2021;
     }
   }

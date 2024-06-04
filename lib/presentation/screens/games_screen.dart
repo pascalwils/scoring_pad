@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../translation_support.dart';
-import '../../domain/entities/game_category.dart';
-import '../game_catalog.dart';
+import '../../models/game_category.dart';
 import '../widgets/game_list_tile.dart';
+import '../../models/game_catalog.dart';
 
 class GamesScreen extends ConsumerWidget {
   static const String path = "games";
@@ -18,7 +18,7 @@ class GamesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
-    final entries = ref.read(gameCatalogProvider).getGamesWithCategory(category);
+    final entries = GameCatalog().getGamesWithCategory(category);
     return Scaffold(
       appBar: AppBar(
         title: Text(category.getTitle(tr)),

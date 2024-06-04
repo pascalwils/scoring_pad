@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pref/pref.dart';
-import 'package:scoring_pad/infrastructure/settings/pref_init.dart';
 
 import 'app_router.dart';
 import 'data/datasource.dart';
-import 'infrastructure/settings/pref_keys.dart';
-import 'infrastructure/settings/pref_theme.dart';
+import 'settings/pref_init.dart';
+import 'settings/pref_keys.dart';
+import 'settings/pref_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

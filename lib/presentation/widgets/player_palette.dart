@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../domain/entities/player.dart';
+import '../../models/player.dart';
 
 const double rowHeight = 48.0;
 

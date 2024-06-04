@@ -3,12 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/current_game/current_game_notifier.dart';
+import '../../managers/current_game_manager.dart';
 import '../widgets/buttons_menu.dart';
+import '../widgets/default_button.dart';
 import 'game_categories_screen.dart';
 import 'players_list_screen.dart';
 import 'settings_screen.dart';
-import '../widgets/default_button.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
@@ -34,14 +34,15 @@ class MainScreen extends ConsumerWidget {
   }
 
   List<ButtonsMenuItem> _createEntries(AppLocalizations tr, WidgetRef ref) {
-    bool gameInProgress = ref.watch(currentGameProvider).players.isNotEmpty;
+    final currentGame = ref.watch(currentGameManager);
+    bool gameInProgress = currentGame.players.isNotEmpty;
     List<ButtonsMenuItem> entries = List.empty(growable: true);
     if (gameInProgress) {
       entries.add(ButtonsMenuItem(
           title: tr.continueGame,
           style: StyleEnum.filled,
           callback: (context) {
-            ref.read(currentEngineProvider)?.continueGame(context);
+            ref.read(currentEngineProvider)?.continueGame(context, ref);
           }));
     }
     entries.add(
@@ -119,7 +120,7 @@ class MainScreen extends ConsumerWidget {
     if (create) {
       if (!context.mounted) return;
       if (gameInProgress) {
-        ref.read(currentGameProvider.notifier).clear();
+        ref.read(currentGameManager.notifier).clear();
         ref.read(currentEngineProvider)?.endGame(context);
       }
       context.go(GameCategoriesScreen.path);

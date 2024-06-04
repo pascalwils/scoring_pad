@@ -1,76 +1,69 @@
 import 'package:flutter/material.dart';
 
-class IntegerField extends StatefulWidget {
-  final int initialValue;
+class IntegerField extends StatelessWidget {
+  final int value;
+  final int? oldValue;
   final int minValue;
   final int maxValue;
   final int step;
   final String text;
   final TextStyle style;
+  final TextStyle? oldValueStyle;
   final Color buttonBackground;
+  final void Function(int) onChange;
 
   const IntegerField({
     super.key,
     required this.text,
     required this.style,
     required this.buttonBackground,
-    this.initialValue = 0,
+    this.value = 0,
+    this.oldValue,
+    this.oldValueStyle,
     this.minValue = 0,
     this.maxValue = 100,
     this.step = 1,
+    required this.onChange,
   });
-
-  @override
-  IntegerFieldState createState() => IntegerFieldState();
-}
-
-class IntegerFieldState extends State<IntegerField> {
-  int _value = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _value = widget.initialValue;
-  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
-        children: [
-          Text('$_value', style: widget.style.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(widget.text, style: widget.style),
-          ),
-          const SizedBox(width: 12),
-          Row(
-            children: [
-              IconButton.filled(
-                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(widget.buttonBackground)),
-                icon: const Icon(Icons.remove),
-                onPressed: _value - widget.step >= widget.minValue
-                    ? () => setState(() {
-                          _value -= widget.step;
-                        })
-                    : null,
-              ),
-              const SizedBox(width: 4),
-              IconButton.filled(
-                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(widget.buttonBackground)),
-                icon: const Icon(Icons.add),
-                onPressed: _value + widget.step <= widget.maxValue
-                    ? () => setState(() {
-                          _value += widget.step;
-                        })
-                    : null,
-              ),
-            ],
-          ),
-        ],
+        children: _buildRow(),
       ),
     );
+  }
+
+  List<Widget> _buildRow() {
+    final result = List<Widget>.empty(growable: true);
+    if (oldValue != null && value != oldValue) {
+      final textStyle = oldValueStyle ?? style;
+      result.add(Text('$oldValue', style: textStyle.copyWith(fontWeight: FontWeight.bold)));
+      result.add(const SizedBox(width: 8));
+    }
+    result.add(Text('$value', style: style.copyWith(fontWeight: FontWeight.bold)));
+    result.add(const SizedBox(width: 12));
+    result.add(Expanded(child: Text(text, style: style)));
+    result.add(const SizedBox(width: 12));
+    result.add(Row(children: _buildButtons()));
+    return result;
+  }
+
+  List<Widget> _buildButtons() {
+    final result = List<Widget>.empty(growable: true);
+    result.add(IconButton.filled(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+      icon: const Icon(Icons.remove),
+      onPressed: value - step >= minValue ? () => onChange(value - step) : null,
+    ));
+    result.add(const SizedBox(width: 4));
+    result.add(IconButton.filled(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+      icon: const Icon(Icons.add),
+      onPressed: value + step <= maxValue ? () => onChange(value + step) : null,
+    ));
+    return result;
   }
 }

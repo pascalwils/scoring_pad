@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/data/current_game/current_game_notifier.dart';
-import 'package:scoring_pad/presentation/screens/game_start_screen.dart';
 
-import '../../data/favorites/favorite_notifier.dart';
-import '../../domain/entities/game_type.dart';
+import '../../managers/current_game_manager.dart';
+import '../../managers/favorites_manager.dart';
+import '../../models/game_type.dart';
 import '../../translation_support.dart';
-import '../game_catalog.dart';
+import '../screens/game_start_screen.dart';
 
 class GameListTile extends ConsumerWidget {
   final GameType entry;
@@ -22,7 +21,7 @@ class GameListTile extends ConsumerWidget {
       title: Text(entry.getName(tr)),
       leading: entry.getIcon(),
       onTap: () {
-        ref.read(currentGameProvider.notifier).setGameType(entry);
+        ref.read(currentGameManager.notifier).setGameType(entry);
         context.go(GameStartScreen.path);
       },
       trailing: _buildFavoriteIcon(ref, entry),
@@ -30,10 +29,10 @@ class GameListTile extends ConsumerWidget {
   }
 
   Widget _buildFavoriteIcon(WidgetRef ref, GameType entry) {
-    bool isFavorite = ref.watch(favoritesProvider).favorites.contains(entry);
+    bool isFavorite = ref.watch(favoritesManager).isFavorite(entry);
     return IconButton(
       onPressed: () {
-        ref.read(favoritesProvider.notifier).toggleFavorite(entry);
+        ref.read(favoritesManager.notifier).toggleFavorite(entry);
       },
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,

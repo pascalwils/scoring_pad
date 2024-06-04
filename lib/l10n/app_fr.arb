@@ -2,7 +2,7 @@
     "@@locale": "fr",
     "appTitle": "Feuille de score",
     "players": "Joueurs",
-    "skBid": "Pari",
+    "skBid": "Paris",
     "skBonusPoints": "Points bonus",
     "skTricksWon": "Plis gagnés",
     "skStandard14s": "14 standard",
@@ -81,5 +81,6 @@
     "skAdditionalBonuses": "Bonus/Malus  suppl.",
     "pointsAbbr": "pts",
     "roundNumber": "Tour {roundNumber}",
-    "roundOnTotal": "Tour {roundNumber}/{totalNumber}"
+    "roundOnTotal": "Tour {roundNumber}/{totalNumber}",
+    "scoreboard": "Scores"
 }

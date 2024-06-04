@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/domain/entities/game_category.dart';
-import 'package:scoring_pad/presentation/screens/favorite_games_screen.dart';
-import 'package:scoring_pad/presentation/screens/games_screen.dart';
-import 'package:scoring_pad/translation_support.dart';
+
+import '../../models/game_category.dart';
+import '../../translation_support.dart';
+import 'favorite_games_screen.dart';
+import 'games_screen.dart';
 
 class GameCategoriesScreen extends StatelessWidget {
   static String path = "/game_categories";

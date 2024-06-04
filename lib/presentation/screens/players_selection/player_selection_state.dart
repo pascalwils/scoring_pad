@@ -1,5 +1,5 @@
-import '../../../domain/entities/game_player.dart';
-import '../../../domain/entities/player.dart';
+import '../../../models/game_player.dart';
+import '../../../models/player.dart';
 import '../../palettes.dart';
 
 class PlayerSelectionState {

@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scoring_pad/presentation/screens/player_details_screen.dart';
 
-import '../../domain/entities/player.dart';
-import '../../data/players/players_notifier.dart';
+import '../../models/player.dart';
+import '../../managers/players_manager.dart';
 import '../widgets/player_edition/player_edition_dialog.dart';
 
 class PlayersListScreen extends ConsumerWidget {
@@ -16,7 +16,7 @@ class PlayersListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
-    final players = ref.watch(playersProvider).players;
+    final players = ref.watch(playersManager);
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.playersList),
@@ -47,7 +47,7 @@ class PlayersListScreen extends ConsumerWidget {
         onPressed: () async {
           var player = await _displayTextInputDialog(context);
           if (player != null) {
-            ref.read(playersProvider.notifier).addPlayer(player);
+            ref.read(playersManager.notifier).addPlayer(player);
           }
         },
       ),

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/presentation/screens/game_settings_screen.dart';
-import 'package:scoring_pad/presentation/screens/game_start_screen.dart';
-import 'package:scoring_pad/presentation/screens/player_details_screen.dart';
-import 'package:scoring_pad/presentation/screens/settings_screen.dart';
-import 'package:scoring_pad/presentation/screens/specific/skullking_round_screen.dart';
 import 'package:talker/talker.dart';
 
-import 'domain/entities/game_category.dart';
+import 'models/game_category.dart';
 import 'presentation/screens/favorite_games_screen.dart';
 import 'presentation/screens/game_categories_screen.dart';
 import 'presentation/screens/games_screen.dart';
 import 'presentation/screens/main_screen.dart';
 import 'presentation/screens/players_list_screen.dart';
 import 'presentation/screens/players_selection/player_selection_screen.dart';
+import 'presentation/screens/game_settings/game_settings_screen.dart';
+import 'presentation/screens/game_start_screen.dart';
+import 'presentation/screens/player_details_screen.dart';
+import 'presentation/screens/settings_screen.dart';
+import 'presentation/screens/skull_king/skull_king_round_edit_screen.dart';
+import 'presentation/screens/skull_king/skull_king_round_screen.dart';
+import 'presentation/screens/skull_king/skull_king_score_screen.dart';
+import 'presentation/screens/skull_king/skull_king_end_screen.dart';
 
 final talker = Talker();
 
@@ -83,8 +86,66 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        path: SkullkingRoundScreen.path,
-        pageBuilder: _createBuilder(const SkullkingRoundScreen()),
+        path: SkullKingRoundScreen.path,
+        pageBuilder: _createBuilder(const SkullKingRoundScreen()),
+        routes: [
+          GoRoute(
+            path: '${SkullKingRoundEditScreen.path}/:roundIndex',
+            pageBuilder: (context, state) {
+              final index = int.parse(state.pathParameters["roundIndex"]!);
+              talker.debug("Going to skull king round #$index edit screen");
+              return CustomTransitionPage<void>(
+                key: state.pageKey,
+                child: SkullKingRoundEditScreen(roundIndex: index),
+                transitionsBuilder: (_, animation, __, child) => SlideTransition(
+                  position: animation.drive(
+                    Tween<Offset>(
+                      begin: const Offset(0.0, 1.0),
+                      end: Offset.zero,
+                    ).chain(CurveTween(curve: Curves.easeIn)),
+                  ),
+                  child: child,
+                ),
+              );
+            },
+          ),
+          GoRoute(
+            path: SkullKingScoreScreen.path,
+            pageBuilder: (context, state) {
+              return CustomTransitionPage<void>(
+                key: state.pageKey,
+                child: const SkullKingScoreScreen(),
+                transitionsBuilder: (_, animation, __, child) => SlideTransition(
+                  position: animation.drive(
+                    Tween<Offset>(
+                      begin: const Offset(1.0, 0),
+                      end: Offset.zero,
+                    ).chain(CurveTween(curve: Curves.easeIn)),
+                  ),
+                  child: child,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: SkullKingEndScreen.path,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: const SkullKingEndScreen(),
+            transitionsBuilder: (_, animation, __, child) => SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(1.0, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeIn)),
+              ),
+              child: child,
+            ),
+          );
+        },
       ),
     ],
   );

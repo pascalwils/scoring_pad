@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scoring_pad/data/players/players_notifier.dart';
 
-import '../../../domain/entities/player.dart';
-import '../../../infrastructure/common/field.dart';
+import '../../../managers/players_manager.dart';
+import '../../../models/player.dart';
+import '../../../common/field.dart';
 import 'player_edition_state.dart';
 
 class PlayerEditionDialogNotifier extends StateNotifier<PlayerEditionState> {
@@ -28,6 +28,6 @@ class PlayerEditionDialogNotifier extends StateNotifier<PlayerEditionState> {
 
 final playerEditionDialogNotifierProvider = StateNotifierProvider.autoDispose<PlayerEditionDialogNotifier, PlayerEditionState>(
   (ref) {
-    return PlayerEditionDialogNotifier(ref.read(playersProvider).players);
+    return PlayerEditionDialogNotifier(ref.read(playersManager));
   },
 );

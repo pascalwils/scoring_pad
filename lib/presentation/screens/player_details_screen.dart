@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../data/players/players_notifier.dart';
-import '../../domain/entities/player.dart';
+import '../../managers/players_manager.dart';
+import '../../models/player.dart';
 import '../widgets/player_edition/player_edition_dialog.dart';
 
 class PlayerDetailsScreen extends ConsumerWidget {
@@ -30,8 +30,8 @@ class PlayerDetailsScreen extends ConsumerWidget {
             onPressed: () async {
               var player = await _displayTextInputDialog(context, currentPlayer);
               if (player != null) {
-                ref.read(playersProvider.notifier).removePlayer(currentPlayer);
-                ref.read(playersProvider.notifier).addPlayer(player);
+                ref.read(playersManager.notifier).removePlayer(currentPlayer);
+                ref.read(playersManager.notifier).addPlayer(player);
                 ref.read(currentPlayerProvider.notifier).setPlayer(player);
               }
             },
@@ -41,7 +41,7 @@ class PlayerDetailsScreen extends ConsumerWidget {
             onPressed: () async {
               bool? confirm = await _showDeleteConfirmDialog(context, currentPlayer.name);
               if (confirm != null && confirm) {
-                ref.read(playersProvider.notifier).removePlayer(currentPlayer);
+                ref.read(playersManager.notifier).removePlayer(currentPlayer);
                 context.pop();
               }
             },
@@ -97,6 +97,6 @@ class CurrentPlayerNotifier extends StateNotifier<Player> {
 
 final currentPlayerProvider = StateNotifierProvider<CurrentPlayerNotifier, Player>(
   (ref) {
-    return CurrentPlayerNotifier(Player(name: ""));
+    return CurrentPlayerNotifier(const Player(name: ""));
   },
 );

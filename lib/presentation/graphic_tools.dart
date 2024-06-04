@@ -4,6 +4,10 @@ Color computeColorForText(Color background) {
   return background.computeLuminance() > 0.5 ? Colors.black : Colors.white;
 }
 
+Color computeDimmedColorForText(Color background) {
+  return background.computeLuminance() > 0.5 ? Colors.black38 : Colors.white38;
+}
+
 Color computeOnColor(Color background, [double amount = .1]) {
   return background.computeLuminance() > 0.5 ? darken(background, amount) : lighten(background, amount);
 }

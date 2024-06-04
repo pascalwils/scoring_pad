@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'player_edition_dialog_provider.dart';
-import '../../../domain/entities/player.dart';
+import '../../../models/player.dart';
 import '../default_button.dart';
+import 'player_edition_dialog_provider.dart';
 
 Widget createPlayerEditionDialog(BuildContext context, Player? player) {
   return AlertDialog(

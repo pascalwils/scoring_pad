@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talker/talker.dart';
 
-import '../../../domain/entities/game_player.dart';
+import '../../../models/game_player.dart';
 import 'player_selection_state.dart';
 
 final talker = Talker();

@@ -3,15 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:scoring_pad/application/game_states/game_state.dart';
-import 'package:scoring_pad/data/current_game/current_game_notifier.dart';
-import 'package:scoring_pad/presentation/screens/players_selection/player_selection_screen.dart';
-import 'package:scoring_pad/translation_support.dart';
-
+import '../../models/game_state.dart';
+import '../../managers/current_game_manager.dart';
+import '../../translation_support.dart';
 import '../widgets/buttons_menu.dart';
 import '../widgets/default_button.dart';
+import 'game_settings/game_settings_screen.dart';
+import 'players_selection/player_selection_screen.dart';
 import 'game_categories_screen.dart';
-import 'game_settings_screen.dart';
 
 class GameStartScreen extends ConsumerWidget {
   static const String path = '/game-start-screen';
@@ -24,7 +23,7 @@ class GameStartScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
 
-    GameState state = ref.read(currentGameProvider);
+    GameState state = ref.read(currentGameManager);
 
     List<ButtonsMenuItem> entries = List.empty(growable: true);
     entries.add(

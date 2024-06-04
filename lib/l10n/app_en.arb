@@ -2,7 +2,7 @@
     "@@locale": "en",
     "appTitle": "Scoring Pad",
     "players": "Players",
-    "skBid": "Bid",
+    "skBid": "Bids",
     "skTricksWon": "Tricks Won",
     "skBonusPoints": "Bonus Points",
     "skStandard14s": "Standard 14s",
@@ -112,5 +112,6 @@
                 "type": "int"
             }
         }
-    }
+    },
+    "scoreboard": "Scoreboard"
 }

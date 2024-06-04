@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pref/pref.dart';
-import 'package:scoring_pad/infrastructure/settings/pref_keys.dart';
-import 'package:scoring_pad/translation_support.dart';
 
-import '../../infrastructure/settings/pref_theme.dart';
+import '../../settings/pref_keys.dart';
+import '../../settings/pref_theme.dart';
+import '../../translation_support.dart';
 import '../widgets/pref_color.dart';
 
 class SettingsScreen extends StatelessWidget {

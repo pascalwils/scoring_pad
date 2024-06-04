@@ -1,4 +1,4 @@
-import '../../../infrastructure/common/field.dart';
+import '../../../common/field.dart';
 
 class PlayerEditionState {
   final Field<String> name;
