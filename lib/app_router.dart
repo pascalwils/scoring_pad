@@ -5,6 +5,7 @@ import 'package:talker/talker.dart';
 import 'models/game_category.dart';
 import 'presentation/screens/favorite_games_screen.dart';
 import 'presentation/screens/game_categories_screen.dart';
+import 'presentation/screens/games_list_screen.dart';
 import 'presentation/screens/games_screen.dart';
 import 'presentation/screens/main_screen.dart';
 import 'presentation/screens/players_list_screen.dart';
@@ -40,6 +41,10 @@ class AppRouter {
                 pageBuilder: _createBuilder(const PlayerDetailsScreen()),
               ),
             ],
+          ),
+          GoRoute(
+            path: GamesListScreen.path,
+            pageBuilder: _createBuilder(const GamesListScreen()),
           ),
           GoRoute(path: SettingsScreen.path, pageBuilder: _createBuilder(const SettingsScreen())),
         ],

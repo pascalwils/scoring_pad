@@ -8,7 +8,7 @@ import 'game_type.dart';
 part 'standard_game.freezed.dart';
 
 @freezed
-sealed class StandardGame with _$StandardGame implements Game {
+sealed class StandardGame extends Game with _$StandardGame {
   const StandardGame._();
 
   const factory StandardGame({

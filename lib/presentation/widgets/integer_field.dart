@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class IntegerField extends StatelessWidget {
@@ -53,17 +54,29 @@ class IntegerField extends StatelessWidget {
 
   List<Widget> _buildButtons() {
     final result = List<Widget>.empty(growable: true);
-    result.add(IconButton.filled(
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
-      icon: const Icon(Icons.remove),
-      onPressed: value - step >= minValue ? () => onChange(value - step) : null,
-    ));
+    result.add(
+      SizedBox(
+        width: 36,
+        height: 36,
+        child: IconButton.filled(
+          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+          icon: const Icon(Icons.remove, size: 20),
+          onPressed: value - step >= minValue ? () => onChange(value - step) : null,
+        ),
+      ),
+    );
     result.add(const SizedBox(width: 4));
-    result.add(IconButton.filled(
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
-      icon: const Icon(Icons.add),
-      onPressed: value + step <= maxValue ? () => onChange(value + step) : null,
-    ));
+    result.add(
+      SizedBox(
+        width: 36,
+        height: 36,
+        child: IconButton.filled(
+          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+          icon: const Icon(Icons.add, size: 20),
+          onPressed: value + step <= maxValue ? () => onChange(value + step) : null,
+        ),
+      ),
+    );
     return result;
   }
 }

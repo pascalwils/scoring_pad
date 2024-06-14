@@ -3,10 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../managers/games_manager.dart';
 import '../../managers/current_game_manager.dart';
 import '../widgets/buttons_menu.dart';
 import '../widgets/default_button.dart';
+import '../widgets/widget_tools.dart';
 import 'game_categories_screen.dart';
+import 'games_list_screen.dart';
 import 'players_list_screen.dart';
 import 'settings_screen.dart';
 
@@ -49,11 +52,17 @@ class MainScreen extends ConsumerWidget {
       ButtonsMenuItem(
         title: tr.createNewGame,
         style: gameInProgress ? StyleEnum.filledTonal : StyleEnum.filled,
-        callback: (context) async => _onCreateButtonTap(context, gameInProgress, ref),
+        callback: (context) async => _onCreateButtonTap(context, ref),
       ),
     );
 
-    entries.add(ButtonsMenuItem(title: tr.gamesList, style: StyleEnum.filledTonal, callback: (_) {}));
+    entries.add(ButtonsMenuItem(
+      title: tr.gamesList,
+      style: StyleEnum.filledTonal,
+      callback: (context) {
+        context.go('/${GamesListScreen.path}');
+      },
+    ));
     entries.add(ButtonsMenuItem(
       title: tr.playersList,
       style: StyleEnum.filledTonal,
@@ -82,46 +91,11 @@ class MainScreen extends ConsumerWidget {
     );
   }
 
-  Future<bool?> _showConfirmDialog(BuildContext context) async {
-    AppLocalizations tr = AppLocalizations.of(context);
-    return showDialog<bool?>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(tr.warning),
-          content: Text(
-            tr.newGameWarningMessage,
-            softWrap: true,
-          ),
-          actions: [
-            TextButton(
-              child: Text(tr.no),
-              onPressed: () => Navigator.pop(context, false),
-            ),
-            TextButton(
-              child: Text(tr.yes),
-              onPressed: () => Navigator.pop(context, true),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _onCreateButtonTap(BuildContext context, bool gameInProgress, WidgetRef ref) async {
-    bool create = true;
-    if (gameInProgress) {
-      bool? ok = await _showConfirmDialog(context);
-      if (ok == null || !ok) {
-        create = false;
-      }
-    }
+  void _onCreateButtonTap(BuildContext context, WidgetRef ref) async {
+    bool create = await WidgetTools.checkGameInProgress(context, ref);
     if (create) {
-      if (!context.mounted) return;
-      if (gameInProgress) {
-        ref.read(currentGameManager.notifier).clear();
-        ref.read(currentEngineProvider)?.endGame(context);
+      if (!context.mounted) {
+        return;
       }
       context.go(GameCategoriesScreen.path);
     }

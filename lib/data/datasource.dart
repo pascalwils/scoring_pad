@@ -15,6 +15,7 @@ import '../models/skull_king/skull_king_game_parameters.dart';
 const String favoriteBoxName = "favorites";
 const String playerBoxName = "players";
 const String currentGameBoxName = "currentGame";
+const String gamesBoxName = "games";
 
 Future<void> initDatasource() async {
   await Hive.initFlutter();
@@ -35,4 +36,5 @@ Future<void> initDatasource() async {
   await Hive.openBox(favoriteBoxName);
   await Hive.openBox(playerBoxName);
   await Hive.openBox(currentGameBoxName);
+  await Hive.openBox(gamesBoxName);
 }

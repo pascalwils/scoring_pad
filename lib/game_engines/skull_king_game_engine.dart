@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pref/pref.dart';
+import 'package:scoring_pad/models/game.dart';
 
 import '../../managers/current_game_manager.dart';
 import '../../models/game_player.dart';
@@ -23,7 +24,7 @@ class SkullKingGameEngine extends GameEngine {
   @override
   void startGame(BuildContext context, WidgetRef ref, List<GamePlayer> players) {
     SkullKingGame game = _createGame(context, players);
-    ref.read(currentGameManager.notifier).start(players, game);
+    ref.read(currentGameManager.notifier).startGame(players, game);
     context.go(SkullKingRoundScreen.path);
   }
 

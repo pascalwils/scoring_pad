@@ -24,8 +24,15 @@ class CurrentGameManager extends StateNotifier<GameState> {
     await _save();
   }
 
-  void start(List<GamePlayer> players, Game game) async {
+  void startGame(List<GamePlayer> players, Game game) async {
     state = state.copyWith(players: players, game: game);
+    await _save();
+  }
+
+  void continueGame(Game game) async {
+    int colorIndex = 0;
+    final players = game.getPlayers().map((it) => GamePlayer(name: it.name, colorIndex: colorIndex++)).toList();
+    state = GameState(gameType: game.getGameType(), players: players, game: game);
     await _save();
   }
 

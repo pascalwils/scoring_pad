@@ -23,7 +23,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
     final state = ref.watch(skullKingRoundScreenProvider);
     final textStyle = TextStyle(
       color: Theme.of(context).colorScheme.onPrimaryContainer,
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
     );
     return Scaffold(
@@ -82,12 +82,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
     final game = ref.read(currentGameManager).game as SkullKingGame;
     if (game.currentRound + 1 < game.nbRounds()) {
       return TextButton(
-        onPressed: () {
-          final state = ref.watch(skullKingRoundScreenProvider);
-          final updatedGame = SkullKingUiTools.updateGameFromState(game, state, game.currentRound);
-          ref.read(currentGameManager.notifier).updateGame(updatedGame);
-          ref.read(skullKingRoundScreenProvider.notifier).update(updatedGame);
-        },
+        onPressed: () => _showNextRoundDialog(context, ref),
         child: Icon(
           Icons.navigate_next,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -107,6 +102,49 @@ class SkullKingRoundScreen extends ConsumerWidget {
         ),
       );
     }
+  }
+
+  void _showNextRoundDialog(BuildContext context, WidgetRef ref) {
+    AppLocalizations tr = AppLocalizations.of(context);
+
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(tr.cancel),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+    Widget continueButton = TextButton(
+      child: Text(tr.nextRound),
+      onPressed: () {
+        Navigator.of(context).pop();
+        _nextRound(ref);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(tr.startNextRoundTitle),
+      content: Text(tr.startNextRoundText),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void _nextRound(WidgetRef ref) {
+    final game = ref.read(currentGameManager).game as SkullKingGame;
+    final state = ref.watch(skullKingRoundScreenProvider);
+    final updatedGame = SkullKingUiTools.updateGameFromState(game, state, game.currentRound);
+    ref.read(currentGameManager.notifier).updateGame(updatedGame);
+    ref.read(skullKingRoundScreenProvider.notifier).update(updatedGame);
   }
 
   void _updateField(WidgetRef ref, SkullKingRoundScreenState state, int playerIndex, SkullKingRoundField field, int newValue) {

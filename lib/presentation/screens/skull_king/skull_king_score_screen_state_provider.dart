@@ -9,7 +9,7 @@ class SkullKingScoreScreenStateNotifier extends StateNotifier<SkullKingScoreScre
   SkullKingScoreScreenStateNotifier(SkullKingGame game) : super(_getStateFromGame(game));
 
   void update(SkullKingGame game) {
-    _getStateFromGame(game);
+    state = _getStateFromGame(game);
   }
 
   static SkullKingScoreScreenState _getStateFromGame(SkullKingGame game) {

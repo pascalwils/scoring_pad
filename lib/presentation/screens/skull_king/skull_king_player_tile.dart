@@ -38,14 +38,14 @@ class SkullKingPlayerTile extends StatelessWidget {
     final initialRound = state.initialRounds?[playerIndex];
 
     final scheme = getColorScheme(Theme.of(context).brightness, player.colorIndex);
-    final normalTextStyle = TextStyle(color: computeColorForText(scheme.text), fontSize: 18);
-    final oldTextStyle = TextStyle(color: computeDimmedColorForText(scheme.text), fontSize: 18);
+    final normalTextStyle = TextStyle(color: computeColorForText(scheme.text), fontSize: 16);
+    final oldTextStyle = TextStyle(color: computeDimmedColorForText(scheme.text), fontSize: 16);
     final boldTextStyle = normalTextStyle.copyWith(fontWeight: FontWeight.bold);
     final bonusTextStyle = normalTextStyle.copyWith(color: scheme.base, fontWeight: FontWeight.bold);
     final useEmoji = PrefService.of(context).get<bool>(skEmojiForBonusTypes) ?? false;
 
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(4),
       child: Ink(
         decoration: BoxDecoration(
           color: scheme.background,

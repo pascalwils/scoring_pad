@@ -63,7 +63,7 @@
     "cardsSettings": "Paramètres des cartes",
     "gameSettings": "Paramètres de jeu",
     "scoreSettings": "Paramètres de score",
-    "newGameWarningMessage": "Une partie est en cours. Voulez-vous vraiment en créer une nouvelle ?\\n(Vous pouvez toujours accéder aux parties inachevées dans la liste des parties)",
+    "newGameWarningMessage": "Une partie est en cours. Voulez-vous vraiment en créer une nouvelle ?\n(Vous pouvez toujours accéder aux parties inachevées dans la liste des parties)",
     "warning": "Avertissement",
     "skPiratesCapturedEmoji": "⚔️ capturés",
     "skStandard14sEmoji": "🟢🟡🟣 14s",
@@ -74,7 +74,7 @@
     "skSkullKingCapturedEmoji": "💀👑 capturé",
     "appearance": "Apparence",
     "skEmojiBonusTypes": "Emoji pour les bonus",
-    "cards": "Cartes : {cardNumber}",
+    "cards": "{cardNumber, plural, zero{Carte : 0} one{Carte : 1} other{Cartes : {cardNumber}}}",
     "skRulesInitial": "Initiales",
     "skRulesSince2021": "Depuis 2021",
     "skRules": "Règles",
@@ -82,5 +82,12 @@
     "pointsAbbr": "pts",
     "roundNumber": "Tour {roundNumber}",
     "roundOnTotal": "Tour {roundNumber}/{totalNumber}",
-    "scoreboard": "Scores"
+    "scoreboard": "Scores",
+    "nextRound": "Tour suivant",
+    "startNextRoundTitle": "Passer au tour suivant",
+    "startNextRoundText": "Vous pouvez modifier les tours précédents en appuyant sur l'icône de flèche arrière.",
+    "disableNextRoundAlert": "Désactiver l'alerte \"Passer au prochain tour\"",
+    "skEndMessage": "{playerName} est le Skull King",
+    "gameDeleted": "Partie supprimée",
+    "undo": "Annuler"
 }

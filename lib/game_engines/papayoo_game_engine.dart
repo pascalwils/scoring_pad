@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/models/game.dart';
 
 import '../models/game_player.dart';
 import '../models/game_type.dart';
@@ -16,7 +17,7 @@ class PapayooGameEngine extends GameEngine {
   @override
   void startGame(BuildContext context, WidgetRef ref, List<GamePlayer> players) {
     StandardGame game = _createGame(context, players);
-    ref.read(currentGameManager.notifier).start(players, game);
+    ref.read(currentGameManager.notifier).startGame(players, game);
     //context.go(PapayooRoundScreen.path);
   }
 

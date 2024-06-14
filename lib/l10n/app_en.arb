@@ -70,7 +70,7 @@
     "cardsSettings": "Cards Settings",
     "gameSettings": "Game Settings",
     "scoreSettings": "Score Settings",
-    "newGameWarningMessage": "A game is in progress. Do you really want to create a new one?\\n(You can still access unfinished games in the game list)",
+    "newGameWarningMessage": "A game is in progress. Do you really want to create a new one?\n(You can still access unfinished games in the game list)",
     "warning": "Warning",
     "skPiratesCapturedEmoji": "⚔️ Captured",
     "skStandard14sEmoji": "🟢🟡🟣 14s",
@@ -81,7 +81,7 @@
     "skSkullKingCapturedEmoji": "💀👑 Captured",
     "appearance": "Appearance",
     "skEmojiBonusTypes": "Emoji for bonus types",
-    "cards": "Cards: {cardNumber}",
+    "cards": "{cardNumber, plural, zero{Card: 0} one{Card: 1} other{Cards: {cardNumber}}}",
     "@cards": {
         "placeholders": {
             "cardNumber": {
@@ -113,5 +113,19 @@
             }
         }
     },
-    "scoreboard": "Scoreboard"
+    "scoreboard": "Scoreboard",
+    "nextRound": "Next Round",
+    "startNextRoundTitle": "Start Next Round",
+    "startNextRoundText": "You can edit previous rounds bby taping the backward arrow icon.",
+    "disableNextRoundAlert": "Disable \"Start Next Round\" alert",
+    "skEndMessage": "{playerName} is the Skull King",
+    "@skEndMessage": {
+        "placeholders": {
+            "playerName": {
+                "type": "String"
+            }
+        }
+    },
+    "gameDeleted": "Game deleted",
+    "undo": "Undo"
 }

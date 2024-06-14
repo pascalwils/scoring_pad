@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../models/game.dart';
 import '../models/game_player.dart';
 import '../common/bounds.dart';
 

@@ -17,7 +17,7 @@ part 'skull_king_game.freezed.dart';
 part 'skull_king_game.g.dart';
 
 @freezed
-class SkullKingGame with _$SkullKingGame implements Game {
+class SkullKingGame extends Game with _$SkullKingGame {
   static const nbMinPlayers = 2;
   static const nbMaxPlayers = 8;
   static const nbMaxPlayersOldRules = 6;

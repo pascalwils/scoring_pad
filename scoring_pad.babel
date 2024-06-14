@@ -230,6 +230,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>disableNextRoundAlert</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>emptyPlayerList</name>
 						<description/>
 						<comment/>
@@ -276,6 +291,21 @@
 					</concept_node>
 					<concept_node>
 						<name>gameCategories</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>gameDeleted</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -351,6 +381,21 @@
 					</concept_node>
 					<concept_node>
 						<name>newPlayer</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>nextRound</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -696,6 +741,21 @@
 					</concept_node>
 					<concept_node>
 						<name>skEmojiBonusTypes</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>skEndMessage</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -1160,6 +1220,36 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>startNextRoundText</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>startNextRoundTitle</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>systemTheme</name>
 						<description/>
 						<comment/>
@@ -1206,6 +1296,21 @@
 					</concept_node>
 					<concept_node>
 						<name>themeColor</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>undo</name>
 						<description/>
 						<comment/>
 						<translations>

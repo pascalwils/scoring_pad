@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../managers/current_game_manager.dart';
+import '../../../managers/games_manager.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import 'skull_king_score_screen_state_provider.dart';
 import 'skull_king_score_widget.dart';
@@ -31,6 +32,8 @@ class SkullKingEndScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () {
+              final game = ref.read(currentGameManager).game as SkullKingGame;
+              ref.read(gamesManager.notifier).saveGame(game.copyWith(finished: true));
               ref.read(currentGameManager.notifier).clear();
               context.go("/");
             },
@@ -41,7 +44,17 @@ class SkullKingEndScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: SkullKingScoreWidget(state: state),
+      body: Column(
+        children: [
+          Text(
+            tr.skEndMessage(state.scores[0].player.name),
+            style: const TextStyle(fontSize: 20),
+          ),
+          Expanded(
+            child: SkullKingScoreWidget(state: state),
+          ),
+        ],
+      ),
     );
   }
 }
