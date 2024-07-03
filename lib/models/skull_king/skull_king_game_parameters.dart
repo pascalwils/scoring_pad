@@ -19,5 +19,7 @@ class SkullKingGameParameters with _$SkullKingGameParameters {
     @HiveField(2) @Default(false) bool lootCardsPresent,
     @HiveField(3) @Default(false) bool advancedPirateAbilitiesEnabled,
     @HiveField(4) @Default(false) bool additionalBonusesEnabled,
+    @HiveField(5, defaultValue: false) @Default(false) bool rascalScore,
+    @HiveField(6, defaultValue: false) @Default(false) bool rascalCannonball,
   }) = _SkullKingGameParameters;
 }

@@ -38,8 +38,7 @@ class WidgetTools {
 
   static Future<bool> checkGameInProgress(BuildContext context, WidgetRef ref) async {
     bool create = true;
-    final currentGame = ref.watch(currentGameManager);
-    bool gameInProgress = currentGame.players.isNotEmpty;
+    final gameInProgress = ref.watch(currentGameManager).isInProgress();
     if (gameInProgress) {
       bool? ok = await _showConfirmDialog(context);
       if (ok == null || !ok) {
@@ -48,6 +47,9 @@ class WidgetTools {
     }
     if (create) {
       if (gameInProgress) {
+        if (!context.mounted) {
+          return false;
+        }
         final game = ref.read(currentGameManager).game!;
         ref.read(gamesManager.notifier).saveGame(game);
         ref.read(currentGameManager.notifier).clear();
@@ -56,5 +58,35 @@ class WidgetTools {
       return true;
     }
     return false;
+  }
+
+  static Future<void> showAlertDialog({
+    required BuildContext context,
+    required String title,
+    required List<Widget> content,
+  }) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        AppLocalizations tr = AppLocalizations.of(context);
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: content,
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text(tr.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

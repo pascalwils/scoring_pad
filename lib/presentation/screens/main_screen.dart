@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/presentation/screens/about_screen.dart';
+import 'package:talker/talker.dart';
 
-import '../../managers/games_manager.dart';
 import '../../managers/current_game_manager.dart';
 import '../widgets/buttons_menu.dart';
 import '../widgets/default_button.dart';
@@ -12,6 +13,8 @@ import 'game_categories_screen.dart';
 import 'games_list_screen.dart';
 import 'players_list_screen.dart';
 import 'settings_screen.dart';
+
+final talker = Talker();
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
@@ -24,11 +27,8 @@ class MainScreen extends ConsumerWidget {
         title: Text(tr.appTitle),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.info,
-              color: Colors.white,
-            ),
-            onPressed: () => _showAboutDialog(context),
+            icon: const Icon(Icons.info),
+            onPressed: () => context.push('/${AboutScreen.path}'),
           ),
         ],
       ),
@@ -37,8 +37,7 @@ class MainScreen extends ConsumerWidget {
   }
 
   List<ButtonsMenuItem> _createEntries(AppLocalizations tr, WidgetRef ref) {
-    final currentGame = ref.watch(currentGameManager);
-    bool gameInProgress = currentGame.players.isNotEmpty;
+    final gameInProgress = ref.watch(currentGameManager).isInProgress();
     List<ButtonsMenuItem> entries = List.empty(growable: true);
     if (gameInProgress) {
       entries.add(ButtonsMenuItem(
@@ -81,20 +80,11 @@ class MainScreen extends ConsumerWidget {
     return entries;
   }
 
-  void _showAboutDialog(BuildContext context) {
-    AppLocalizations tr = AppLocalizations.of(context);
-    showAboutDialog(
-      context: context,
-      applicationName: tr.appTitle,
-      applicationVersion: "1.0.0",
-      applicationLegalese: "(c) 2024 - Pascal WILS",
-    );
-  }
-
   void _onCreateButtonTap(BuildContext context, WidgetRef ref) async {
     bool create = await WidgetTools.checkGameInProgress(context, ref);
     if (create) {
       if (!context.mounted) {
+        talker.warning("Context not mounted");
         return;
       }
       context.go(GameCategoriesScreen.path);

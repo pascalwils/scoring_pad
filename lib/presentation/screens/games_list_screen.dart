@@ -7,10 +7,13 @@ import 'package:scoring_pad/managers/current_game_manager.dart';
 import 'package:scoring_pad/models/game_catalog.dart';
 import 'package:scoring_pad/models/player.dart';
 import 'package:scoring_pad/translation_support.dart';
+import 'package:talker/talker.dart';
 
 import '../../managers/games_manager.dart';
 import '../../models/game.dart';
 import '../widgets/widget_tools.dart';
+
+final talker = Talker();
 
 class GamesListScreen extends ConsumerWidget {
   static const String path = 'games-list';
@@ -76,12 +79,17 @@ class GamesListScreen extends ConsumerWidget {
     return GestureDetector(
       onTap: () async {
         if (game.isFinished()) {
+          final currentGame = ref.read(currentGameManager);
+          if (currentGame.isInProgress()) {
+            ref.read(gamesManager.notifier).saveGame(currentGame.game!);
+          }
           ref.read(currentGameManager.notifier).continueGame(game);
           GameCatalog().getGameEngine(game.getGameType())?.endGame(context);
         } else {
           bool create = await WidgetTools.checkGameInProgress(context, ref);
           if (create) {
             if (!context.mounted) {
+              talker.warning("Context not mounted");
               return;
             }
             ref.read(currentGameManager.notifier).continueGame(game);

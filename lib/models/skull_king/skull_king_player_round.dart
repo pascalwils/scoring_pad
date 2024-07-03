@@ -14,6 +14,7 @@ class SkullKingPlayerRound with _$SkullKingPlayerRound {
   @HiveType(typeId: skullKingPlayerRoundTypeId, adapterName: "SkullKingPlayerRoundAdapter")
   const factory SkullKingPlayerRound({
     @HiveField(0) @Default({}) Map<SkullKingRoundField, int> fields,
+    @HiveField(1, defaultValue: null) @Default(null) bool? cannonball,
   }) = _SkullKingPlayerRound;
 
   int getValue(SkullKingRoundField field) => fields[field] ?? 0;

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/presentation/screens/rules_screen.dart';
 import 'package:talker/talker.dart';
 
 import 'models/game_category.dart';
+import 'presentation/screens/about_screen.dart';
 import 'presentation/screens/favorite_games_screen.dart';
 import 'presentation/screens/game_categories_screen.dart';
 import 'presentation/screens/games_list_screen.dart';
@@ -16,7 +18,6 @@ import 'presentation/screens/player_details_screen.dart';
 import 'presentation/screens/settings_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_edit_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_screen.dart';
-import 'presentation/screens/skull_king/skull_king_score_screen.dart';
 import 'presentation/screens/skull_king/skull_king_end_screen.dart';
 
 final talker = Talker();
@@ -47,6 +48,7 @@ class AppRouter {
             pageBuilder: _createBuilder(const GamesListScreen()),
           ),
           GoRoute(path: SettingsScreen.path, pageBuilder: _createBuilder(const SettingsScreen())),
+          GoRoute(path: AboutScreen.path, pageBuilder: _createBuilder(const AboutScreen())),
         ],
       ),
       GoRoute(
@@ -85,6 +87,10 @@ class AppRouter {
             },
           ),
           GoRoute(
+            path: RulesScreen.path,
+            pageBuilder: _createBuilder(const RulesScreen()),
+          ),
+          GoRoute(
             path: GameSettingsScreen.path,
             pageBuilder: _createBuilder(const GameSettingsScreen()),
           ),
@@ -114,24 +120,6 @@ class AppRouter {
               );
             },
           ),
-          GoRoute(
-            path: SkullKingScoreScreen.path,
-            pageBuilder: (context, state) {
-              return CustomTransitionPage<void>(
-                key: state.pageKey,
-                child: const SkullKingScoreScreen(),
-                transitionsBuilder: (_, animation, __, child) => SlideTransition(
-                  position: animation.drive(
-                    Tween<Offset>(
-                      begin: const Offset(1.0, 0),
-                      end: Offset.zero,
-                    ).chain(CurveTween(curve: Curves.easeIn)),
-                  ),
-                  child: child,
-                ),
-              );
-            },
-          ),
         ],
       ),
       GoRoute(
@@ -139,7 +127,7 @@ class AppRouter {
         pageBuilder: (context, state) {
           return CustomTransitionPage<void>(
             key: state.pageKey,
-            child: const SkullKingEndScreen(),
+            child: SkullKingEndScreen(),
             transitionsBuilder: (_, animation, __, child) => SlideTransition(
               position: animation.drive(
                 Tween<Offset>(

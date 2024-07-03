@@ -9,7 +9,7 @@ import '../../../models/skull_king/skull_king_round_field.dart';
 import '../../../models/skull_king/skull_king_rules.dart';
 import '../../../settings/pref_keys.dart';
 import '../../graphic_tools.dart';
-import '../../palettes.dart';
+import '../../app_color_schemes.dart';
 import '../../widgets/expandable.dart';
 import '../../widgets/integer_field.dart';
 import 'skull_king_round_screen_state.dart';
@@ -18,6 +18,7 @@ class SkullKingPlayerTile extends StatelessWidget {
   final SkullKingRoundScreenState state;
   final int playerIndex;
   final void Function(SkullKingRoundField, int) onFieldChange;
+  final void Function(bool) onRascalFieldChange;
   final Map<SkullKingRoundField, _FieldDefinition> _fields = {};
 
   SkullKingPlayerTile({
@@ -25,6 +26,7 @@ class SkullKingPlayerTile extends StatelessWidget {
     required this.state,
     required this.playerIndex,
     required this.onFieldChange,
+    required this.onRascalFieldChange,
   });
 
   @override
@@ -34,15 +36,10 @@ class SkullKingPlayerTile extends StatelessWidget {
     _initFields(tr);
 
     final player = state.players[playerIndex];
-    final round = state.rounds[playerIndex];
-    final initialRound = state.initialRounds?[playerIndex];
 
-    final scheme = getColorScheme(Theme.of(context).brightness, player.colorIndex);
+    final scheme = Theme.of(context).colorScheme.playerSchemes[player.colorIndex];
     final normalTextStyle = TextStyle(color: computeColorForText(scheme.text), fontSize: 16);
-    final oldTextStyle = TextStyle(color: computeDimmedColorForText(scheme.text), fontSize: 16);
     final boldTextStyle = normalTextStyle.copyWith(fontWeight: FontWeight.bold);
-    final bonusTextStyle = normalTextStyle.copyWith(color: scheme.base, fontWeight: FontWeight.bold);
-    final useEmoji = PrefService.of(context).get<bool>(skEmojiForBonusTypes) ?? false;
 
     return Padding(
       padding: const EdgeInsets.all(4),
@@ -62,33 +59,7 @@ class SkullKingPlayerTile extends StatelessWidget {
             _buildPointsLine(tr, normalTextStyle, boldTextStyle, state.scores[playerIndex]),
           ]),
           subtitle: Column(
-            children: [
-              _buildField(
-                  SkullKingRoundField.bids, round, initialRound, normalTextStyle, oldTextStyle, scheme, useEmoji, state.nbCards),
-              _buildField(
-                  SkullKingRoundField.won, round, initialRound, normalTextStyle, oldTextStyle, scheme, useEmoji, state.nbCards),
-              const SizedBox(height: 8),
-              Expandable(
-                backgroundColor: scheme.background,
-                boxShadow: const [],
-                arrowColor: scheme.base,
-                firstChild: Text(
-                  tr.skBonusPoints,
-                  style: bonusTextStyle,
-                ),
-                secondChild: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 4,
-                    right: 4,
-                    bottom: 6,
-                  ),
-                  child: Column(
-                    children:
-                        _buildBonusLines(normalTextStyle, oldTextStyle, scheme, useEmoji, round, initialRound, state.parameters),
-                  ),
-                ),
-              ),
-            ],
+            children: _buildContent(context, tr, scheme, normalTextStyle),
           ),
         ),
       ),
@@ -115,6 +86,66 @@ class SkullKingPlayerTile extends StatelessWidget {
       _fields[SkullKingRoundField.bonuses] =
           _FieldDefinition(standardText: tr.skAdditionalBonuses, minValue: -90, maxValue: 90, step: 10);
     }
+  }
+
+  List<Widget> _buildContent(BuildContext context, AppLocalizations tr, PlayerColorScheme scheme, TextStyle textStyle) {
+    final List<Widget> result = List.empty(growable: true);
+
+    final round = state.rounds[playerIndex];
+    final initialRound = state.initialRounds?[playerIndex];
+    final oldTextStyle = TextStyle(color: computeDimmedColorForText(scheme.text), fontSize: 16);
+    final bonusTextStyle = textStyle.copyWith(color: scheme.base, fontWeight: FontWeight.bold);
+    final useEmoji = PrefService.of(context).get<bool>(skEmojiForBonusTypes) ?? false;
+
+    if (state.parameters.rascalScore && state.parameters.rascalCannonball) {
+      result.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: SegmentedButton<bool>(
+            style: SegmentedButton.styleFrom(
+              backgroundColor: scheme.unselectedButtonBackground,
+              foregroundColor: computeColorForText(scheme.unselectedButtonBackground),
+              selectedBackgroundColor: scheme.buttonBackground,
+              selectedForegroundColor: computeColorForText(scheme.buttonBackground),
+            ),
+            showSelectedIcon: false,
+            segments: [
+              ButtonSegment(label: Text(tr.skGrapeshot), value: false),
+              ButtonSegment(label: Text(tr.skCannonball), value: true),
+            ],
+            selected: <bool>{round.cannonball ?? false},
+            onSelectionChanged: (selection) {
+              onRascalFieldChange(selection.first);
+            },
+          ),
+        ),
+      );
+    }
+
+    result
+        .add(_buildField(SkullKingRoundField.bids, round, initialRound, textStyle, oldTextStyle, scheme, useEmoji, state.nbCards));
+    result.add(_buildField(SkullKingRoundField.won, round, initialRound, textStyle, oldTextStyle, scheme, useEmoji, state.nbCards));
+    result.add(const SizedBox(height: 8));
+    result.add(Expandable(
+      backgroundColor: scheme.background,
+      boxShadow: const [],
+      arrowColor: scheme.base,
+      firstChild: Text(
+        tr.skBonusPoints,
+        style: bonusTextStyle,
+      ),
+      secondChild: Padding(
+        padding: const EdgeInsets.only(
+          left: 4,
+          right: 4,
+          bottom: 6,
+        ),
+        child: Column(
+          children: _buildBonusLines(textStyle, oldTextStyle, scheme, useEmoji, round, initialRound, state.parameters),
+        ),
+      ),
+    ));
+    return result;
   }
 
   Widget _buildPointsLine(AppLocalizations tr, TextStyle normalTextStyle, TextStyle boldTextStyle, int score) {

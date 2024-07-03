@@ -50,9 +50,10 @@ class CurrentGameManager extends StateNotifier<GameState> {
     try {
       talker.debug("Get current game.");
       final box = Hive.box(currentGameBoxName);
-      state = box.get(KEY, defaultValue: GameState(players: []));
+      state = box.get(KEY, defaultValue: const GameState(players: []));
     } catch (e) {
-      talker.debug("Unable to get current game from database", e);
+      talker.error("Unable to get current game from database", e);
+      rethrow;
     }
   }
 
@@ -62,7 +63,8 @@ class CurrentGameManager extends StateNotifier<GameState> {
       box.put(KEY, state);
       talker.debug("Current game has been saved.");
     } catch (e) {
-      talker.debug("Unable to save current game to database", e);
+      talker.error("Unable to save current game to database", e);
+      rethrow;
     }
   }
 }

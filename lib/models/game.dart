@@ -6,6 +6,10 @@ abstract class Game {
 
   List<Player> getPlayers();
 
+  List<int> getScores();
+
+  Game setPlayers(List<Player> newPlayers);
+
   DateTime getStartTime();
 
   bool isFinished();

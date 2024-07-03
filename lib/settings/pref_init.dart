@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pref/pref.dart';
+import 'package:scoring_pad/presentation/widgets/score_graph_widget.dart';
 
 import '../models/skull_king/skull_king_game_mode.dart';
 import '../models/skull_king/skull_king_rules.dart';
@@ -12,6 +13,7 @@ Future<PrefServiceShared> prefServiceInit() async {
       // application
       uiThemePrefKey: PrefTheme.dark.name,
       uiColorPrefKey: Colors.blue.value,
+      graphCurveShapePrefKey: GraphCurveShape.curved.name,
       // skullking
       skModePrefKey: SkullKingGameMode.regular.name,
       skRulesPrefKey: SkullKingRules.initial.name,
@@ -19,6 +21,8 @@ Future<PrefServiceShared> prefServiceInit() async {
       skAdvancedPiratesPrefKey: false,
       skAdditionalBonusesPrefKey: false,
       skEmojiForBonusTypes: false,
+      skRascalScoreMode: false,
+      skRascalCannonball: false,
     },
   );
 }

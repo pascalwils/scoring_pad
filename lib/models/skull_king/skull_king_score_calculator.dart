@@ -1,3 +1,5 @@
+import 'package:scoring_pad/models/skull_king/skull_king_game_parameters.dart';
+
 import 'skull_king_game.dart';
 import 'skull_king_player_round.dart';
 import 'skull_king_rules.dart';
@@ -21,22 +23,49 @@ abstract class SkullKingScoreCalculator {
 
   int getScoreForRound(SkullKingPlayerRound round, int nbCards) {
     int result = 0;
-    if (round.getValue(SkullKingRoundField.bids) == round.getValue(SkullKingRoundField.won)) {
-      if (round.getValue(SkullKingRoundField.bids) == 0) {
-        result += nbCards * pointsPerWonRound;
-      } else {
-        result += round.getValue(SkullKingRoundField.bids) * pointsForWonBids;
-      }
-      result += round.getValue(SkullKingRoundField.pirates) * pointsForPirate;
-      result += _getSpecificWinScoreForRound(round);
+    final bids = round.getValue(SkullKingRoundField.bids);
+    final won = round.getValue(SkullKingRoundField.won);
+    if (bids == won) {
+      result = _getScoreForWin(round, bids, nbCards);
+    } else if ((bids - won).abs() == 1) {
+      result = _getScoreForNearlyWin(round, bids, nbCards);
     } else {
-      if (round.getValue(SkullKingRoundField.bids) == 0) {
-        result -= nbCards * pointsForLostBids;
-      } else {
-        result -= (round.getValue(SkullKingRoundField.bids) - round.getValue(SkullKingRoundField.won)).abs() * pointsForLostBids;
-      }
-      result -= _getSpecificLostScoreForRound(round);
+      result = _getScoreForLose(round, bids, nbCards);
     }
+    return result;
+  }
+
+  int _getScoreForWin(SkullKingPlayerRound round, int bids, int nbCards) {
+    int result = 0;
+    if (bids == 0) {
+      result += nbCards * pointsPerWonRound;
+    } else {
+      result += bids * pointsForWonBids;
+    }
+    result += round.getValue(SkullKingRoundField.pirates) * pointsForPirate;
+    result += _getSpecificWinScoreForRound(round);
+    return result;
+  }
+
+  int _getScoreForNearlyWin(SkullKingPlayerRound round, int bids, int nbCards) {
+    int result = 0;
+    if (bids == 0) {
+      result -= nbCards * pointsForLostBids;
+    } else {
+      result -= (bids - round.getValue(SkullKingRoundField.won)).abs() * pointsForLostBids;
+    }
+    result -= _getSpecificLostScoreForRound(round);
+    return result;
+  }
+
+  int _getScoreForLose(SkullKingPlayerRound round, int bids, int nbCards) {
+    int result = 0;
+    if (bids == 0) {
+      result -= nbCards * pointsForLostBids;
+    } else {
+      result -= (bids - round.getValue(SkullKingRoundField.won)).abs() * pointsForLostBids;
+    }
+    result -= _getSpecificLostScoreForRound(round);
     return result;
   }
 
@@ -56,7 +85,7 @@ class InitialSkullKingScoreCalculator extends SkullKingScoreCalculator {
   }
 }
 
-class Sin2021SkullKingScoreCalculator extends SkullKingScoreCalculator {
+class Since2021SkullKingScoreCalculator extends SkullKingScoreCalculator {
   static const pointsForMermaid = 20;
   static const pointsForLoot = 20;
   static const pointsForStandard14 = 10;
@@ -82,7 +111,7 @@ class Sin2021SkullKingScoreCalculator extends SkullKingScoreCalculator {
   }
 }
 
-SkullKingScoreCalculator getSkullKingScoreCalculator(SkullKingRules rules) => switch (rules) {
+SkullKingScoreCalculator getSkullKingScoreCalculator(SkullKingGameParameters parameters) => switch (parameters.rules) {
       SkullKingRules.initial => InitialSkullKingScoreCalculator(),
-      SkullKingRules.since2021 => Sin2021SkullKingScoreCalculator(),
+      SkullKingRules.since2021 => Since2021SkullKingScoreCalculator(),
     };

@@ -1,4 +1,5 @@
 import 'package:scoring_pad/models/skull_king/skull_king_game.dart';
+import 'package:scoring_pad/models/skull_king/skull_king_game_parameters.dart';
 import 'package:scoring_pad/models/skull_king/skull_king_player_round.dart';
 import 'package:scoring_pad/models/skull_king/skull_king_round_field.dart';
 import 'package:scoring_pad/models/skull_king/skull_king_rules.dart';
@@ -14,7 +15,7 @@ void main() {
       test(
         'Test win with Initial rules',
         () {
-          final calculator = getSkullKingScoreCalculator(SkullKingRules.initial);
+          final calculator = getSkullKingScoreCalculator(const SkullKingGameParameters());
           expect(
               calculator.getScoreForRound(
                   const SkullKingPlayerRound(fields: {SkullKingRoundField.bids: 1, SkullKingRoundField.won: 1}), 1),
@@ -54,7 +55,9 @@ void main() {
       test(
         'Test win with Since2021 rules',
         () {
-          final calculator = getSkullKingScoreCalculator(SkullKingRules.since2021);
+          final calculator = getSkullKingScoreCalculator(
+            const SkullKingGameParameters(rules: SkullKingRules.since2021),
+          );
           expect(
               calculator.getScoreForRound(
                   SkullKingPlayerRound(
@@ -106,7 +109,7 @@ void main() {
       test(
         'Test lost with Initial rules',
         () {
-          final calculator = getSkullKingScoreCalculator(SkullKingRules.initial);
+          final calculator = getSkullKingScoreCalculator(const SkullKingGameParameters());
           expect(calculator.getScoreForRound(const SkullKingPlayerRound(fields: {SkullKingRoundField.bids: 1}), 1), -10);
           expect(calculator.getScoreForRound(const SkullKingPlayerRound(fields: {SkullKingRoundField.won: 1}), 1), -10);
           expect(
@@ -128,7 +131,9 @@ void main() {
       test(
         'Test lost with Since2021 rules',
         () {
-          final calculator = getSkullKingScoreCalculator(SkullKingRules.since2021);
+          final calculator = getSkullKingScoreCalculator(
+            const SkullKingGameParameters(rules: SkullKingRules.since2021),
+          );
           expect(calculator.getScoreForRound(const SkullKingPlayerRound(fields: {SkullKingRoundField.bids: 1}), 1), -10);
           expect(calculator.getScoreForRound(const SkullKingPlayerRound(fields: {SkullKingRoundField.won: 1}), 1), -10);
           expect(
@@ -168,7 +173,7 @@ void main() {
     "Test getScore",
     () => {
       test('Test 2 rounds with Initial rules', () {
-        final calculator = getSkullKingScoreCalculator(SkullKingRules.initial);
+        final calculator = getSkullKingScoreCalculator(const SkullKingGameParameters());
         SkullKingGame game = skullkingSimpleGameFixture();
         expect(calculator.getScore(game: game, playerIndex: 0), 30);
       }),

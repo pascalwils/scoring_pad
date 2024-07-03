@@ -17,7 +17,7 @@
     "skullking": "Skull King",
     "papayoo": "Papayoo",
     "prophecy": "Prophecy",
-    "freeGames": "Free Games",
+    "freeGames": "User-defined Games",
     "newPlayer": "New\nplayer",
     "playerName": "Player name",
     "cancel": "Cancel",
@@ -118,7 +118,7 @@
     "startNextRoundTitle": "Start Next Round",
     "startNextRoundText": "You can edit previous rounds bby taping the backward arrow icon.",
     "disableNextRoundAlert": "Disable \"Start Next Round\" alert",
-    "skEndMessage": "{playerName} is the Skull King",
+    "skEndMessage": "{playerName} is the Captain of the 7 Seas!",
     "@skEndMessage": {
         "placeholders": {
             "playerName": {
@@ -127,5 +127,54 @@
         }
     },
     "gameDeleted": "Game deleted",
-    "undo": "Undo"
+    "undo": "Undo",
+    "graphRoundTitle": "R{roundNumber}",
+    "@graphRoundTitle": {
+        "placeholders": {
+            "roundNumber": {
+                "type": "int"
+            }
+        }
+    },
+    "noGamePlayed": "This player has not played a game yet.",
+    "graphCurveShape": "Graph Curve Shape",
+    "graphCurveShapeCurved": "Smooth",
+    "graphCurveShapeStraight": "Straight",
+    "graphCurveShapeStep": "Step Line",
+    "prefTitleGraph": "Graph",
+    "playerStatWonGames": "{count, plural, zero{Won Game: 0} one{Won Game: 1} other{Won Games: {count}}} / {total}",
+    "@playerStatWonGames": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            }
+        }
+    },
+    "playerStatScores": "Best / Worst Score: {scoreMax} / {scoreMin}",
+    "@playerStatScores": {
+        "placeholders": {
+            "scoreMax": {
+                "type": "int"
+            },
+            "scoreMin": {
+                "type": "int"
+            }
+        }
+    },
+    "playerRenameDialogTitle": "Can't rename player",
+    "playerDeleteDialogTitle": "Can't delete player",
+    "playerRenameContent": "You can not rename a player while a game is in progress.",
+    "playerDeleteContent": "You can not delete a player while a game is in progress.",
+    "about": "About",
+    "appDescriptionLine1": "This application allows you to keep score of various games.",
+    "appDescriptionLine2": "No need for paper, pencil or calculator, the application lets you count everything, every time.",
+    "aboutOpenSourceLicenses": "Open source Licenses",
+    "aboutViewReadme": "View Readme",
+    "skRascalScoreMode": "Rascal's  Scoring",
+    "skRascalCannonball": "Use grapeshot + cannonball",
+    "skGrapeshot": "Grapeshot",
+    "skCannonball": "Cannonball"
 }

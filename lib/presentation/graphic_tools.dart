@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/game_type.dart';
+
 Color computeColorForText(Color background) {
   return background.computeLuminance() > 0.5 ? Colors.black : Colors.white;
 }
@@ -37,5 +39,17 @@ extension HexColor on Color {
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
     buffer.write(hexString.replaceFirst('#', ''));
     return Color(int.parse(buffer.toString(), radix: 16));
+  }
+}
+
+extension GameTypeTranslation on GameType {
+  Image getIcon() {
+    String iconName = switch (this) {
+      GameType.papayoo => "papayoo",
+      GameType.prophecy => "prophecy",
+      GameType.skullking => "skullking",
+      GameType.take5 => "take5",
+    };
+    return Image.asset("assets/game-icons/$iconName.webp");
   }
 }

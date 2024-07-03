@@ -24,6 +24,11 @@ sealed class StandardGame extends Game with _$StandardGame {
   List<Player> getPlayers() => players.map((e) => Player(name: e.name)).toList();
 
   @override
+  List<int> getScores() {
+    return rounds.last;
+  }
+
+  @override
   DateTime getStartTime() => startTime;
 
   @override
@@ -31,4 +36,14 @@ sealed class StandardGame extends Game with _$StandardGame {
 
   @override
   GameType getGameType() => type;
+
+  @override
+  Game setPlayers(List<Player> newPlayers) {
+    assert(newPlayers.length == players.length);
+    List<GamePlayer> newGamePlayers = List.empty(growable: true);
+    for (int i = 0; i < newPlayers.length; i++) {
+      newGamePlayers.add(GamePlayer(name: newPlayers[i].name, colorIndex: players[i].colorIndex));
+    }
+    return copyWith(players: newGamePlayers);
+  }
 }

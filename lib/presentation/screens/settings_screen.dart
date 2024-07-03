@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pref/pref.dart';
+import 'package:scoring_pad/presentation/widgets/score_graph_widget.dart';
 
 import '../../settings/pref_keys.dart';
 import '../../settings/pref_theme.dart';
@@ -60,6 +61,35 @@ class SettingsScreen extends StatelessWidget {
           PrefColor(
             title: Text(tr.themeColor),
             pref: uiColorPrefKey,
+          ),
+          PrefTitle(
+            title: Text(tr.prefTitleGraph),
+          ),
+          PrefDialogButton(
+            title: Text(tr.graphCurveShape),
+            subtitle: Text(GraphCurveShape.fromPreferences(context).getName(tr)),
+            dialog: PrefDialog(
+              title: Text(tr.graphCurveShape),
+              cancel: Text(tr.cancel),
+              submit: Text(tr.ok),
+              children: [
+                PrefRadio(
+                  title: Text(tr.graphCurveShapeCurved),
+                  value: GraphCurveShape.curved.name,
+                  pref: graphCurveShapePrefKey,
+                ),
+                PrefRadio(
+                  title: Text(tr.graphCurveShapeStraight),
+                  value: GraphCurveShape.straight.name,
+                  pref: graphCurveShapePrefKey,
+                ),
+                PrefRadio(
+                  title: Text(tr.graphCurveShapeStep),
+                  value: GraphCurveShape.step.name,
+                  pref: graphCurveShapePrefKey,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -11,10 +11,14 @@ part 'game_state.g.dart';
 
 @freezed
 class GameState with _$GameState {
+  const GameState._();
+
   @HiveType(typeId: gameStateTypeId, adapterName: 'GameStateAdapter')
   const factory GameState({
     @HiveField(0) GameType? gameType,
     @HiveField(1) required List<GamePlayer> players,
     @HiveField(2) Game? game,
   }) = _GameState;
+
+  bool isInProgress() => players.isNotEmpty;
 }

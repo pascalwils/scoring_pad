@@ -21,7 +21,8 @@ class PlayersManager extends StateNotifier<List<Player>> {
         talker.debug("Add player ${player.name} to database.");
       }
     } catch (e) {
-      talker.debug("Unable to add player '${player.name}' to database", e);
+      talker.error("Unable to add player '${player.name}' to database", e);
+      rethrow;
     }
   }
 
@@ -35,7 +36,8 @@ class PlayersManager extends StateNotifier<List<Player>> {
         talker.debug("remove player ${player.name} from database.");
       }
     } catch (e) {
-      talker.debug("Unable to remove player '${player.name}' from database", e);
+      talker.error("Unable to remove player '${player.name}' from database", e);
+      rethrow;
     }
   }
 
@@ -44,7 +46,8 @@ class PlayersManager extends StateNotifier<List<Player>> {
       final box = Hive.box(playerBoxName);
       state = box.keys.map((e) => Player(name: e.toString())).toList();
     } catch (e) {
-      talker.debug("Unable to get all players from database", e);
+      talker.error("Unable to get all players from database", e);
+      rethrow;
     }
   }
 }

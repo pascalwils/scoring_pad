@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/presentation/screens/rules_screen.dart';
 
 import '../../models/game_state.dart';
 import '../../managers/current_game_manager.dart';
@@ -38,7 +39,7 @@ class GameStartScreen extends ConsumerWidget {
     if (_getWidget(ref) != null) {
       entries.add(ButtonsMenuItem(title: tr.settings, style: StyleEnum.filledTonal, callback: _onSettings));
     }
-    entries.add(ButtonsMenuItem(title: tr.rules, style: StyleEnum.filledTonal, callback: (_) {}));
+    entries.add(ButtonsMenuItem(title: tr.rules, style: StyleEnum.filledTonal, callback: _onRules));
 
     return Scaffold(
       appBar: AppBar(
@@ -68,5 +69,9 @@ class GameStartScreen extends ConsumerWidget {
 
   void _onSettings(BuildContext context) {
     context.go('${GameStartScreen.path}/${GameSettingsScreen.path}');
+  }
+
+  void _onRules(BuildContext context) {
+    context.go('${GameStartScreen.path}/${RulesScreen.path}');
   }
 }

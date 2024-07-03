@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:scoring_pad/models/game_player.dart';
 
 import '../../../managers/current_game_manager.dart';
 import '../../../managers/players_manager.dart';
 import '../../../models/player.dart';
 import '../../widgets/player_edition/player_edition_dialog.dart';
 import '../../widgets/player_palette.dart';
-import '../../palettes.dart';
+import '../../app_color_schemes.dart';
 import 'player_selection_state.dart';
 import 'player_selection_state_provider.dart';
 
@@ -23,7 +24,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
-    final List<Color> palette = getColorPalette(Theme.of(context).brightness);
+    final List<PlayerColorScheme> playerSchemes = Theme.of(context).colorScheme.playerSchemes;
     final state = ref.watch(playerSelectionProvider);
     return Scaffold(
       appBar: AppBar(
@@ -53,32 +54,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
                 ? ReorderableListView(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    children: [
-                      for (int index = 0; index < state.selectedPlayers.length; index += 1)
-                        ListTile(
-                          key: Key('$index'),
-                          leading: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: palette[state.selectedPlayers[index].colorIndex],
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          //tileColor: index.isOdd ? oddItemColor : evenItemColor,
-                          title: Text(state.selectedPlayers[index].name),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              ref.read(playerSelectionProvider.notifier).deletePlayer(index);
-                            },
-                          ),
-                        ),
-                    ],
+                    children: _getSelectedPlayerTiles(ref, state.selectedPlayers, playerSchemes),
                     onReorder: (int oldIndex, int newIndex) {
                       ref.read(playerSelectionProvider.notifier).reorderPlayers(oldIndex, newIndex);
                     },
@@ -104,6 +80,37 @@ class PlayerSelectionScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  List<Widget> _getSelectedPlayerTiles(WidgetRef ref, List<GamePlayer> players, List<PlayerColorScheme> schemes) {
+    final List<Widget> result = List.empty(growable: true);
+    for (int i = 0; i < players.length; i++) {
+      final player = players[i];
+      result.add(ListTile(
+        key: Key('$i'),
+        leading: Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            color: schemes[player.colorIndex].base,
+            shape: BoxShape.circle,
+            border: Border.all(
+              width: 1,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        //tileColor: index.isOdd ? oddItemColor : evenItemColor,
+        title: Text(player.name),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () {
+            ref.read(playerSelectionProvider.notifier).deletePlayer(i);
+          },
+        ),
+      ));
+    }
+    return result;
   }
 
   Future<Player?> _displayTextInputDialog(BuildContext context) async {

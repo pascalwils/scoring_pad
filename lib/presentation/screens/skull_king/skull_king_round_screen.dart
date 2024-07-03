@@ -6,10 +6,12 @@ import 'package:go_router/go_router.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_round_field.dart';
+import '../../widgets/rules_widget.dart';
+import '../../widgets/score_widget.dart';
 import 'skull_king_round_screen_state.dart';
 import 'skull_king_round_screen_state_provider.dart';
 import 'skull_king_player_tile.dart';
-import 'skull_king_score_screen.dart';
+import 'skull_king_score_screen_state_provider.dart';
 import 'skull_king_ui_tools.dart';
 
 class SkullKingRoundScreen extends ConsumerWidget {
@@ -21,11 +23,6 @@ class SkullKingRoundScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final state = ref.watch(skullKingRoundScreenProvider);
-    final textStyle = TextStyle(
-      color: Theme.of(context).colorScheme.onPrimaryContainer,
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.skullking),
@@ -37,21 +34,55 @@ class SkullKingRoundScreen extends ConsumerWidget {
           ),
         ),
         actions: [
-          SkullKingUiTools.buildUndoActionButton(context, state.currentRound, tr, (SkullKingGame updatedGame) {
-            ref.read(skullKingRoundScreenProvider.notifier).update(updatedGame);
+          SkullKingUiTools.buildUndoActionButton(context, state.currentRound, tr, (SkullKingGame? updatedGame) {
+            if (updatedGame != null) {
+              ref.read(skullKingRoundScreenProvider.notifier).update(updatedGame);
+            }
           }),
-          TextButton(
-            onPressed:
-                state.currentRound == 0 ? null : () => context.push('${SkullKingRoundScreen.path}/${SkullKingScoreScreen.path}'),
-            child: Icon(
-              Icons.scoreboard,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
-          ),
           _buildNextOrEndActionButton(context, ref),
         ],
       ),
-      body: Column(children: [
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          ref.read(skullKingRoundScreenProvider.notifier).updatePageIndex(index);
+        },
+        selectedIndex: state.currentPageIndex,
+        destinations: [
+          NavigationDestination(
+            selectedIcon: const Icon(Icons.list),
+            icon: const Icon(Icons.list_outlined),
+            label: tr.skBid,
+          ),
+          NavigationDestination(
+            selectedIcon: const Icon(Icons.scoreboard),
+            icon: const Icon(Icons.scoreboard_outlined),
+            label: tr.scoreboard,
+          ),
+          NavigationDestination(
+            selectedIcon: const Icon(Icons.scoreboard),
+            icon: const Icon(Icons.scoreboard_outlined),
+            label: tr.rules,
+          ),
+        ],
+      ),
+      body: [
+        _buildBidPage(context, ref),
+        _buildScoreboardPage(context, ref),
+        _buildRulesPage(context, ref),
+      ][state.currentPageIndex],
+    );
+  }
+
+  Widget _buildBidPage(BuildContext context, WidgetRef ref) {
+    AppLocalizations tr = AppLocalizations.of(context);
+    final state = ref.watch(skullKingRoundScreenProvider);
+    final textStyle = TextStyle(
+      color: Theme.of(context).colorScheme.onPrimaryContainer,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
+    return Column(
+      children: [
         Container(
           padding: const EdgeInsets.all(4),
           color: Theme.of(context).colorScheme.primaryContainer,
@@ -70,11 +101,14 @@ class SkullKingRoundScreen extends ConsumerWidget {
                 onFieldChange: (SkullKingRoundField field, int newValue) {
                   _updateField(ref, state, itemIndex, field, newValue);
                 },
+                onRascalFieldChange: (cannonball) {
+                  _updateRascalCannonball(ref, state, itemIndex, cannonball);
+                },
               );
             },
           ),
         ),
-      ]),
+      ],
     );
   }
 
@@ -92,7 +126,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
       return TextButton(
         onPressed: () {
           final state = ref.watch(skullKingRoundScreenProvider);
-          final updatedGame = SkullKingUiTools.updateGameFromState(game, state, game.currentRound);
+          final updatedGame = SkullKingUiTools.updateGameFromState(game: game, state: state);
           ref.read(currentGameManager.notifier).updateGame(updatedGame);
           ref.read(currentEngineProvider)!.endGame(context);
         },
@@ -142,7 +176,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
   void _nextRound(WidgetRef ref) {
     final game = ref.read(currentGameManager).game as SkullKingGame;
     final state = ref.watch(skullKingRoundScreenProvider);
-    final updatedGame = SkullKingUiTools.updateGameFromState(game, state, game.currentRound);
+    final updatedGame = SkullKingUiTools.updateGameFromState(game: game, state: state);
     ref.read(currentGameManager.notifier).updateGame(updatedGame);
     ref.read(skullKingRoundScreenProvider.notifier).update(updatedGame);
   }
@@ -151,5 +185,21 @@ class SkullKingRoundScreen extends ConsumerWidget {
     var round = state.rounds[playerIndex];
     round = round.copyWith(fields: {...round.fields, field: newValue});
     ref.read(skullKingRoundScreenProvider.notifier).updateRound(playerIndex, round);
+  }
+
+  void _updateRascalCannonball(WidgetRef ref, SkullKingRoundScreenState state, int playerIndex, bool cannonball) {
+    var round = state.rounds[playerIndex];
+    round = round.copyWith(cannonball: cannonball);
+    ref.read(skullKingRoundScreenProvider.notifier).updateRound(playerIndex, round);
+  }
+
+  Widget _buildScoreboardPage(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(skullKingRoundScreenProvider);
+    return ScoreWidget(state: state.scoreState);
+  }
+
+  Widget _buildRulesPage(BuildContext context, WidgetRef ref) {
+    final currentGameType = ref.read(currentGameManager).gameType;
+    return RulesWidget(gameType: currentGameType!);
   }
 }

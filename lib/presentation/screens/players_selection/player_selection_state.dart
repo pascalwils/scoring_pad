@@ -1,6 +1,6 @@
 import '../../../models/game_player.dart';
 import '../../../models/player.dart';
-import '../../palettes.dart';
+import '../../app_color_schemes.dart';
 
 class PlayerSelectionState {
   final List<GamePlayer> selectedPlayers;

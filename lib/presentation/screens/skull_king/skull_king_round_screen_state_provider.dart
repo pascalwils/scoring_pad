@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scoring_pad/presentation/screens/skull_king/skull_king_ui_tools.dart';
+import 'package:talker/talker.dart';
 
 import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import '../../../models/skull_king/skull_king_player_round.dart';
 import '../../../models/skull_king/skull_king_score_calculator.dart';
+import '../../widgets/score_widget_state.dart';
 import 'skull_king_round_screen_state.dart';
+
+final talker = Talker();
 
 class SkullKingRoundScreenStateNotifier extends StateNotifier<SkullKingRoundScreenState> {
   SkullKingRoundScreenStateNotifier(SkullKingGame game) : super(_getStateFromGame(game));
@@ -19,15 +24,21 @@ class SkullKingRoundScreenStateNotifier extends StateNotifier<SkullKingRoundScre
     state = state.copyWith(rounds: copyRounds);
   }
 
+  void updatePageIndex(int index) {
+    state = state.copyWith(currentPageIndex: index);
+  }
+
   static SkullKingRoundScreenState _getStateFromGame(SkullKingGame game) {
     final currentRound = game.currentRound;
-    final calculator = getSkullKingScoreCalculator(game.parameters.rules);
+    talker.debug("Update Skull-king round screen for round #$currentRound");
+    final calculator = getSkullKingScoreCalculator(game.parameters);
     final scores = List<int>.empty(growable: true);
     for (int i = 0; i < game.players.length; i++) {
       scores.add(calculator.getScore(game: game, playerIndex: i, toRoundIndex: currentRound - 1));
     }
     final rounds = game.playerGames.map((it) => it.rounds[currentRound]).toList();
     return SkullKingRoundScreenState(
+      currentPageIndex: 0,
       currentRound: currentRound,
       nbCards: game.nbCards(),
       nbRounds: game.nbRounds(),
@@ -35,6 +46,7 @@ class SkullKingRoundScreenStateNotifier extends StateNotifier<SkullKingRoundScre
       players: game.players,
       scores: scores,
       rounds: rounds,
+      scoreState: SkullKingUiTools.getScoreStateFromGame(game),
     );
   }
 }

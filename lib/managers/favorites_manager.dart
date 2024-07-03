@@ -27,15 +27,25 @@ class FavoritesManager extends StateNotifier<Favorites> {
   Future<void> toggleFavorite(GameType game) async {
     final box = Hive.box(favoriteBoxName);
     if (!state.isFavorite(game)) {
-      box.put(game.id, 0);
-      state = Favorites(entries: [...state.entries, game]);
-      talker.debug("Add favorite '$game' to database.");
+      try {
+        box.put(game.id, 0);
+        state = Favorites(entries: [...state.entries, game]);
+        talker.debug("Add favorite '$game' to database.");
+      } catch (e) {
+        talker.error("Can not add favorite to database", e);
+        rethrow;
+      }
     } else {
-      box.delete(game.id);
-      final newList = List<GameType>.from(state.entries);
-      newList.remove(game);
-      state = Favorites(entries: newList);
-      talker.debug("Remove favorite '$game' from database.");
+      try {
+        box.delete(game.id);
+        final newList = List<GameType>.from(state.entries);
+        newList.remove(game);
+        state = Favorites(entries: newList);
+        talker.debug("Remove favorite '$game' from database.");
+      } catch (e) {
+        talker.error("Can not remove favorite to database", e);
+        rethrow;
+      }
     }
   }
 }

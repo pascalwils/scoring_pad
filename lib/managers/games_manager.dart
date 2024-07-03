@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:scoring_pad/models/player.dart';
 import 'package:talker/talker.dart';
 
 import '../data/datasource.dart';
@@ -15,15 +16,20 @@ class GamesManager extends StateNotifier<List<Game>> {
   }
 
   void removeGame(Game game) {
-    final games  = List<Game>.of(state);
+    final games = List<Game>.of(state);
     int index = games.indexWhere((it) => it.getKey() == game.getKey());
-    if(index >= 0) {
+    if (index >= 0) {
       _removedGame = game;
       games.removeAt(index);
       state = games;
-      final box = Hive.box(gamesBoxName);
-      box.delete(game.getKey());
-      talker.debug("Game removed");
+      try {
+        final box = Hive.box(gamesBoxName);
+        box.delete(game.getKey());
+        talker.debug("Game removed");
+      } catch (e) {
+        talker.error("Unable to delete removed game from database", e);
+        rethrow;
+      }
     }
   }
 
@@ -32,10 +38,15 @@ class GamesManager extends StateNotifier<List<Game>> {
       var games = [...state, _removedGame!];
       games.sort((a, b) => a.compareTo(b));
       state = games;
-      final box = Hive.box(gamesBoxName);
-      box.put(_removedGame!.getKey(), _removedGame!);
-      _removedGame = null;
-      talker.debug("Game removable undone");
+      try {
+        final box = Hive.box(gamesBoxName);
+        box.put(_removedGame!.getKey(), _removedGame!);
+        _removedGame = null;
+        talker.debug("Game removable undone");
+      } catch (e) {
+        talker.error("Unable to put back removed game in database", e);
+        rethrow;
+      }
     }
   }
 
@@ -56,7 +67,29 @@ class GamesManager extends StateNotifier<List<Game>> {
       box.put(key, game);
       talker.debug("Games list has been saved.");
     } catch (e) {
-      talker.debug("Unable to save the game to database", e);
+      talker.error("Unable to save the game to database", e);
+      rethrow;
+    }
+  }
+
+  void renamePlayer(Player currentPlayer, Player player) {
+    try {
+      final box = Hive.box(gamesBoxName);
+      final List<Game> newState = List.empty(growable: true);
+      for (final game in state) {
+        if (game.getPlayers().contains(currentPlayer)) {
+          Game newGame = game
+              .setPlayers(game.getPlayers().map((it) => it.name == currentPlayer.name ? Player(name: player.name) : it).toList());
+          box.put(newGame.getKey(), game);
+          newState.add(newGame);
+        } else {
+          newState.add(game);
+        }
+      }
+      state = newState;
+    } catch (e) {
+      talker.error("Unable to rename player in database", e);
+      rethrow;
     }
   }
 
@@ -69,15 +102,15 @@ class GamesManager extends StateNotifier<List<Game>> {
       final games = box.values.map((it) => it as Game).toList();
       games.sort((a, b) => a.compareTo(b));
       state = games;
-      } catch (e)
-      {
-        talker.debug("Unable to get games from database", e);
-      }
+    } catch (e) {
+      talker.error("Unable to get games from database", e);
+      rethrow;
     }
+  }
 }
 
 final gamesManager = StateNotifierProvider<GamesManager, List<Game>>(
-      (ref) {
+  (ref) {
     return GamesManager();
   },
 );

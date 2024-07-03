@@ -69,10 +69,29 @@ class SkullkingGameSettings extends StatelessWidget {
               switchActiveColor: Theme.of(context).colorScheme.primary,
               pref: skAdvancedPiratesPrefKey,
             ),
+            PrefTitle(
+              title: Text(tr.scoreSettings),
+            ),
             PrefSwitch(
               title: Text(tr.skAdditionalBonuses),
               switchActiveColor: Theme.of(context).colorScheme.primary,
               pref: skAdditionalBonusesPrefKey,
+            ),
+            PrefSwitch(
+              title: Text(tr.skRascalScoreMode),
+              switchActiveColor: Theme.of(context).colorScheme.primary,
+              pref: skRascalScoreMode,
+            ),
+            PrefHiderGeneric<bool>(
+              nullValue: false,
+              pref: skRascalScoreMode,
+              children: [
+                PrefSwitch(
+                  title: Text(tr.skRascalCannonball),
+                  switchActiveColor: Theme.of(context).colorScheme.primary,
+                  pref: skRascalCannonball,
+                ),
+              ],
             ),
           ],
         ),

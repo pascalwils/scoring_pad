@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pref/pref.dart';
-import 'package:scoring_pad/models/game.dart';
 
 import '../../managers/current_game_manager.dart';
 import '../../models/game_player.dart';
@@ -53,6 +52,8 @@ class SkullKingGameEngine extends GameEngine {
       lootCardsPresent: pref.get(skLootCardsPrefKey),
       advancedPirateAbilitiesEnabled: pref.get(skAdvancedPiratesPrefKey),
       additionalBonusesEnabled: pref.get(skAdditionalBonusesPrefKey),
+      rascalScore: pref.get(skRascalScoreMode),
+      rascalCannonball: pref.get(skRascalCannonball),
     );
     int nbRounds = parameters.mode.nbCards.length;
     final rounds = List<SkullKingPlayerGame>.generate(

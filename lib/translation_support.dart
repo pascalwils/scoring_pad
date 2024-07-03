@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:scoring_pad/presentation/widgets/score_graph_widget.dart';
 
 import 'models/skull_king/skull_king_game_mode.dart';
 import 'models/skull_king/skull_king_rules.dart';
@@ -23,6 +24,9 @@ extension GameCategoryTranslation on GameCategory {
 }
 
 extension GameTypeTranslation on GameType {
+  static const rulesPathPrefix = "assets/rules/";
+  static const rulesFileExtension = ".md";
+
   String getName(AppLocalizations loc) {
     switch (this) {
       case GameType.papayoo:
@@ -36,14 +40,17 @@ extension GameTypeTranslation on GameType {
     }
   }
 
-  Image getIcon() {
-    String iconName = switch (this) {
-      GameType.papayoo => "papayoo",
-      GameType.prophecy => "prophecy",
-      GameType.skullking => "skullking",
-      GameType.take5 => "take5",
-    };
-    return Image.asset("assets/game-icons/$iconName.webp");
+  String getRulesFilePath(Locale locale) {
+    switch (this) {
+      case GameType.papayoo:
+        return rulesPathPrefix;
+      case GameType.prophecy:
+        return rulesPathPrefix;
+      case GameType.skullking:
+        return "${rulesPathPrefix}skull_king-$locale$rulesFileExtension";
+      case GameType.take5:
+        return rulesPathPrefix;
+    }
   }
 }
 
@@ -56,6 +63,19 @@ extension PrefThemeTranslation on PrefTheme {
         return loc.lightTheme;
       case PrefTheme.dark:
         return loc.darkTheme;
+    }
+  }
+}
+
+extension GraphCurveShapeTranslation on GraphCurveShape {
+  String getName(AppLocalizations loc) {
+    switch (this) {
+      case GraphCurveShape.curved:
+        return loc.graphCurveShapeCurved;
+      case GraphCurveShape.straight:
+        return loc.graphCurveShapeStraight;
+      case GraphCurveShape.step:
+        return loc.graphCurveShapeStep;
     }
   }
 }

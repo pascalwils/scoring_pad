@@ -22,8 +22,8 @@ class GameCategoriesScreen extends StatelessWidget {
         title: tr.favoriteGames,
         path: '${GameCategoriesScreen.path}/${FavoriteGamesScreen.path}',
       ),
-      _Entry.category(iconName: "dices", translation: tr, category: GameCategory.Dice),
-      _Entry.category(iconName: "cards", translation: tr, category: GameCategory.Card),
+      //_Entry.category(iconName: "dices", translation: tr, category: GameCategory.Dice),
+      //_Entry.category(iconName: "cards", translation: tr, category: GameCategory.Card),
       _Entry.category(iconName: "board-game", translation: tr, category: GameCategory.Board),
       _Entry.category(iconName: "free-game", translation: tr, category: GameCategory.Free),
     ];

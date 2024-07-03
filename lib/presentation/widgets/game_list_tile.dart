@@ -8,6 +8,7 @@ import '../../managers/favorites_manager.dart';
 import '../../models/game_type.dart';
 import '../../translation_support.dart';
 import '../screens/game_start_screen.dart';
+import '../graphic_tools.dart';
 
 class GameListTile extends ConsumerWidget {
   final GameType entry;
