@@ -12,6 +12,7 @@ import 'package:talker/talker.dart';
 import '../../managers/games_manager.dart';
 import '../../models/game.dart';
 import '../widgets/widget_tools.dart';
+import '../widgets/default_dismissible.dart';
 
 final talker = Talker();
 
@@ -24,7 +25,6 @@ class GamesListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final games = ref.watch(gamesManager);
-    final background = ref.watch(dismissibleBackgroundProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(tr.gamesList),
@@ -39,28 +39,10 @@ class GamesListScreen extends ConsumerWidget {
         itemCount: games.length,
         itemBuilder: (context, index) {
           final game = games[index];
-          return Dismissible(
+          return DefaultDismissible(
             key: Key(game.getKey()),
-            background: Container(
-              alignment: AlignmentDirectional.centerEnd,
-              color: background,
-              child: const Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            direction: DismissDirection.endToStart,
-            onUpdate: (details) {
-              if (details.reached && !details.previousReached) {
-                ref.read(dismissibleBackgroundProvider.notifier).enable();
-              } else if (!details.reached && details.previousReached) {
-                ref.read(dismissibleBackgroundProvider.notifier).disable();
-              }
-            },
-            onDismissed: (direction) {
+            icon: Icons.delete,
+            onDismissed: () {
               _onDelete(context, ref, tr, game);
             },
             child: _getContent(context, ref, tr, game),
@@ -128,20 +110,3 @@ class GamesListScreen extends ConsumerWidget {
     );
   }
 }
-
-class DismissibleBackgroundNotifier extends Notifier<Color> {
-  @override
-  Color build() => Colors.white30;
-
-  void enable() {
-    state = const Color(0xFFFE4A49);
-  }
-
-  void disable() {
-    state = Colors.white30;
-  }
-}
-
-final dismissibleBackgroundProvider = NotifierProvider<DismissibleBackgroundNotifier, Color>(
-  DismissibleBackgroundNotifier.new,
-);

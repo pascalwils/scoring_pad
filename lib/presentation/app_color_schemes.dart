@@ -66,6 +66,19 @@ class GraphColorScheme {
         tooltipBackground = Colors.black.withOpacity(0.8);
 }
 
+class DismissibleColorScheme {
+  final Color disabledBackground;
+  final Color enabledBackground;
+
+  DismissibleColorScheme.light()
+      : disabledBackground = Colors.white30,
+        enabledBackground = Colors.red;
+
+  DismissibleColorScheme.dark()
+      : disabledBackground = Colors.white30,
+        enabledBackground = const Color(0xFFFE4A49);
+}
+
 int getNbColorsInPalette() => baseColors.length;
 
 extension ColorSchemeExtension on ColorScheme {
@@ -73,8 +86,13 @@ extension ColorSchemeExtension on ColorScheme {
   static final List<PlayerColorScheme> _lightPlayerColorSchemes = baseColors.map((it) => PlayerColorScheme.lighten(it)).toList();
   static final GraphColorScheme _darkGraphColorScheme = GraphColorScheme.dark();
   static final GraphColorScheme _lightGraphColorScheme = GraphColorScheme.light();
+  static final DismissibleColorScheme _darkDismissibleColorScheme = DismissibleColorScheme.dark();
+  static final DismissibleColorScheme _lightDismissibleColorScheme = DismissibleColorScheme.light();
 
   List<PlayerColorScheme> get playerSchemes => brightness == Brightness.light ? _lightPlayerColorSchemes : _darkPlayerColorSchemes;
 
   GraphColorScheme get graphScheme => brightness == Brightness.light ? _lightGraphColorScheme : _darkGraphColorScheme;
+
+  DismissibleColorScheme get dismissibleScheme =>
+      brightness == Brightness.light ? _darkDismissibleColorScheme : _lightDismissibleColorScheme;
 }

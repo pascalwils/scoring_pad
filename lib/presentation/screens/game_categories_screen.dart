@@ -24,8 +24,8 @@ class GameCategoriesScreen extends StatelessWidget {
       ),
       //_Entry.category(iconName: "dices", translation: tr, category: GameCategory.Dice),
       //_Entry.category(iconName: "cards", translation: tr, category: GameCategory.Card),
-      _Entry.category(iconName: "board-game", translation: tr, category: GameCategory.Board),
-      _Entry.category(iconName: "free-game", translation: tr, category: GameCategory.Free),
+      _Entry.category(iconName: "board-game", translation: tr, category: GameCategory.board),
+      _Entry.category(iconName: "free-game", translation: tr, category: GameCategory.free),
     ];
 
     return Scaffold(

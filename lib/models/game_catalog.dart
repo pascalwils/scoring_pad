@@ -20,8 +20,8 @@ class GameCatalog {
   GameCatalog._internal() {
     //_entries.putIfAbsent(GameCategory.Dice, () => List<GameType>.empty());
     //_entries.putIfAbsent(GameCategory.Card, () => List<GameType>.empty());
-    _entries.putIfAbsent(GameCategory.Free, () => List<GameType>.empty());
-    _entries.putIfAbsent(GameCategory.Board, () => _createBoardGames());
+    _entries.putIfAbsent(GameCategory.free, () => List<GameType>.empty());
+    _entries.putIfAbsent(GameCategory.board, () => _createBoardGames());
 
     // _engines.putIfAbsent(GameType.papayoo, () => PapayooGameEngine());
     _engines.putIfAbsent(GameType.skullking, () => SkullKingGameEngine());

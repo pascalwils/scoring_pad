@@ -11,13 +11,13 @@ import 'models/game_type.dart';
 extension GameCategoryTranslation on GameCategory {
   String getTitle(AppLocalizations loc) {
     switch (this) {
-      case GameCategory.Dice:
+      case GameCategory.dice:
         return loc.diceGames;
-      case GameCategory.Board:
+      case GameCategory.board:
         return loc.boardGames;
-      case GameCategory.Card:
+      case GameCategory.card:
         return loc.cardGames;
-      case GameCategory.Free:
+      case GameCategory.free:
         return loc.freeGames;
     }
   }
