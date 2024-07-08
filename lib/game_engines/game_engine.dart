@@ -15,4 +15,6 @@ abstract class GameEngine {
   Bounds<int> getPlayerNumberBounds(BuildContext context);
 
   void endGame(BuildContext context);
+
+  String getRulesFilename(BuildContext context);
 }

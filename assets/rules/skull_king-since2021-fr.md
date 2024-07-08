@@ -1,4 +1,4 @@
-# Règles du Skull King
+# Règles du Skull King depuis 2021
 
 ## Mise en place
 

@@ -1,4 +1,4 @@
-# Skull King Rules
+# Skull King Rules since 2021
 
 ## Setup
 

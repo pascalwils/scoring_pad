@@ -111,5 +111,6 @@
     "skRascalScoreMode": "Score selon Rascal",
     "skRascalCannonball": "Chevrotine + boulet de canon",
     "skGrapeshot": "Chevrotine",
-    "skCannonball": "Boulet de canon"
+    "skCannonball": "Boulet de canon",
+    "noRulesForThisGame": "Pas de règles pour ce jeu."
 }

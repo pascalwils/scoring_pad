@@ -6,5 +6,5 @@ Plus besoin de feuille, crayon, calculatrice, l'application vous permet de tout 
 
 ## Créateurs des icônes
 
-- App icon by Vignesh Oviyan on FlatIcon (https://www.flaticon.com/authors/vignesh-oviyan)
-- Icons by Freepik on FlatIcon (https://www.flaticon.com/authors/freepik)
+- Icône de l'application par Vignesh Oviyan sur FlatIcon (https://www.flaticon.com/authors/vignesh-oviyan)
+- Autres icônes par Freepik sur FlatIcon (https://www.flaticon.com/authors/freepik)

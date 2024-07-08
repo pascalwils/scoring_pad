@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../game_engines/skull_king_game_engine.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_round_field.dart';
@@ -11,7 +12,6 @@ import '../../widgets/score_widget.dart';
 import 'skull_king_round_screen_state.dart';
 import 'skull_king_round_screen_state_provider.dart';
 import 'skull_king_player_tile.dart';
-import 'skull_king_score_screen_state_provider.dart';
 import 'skull_king_ui_tools.dart';
 
 class SkullKingRoundScreen extends ConsumerWidget {
@@ -68,7 +68,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
       body: [
         _buildBidPage(context, ref),
         _buildScoreboardPage(context, ref),
-        _buildRulesPage(context, ref),
+        _buildRulesPage(),
       ][state.currentPageIndex],
     );
   }
@@ -198,8 +198,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
     return ScoreWidget(state: state.scoreState);
   }
 
-  Widget _buildRulesPage(BuildContext context, WidgetRef ref) {
-    final currentGameType = ref.read(currentGameManager).gameType;
-    return RulesWidget(gameType: currentGameType!);
+  Widget _buildRulesPage() {
+    return RulesWidget(gameEngine: SkullKingGameEngine(),);
   }
 }

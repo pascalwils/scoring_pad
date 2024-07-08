@@ -45,4 +45,10 @@ class PapayooGameEngine extends GameEngine {
       rounds: List.filled(players.length, List<int>.empty(growable: true)),
     );
   }
+
+  @override
+  String getRulesFilename(BuildContext context) {
+    // TODO: implement getRulesFilename
+    throw UnimplementedError();
+  }
 }

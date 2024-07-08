@@ -61,7 +61,7 @@ class AboutScreen extends StatelessWidget {
       applicationLegalese: 'Copyright © {{ author }}, {{ year }}',
       children: <Widget>[
         MarkdownPageListTile(
-          filename: 'README.md',
+          filename: _getReadMeFilename(currentLocale),
           title: Text(tr.aboutViewReadme),
           icon: const Icon(Icons.all_inclusive),
         ),
@@ -71,5 +71,12 @@ class AboutScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getReadMeFilename(Locale locale) {
+    if (locale.languageCode == "en") {
+      return "README.md";
+    }
+    return "README.$locale.md";
   }
 }

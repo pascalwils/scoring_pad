@@ -7,4 +7,4 @@ No need for paper, pencil or calculator, the application lets you count everythi
 # Icons creator
 
 - App icon by Vignesh Oviyan on FlatIcon (https://www.flaticon.com/authors/vignesh-oviyan)
-- Icons by Freepik on FlatIcon (https://www.flaticon.com/authors/freepik)
+- Other icons by Freepik on FlatIcon (https://www.flaticon.com/authors/freepik)

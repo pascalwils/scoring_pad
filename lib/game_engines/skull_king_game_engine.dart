@@ -74,4 +74,10 @@ class SkullKingGameEngine extends GameEngine {
   void endGame(BuildContext context) {
     context.go(SkullKingEndScreen.path);
   }
+
+  @override
+  String getRulesFilename(BuildContext context) {
+    final pref = PrefService.of(context);
+    return "skull_king-${pref.get(skRulesPrefKey)}";
+  }
 }

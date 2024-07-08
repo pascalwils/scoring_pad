@@ -176,5 +176,6 @@
     "skRascalScoreMode": "Rascal's  Scoring",
     "skRascalCannonball": "Use grapeshot + cannonball",
     "skGrapeshot": "Grapeshot",
-    "skCannonball": "Cannonball"
+    "skCannonball": "Cannonball",
+    "noRulesForThisGame": "No rules for this game."
 }

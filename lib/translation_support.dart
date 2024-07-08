@@ -24,9 +24,6 @@ extension GameCategoryTranslation on GameCategory {
 }
 
 extension GameTypeTranslation on GameType {
-  static const rulesPathPrefix = "assets/rules/";
-  static const rulesFileExtension = ".md";
-
   String getName(AppLocalizations loc) {
     switch (this) {
       case GameType.papayoo:
@@ -37,19 +34,6 @@ extension GameTypeTranslation on GameType {
         return loc.skullking;
       case GameType.take5:
         return loc.take5;
-    }
-  }
-
-  String getRulesFilePath(Locale locale) {
-    switch (this) {
-      case GameType.papayoo:
-        return rulesPathPrefix;
-      case GameType.prophecy:
-        return rulesPathPrefix;
-      case GameType.skullking:
-        return "${rulesPathPrefix}skull_king-$locale$rulesFileExtension";
-      case GameType.take5:
-        return rulesPathPrefix;
     }
   }
 }
