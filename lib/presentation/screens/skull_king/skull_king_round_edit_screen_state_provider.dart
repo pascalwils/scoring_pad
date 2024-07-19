@@ -6,7 +6,6 @@ import '../../../models/skull_king/skull_king_game.dart';
 import '../../../models/skull_king/skull_king_player_round.dart';
 import '../../../models/skull_king/skull_king_score_calculator.dart';
 import 'skull_king_round_screen_state.dart';
-import 'skull_king_ui_tools.dart';
 
 class SkullKingRoundEditScreenStateNotifier extends StateNotifier<SkullKingRoundScreenState> {
   final int roundIndex;

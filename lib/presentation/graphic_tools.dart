@@ -49,6 +49,7 @@ extension GameTypeTranslation on GameType {
       GameType.prophecy => "prophecy",
       GameType.skullking => "skullking",
       GameType.take5 => "take5",
+      GameType.free => "free-game",
     };
     return Image.asset("assets/game-icons/$iconName.webp");
   }

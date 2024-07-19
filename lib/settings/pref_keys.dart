@@ -14,3 +14,9 @@ const String skAdditionalBonusesPrefKey = "sk_additional_bonuses";
 const String skEmojiForBonusTypes = "sk_emoji";
 const String skRascalScoreMode = "sk_rascal_score_mode";
 const String skRascalCannonball = "sk_rascal_cannonball";
+
+// Free Game
+
+const String fgHighScoreWin = "fg_high_score_wins";
+const String fgMaxScoreDefined = "fg_max_score_defined";
+const String fgMaxScore = "fg_max_score";

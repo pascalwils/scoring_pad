@@ -3,7 +3,6 @@ import 'package:scoring_pad/presentation/screens/skull_king/skull_king_ui_tools.
 
 import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_game.dart';
-import '../../../models/skull_king/skull_king_score_calculator.dart';
 import '../../widgets/score_widget_state.dart';
 
 class SkullKingScoreScreenStateNotifier extends StateNotifier<ScoreWidgetState> {

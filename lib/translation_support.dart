@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scoring_pad/presentation/widgets/score_graph_widget.dart';
 
@@ -34,6 +33,8 @@ extension GameTypeTranslation on GameType {
         return loc.skullking;
       case GameType.take5:
         return loc.take5;
+      case GameType.free:
+        return loc.freeGame;
     }
   }
 }

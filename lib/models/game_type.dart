@@ -13,7 +13,9 @@ enum GameType {
   @HiveField(2)
   take5(432),
   @HiveField(3)
-  skullking(150145);
+  skullking(150145),
+  @HiveField(4)
+  free(-1);
 
   const GameType(this.id);
 

@@ -23,6 +23,10 @@ Future<PrefServiceShared> prefServiceInit() async {
       skEmojiForBonusTypes: false,
       skRascalScoreMode: false,
       skRascalCannonball: false,
+      // free game
+      fgHighScoreWin: true,
+      fgMaxScoreDefined: false,
+      fgMaxScore: 0,
     },
   );
 }

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/models/game.dart';
 
 import '../models/game_player.dart';
 import '../models/game_type.dart';
 import '../models/standard_game.dart';
 import '../managers/current_game_manager.dart';
 import '../common/bounds.dart';
+import '../models/standard_game_parameters.dart';
 import 'game_engine.dart';
 
 class PapayooGameEngine extends GameEngine {
   static const int nbMinPlayers = 3;
   static const int nbMaxPlayers = 8;
+  static const parameters = const StandardGameParameters(
+    highScoreWins: true,
+    maxScoreDefined: true,
+    maxScore: 250,
+  );
 
   @override
   void startGame(BuildContext context, WidgetRef ref, List<GamePlayer> players) {
@@ -42,13 +46,13 @@ class PapayooGameEngine extends GameEngine {
       currentRound: 0,
       finished: false,
       startTime: DateTime.now(),
-      rounds: List.filled(players.length, List<int>.empty(growable: true)),
+      parameters: parameters,
+      rounds: List.filled(players.length, List.empty()),
     );
   }
 
   @override
-  String getRulesFilename(BuildContext context) {
-    // TODO: implement getRulesFilename
-    throw UnimplementedError();
+  String? getRulesFilename(BuildContext context) {
+    return null;
   }
 }

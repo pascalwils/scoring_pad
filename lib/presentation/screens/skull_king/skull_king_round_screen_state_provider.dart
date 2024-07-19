@@ -6,7 +6,6 @@ import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import '../../../models/skull_king/skull_king_player_round.dart';
 import '../../../models/skull_king/skull_king_score_calculator.dart';
-import '../../widgets/score_widget_state.dart';
 import 'skull_king_round_screen_state.dart';
 
 final talker = Talker();

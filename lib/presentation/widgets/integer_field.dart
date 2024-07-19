@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class IntegerField extends StatelessWidget {
@@ -59,7 +58,7 @@ class IntegerField extends StatelessWidget {
         width: 36,
         height: 36,
         child: IconButton.filled(
-          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+          style: ButtonStyle(backgroundColor: WidgetStateProperty.all<Color>(buttonBackground)),
           icon: const Icon(Icons.remove, size: 20),
           onPressed: value - step >= minValue ? () => onChange(value - step) : null,
         ),
@@ -71,7 +70,7 @@ class IntegerField extends StatelessWidget {
         width: 36,
         height: 36,
         child: IconButton.filled(
-          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(buttonBackground)),
+          style: ButtonStyle(backgroundColor: WidgetStateProperty.all<Color>(buttonBackground)),
           icon: const Icon(Icons.add, size: 20),
           onPressed: value + step <= maxValue ? () => onChange(value + step) : null,
         ),

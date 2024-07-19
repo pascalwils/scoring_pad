@@ -81,7 +81,7 @@ class SkullKingGame extends Game with _$SkullKingGame {
 
   @override
   Game setPlayers(List<Player> newPlayers) {
-    assert(newPlayers.length == this.players.length);
+    assert(newPlayers.length == players.length);
     List<GamePlayer> newGamePlayers = List.empty(growable: true);
     for (int i = 0; i < newPlayers.length; i++) {
       newGamePlayers.add(GamePlayer(name: newPlayers[i].name, colorIndex: players[i].colorIndex));

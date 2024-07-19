@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/managers/current_game_manager.dart';
+import 'package:scoring_pad/models/game_type.dart';
 
 import '../../models/game_category.dart';
 import '../../translation_support.dart';
 import 'favorite_games_screen.dart';
 import 'games_screen.dart';
 
-class GameCategoriesScreen extends StatelessWidget {
+class GameCategoriesScreen extends ConsumerWidget {
   static String path = "/game_categories";
 
   const GameCategoriesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
 
     final List<_Entry> entries = [
-      _Entry.favorites(
-        iconName: "favorite",
-        title: tr.favoriteGames,
-        path: '${GameCategoriesScreen.path}/${FavoriteGamesScreen.path}',
-      ),
-      //_Entry.category(iconName: "dices", translation: tr, category: GameCategory.Dice),
-      //_Entry.category(iconName: "cards", translation: tr, category: GameCategory.Card),
-      _Entry.category(iconName: "board-game", translation: tr, category: GameCategory.board),
-      _Entry.category(iconName: "free-game", translation: tr, category: GameCategory.free),
+      _FavoritesEntry(tr),
+      //_CategoryEntry(iconName: "dices", translation: tr, category: GameCategory.Dice),
+      //_CategoryEntry(iconName: "cards", translation: tr, category: GameCategory.Card),
+      _CategoryEntry(iconName: "board-game", translation: tr, category: GameCategory.board),
+      _FreeGameEntry(tr),
     ];
 
     return Scaffold(
@@ -44,9 +43,7 @@ class GameCategoriesScreen extends StatelessWidget {
           return ListTile(
             title: Text(entry.title),
             leading: Image.asset("assets/icons/${entry.iconName}.webp"),
-            onTap: () {
-              context.go(entry.path);
-            },
+            onTap: () => entry.callback(context, ref),
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -55,14 +52,42 @@ class GameCategoriesScreen extends StatelessWidget {
   }
 }
 
-class _Entry {
+abstract class _Entry {
   final String iconName;
   final String title;
-  final String path;
 
-  _Entry.favorites({required this.iconName, required this.title, required this.path});
+  _Entry({required this.iconName, required this.title});
 
-  _Entry.category({required this.iconName, required AppLocalizations translation, required GameCategory category})
-      : title = category.getTitle(translation),
-        path = '${GameCategoriesScreen.path}/${GamesScreen.path}/${category.name}';
+  void callback(BuildContext context, WidgetRef ref);
+}
+
+class _CategoryEntry extends _Entry {
+  final String category;
+
+  _CategoryEntry({required super.iconName, required AppLocalizations translation, required GameCategory category})
+      : category = category.name,
+        super(title: category.getTitle(translation));
+
+  @override
+  void callback(BuildContext context, WidgetRef _) {
+    context.go('${GameCategoriesScreen.path}/${GamesScreen.path}/$category');
+  }
+}
+
+class _FavoritesEntry extends _Entry {
+  _FavoritesEntry(AppLocalizations tr) : super(iconName: "favorite", title: tr.favoriteGames);
+
+  @override
+  void callback(BuildContext context, WidgetRef _) {
+    context.go('${GameCategoriesScreen.path}/${FavoriteGamesScreen.path}');
+  }
+}
+
+class _FreeGameEntry extends _Entry {
+  _FreeGameEntry(AppLocalizations tr) : super(iconName: "free-game", title: tr.freeGame);
+
+  @override
+  void callback(BuildContext context, WidgetRef ref) {
+    ref.read(currentGameManager.notifier).goToStartScreen(context, GameType.free);
+  }
 }

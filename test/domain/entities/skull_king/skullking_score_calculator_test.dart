@@ -60,7 +60,7 @@ void main() {
           );
           expect(
               calculator.getScoreForRound(
-                  SkullKingPlayerRound(
+                  const SkullKingPlayerRound(
                     fields: {SkullKingRoundField.bids: 1, SkullKingRoundField.won: 1},
                   ),
                   1),

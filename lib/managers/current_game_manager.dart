@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:scoring_pad/models/game_catalog.dart';
 import 'package:talker/talker.dart';
@@ -9,6 +11,7 @@ import '../models/game_type.dart';
 import '../models/game.dart';
 import '../models/game_state.dart';
 import '../models/game_player.dart';
+import '../presentation/screens/game_start_screen.dart';
 
 final talker = Talker();
 
@@ -19,9 +22,10 @@ class CurrentGameManager extends StateNotifier<GameState> {
     _load();
   }
 
-  void setGameType(GameType entry) async {
+  void goToStartScreen(BuildContext context, GameType entry) async {
     state = GameState(gameType: entry, players: []);
     await _save();
+    context.go(GameStartScreen.path);
   }
 
   void startGame(List<GamePlayer> players, Game game) async {

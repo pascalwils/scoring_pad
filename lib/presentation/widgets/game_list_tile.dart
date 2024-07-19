@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../managers/current_game_manager.dart';
 import '../../managers/favorites_manager.dart';
 import '../../models/game_type.dart';
 import '../../translation_support.dart';
-import '../screens/game_start_screen.dart';
 import '../graphic_tools.dart';
 
 class GameListTile extends ConsumerWidget {
@@ -22,8 +20,7 @@ class GameListTile extends ConsumerWidget {
       title: Text(entry.getName(tr)),
       leading: entry.getIcon(),
       onTap: () {
-        ref.read(currentGameManager.notifier).setGameType(entry);
-        context.go(GameStartScreen.path);
+        ref.read(currentGameManager.notifier).goToStartScreen(context, entry);
       },
       trailing: _buildFavoriteIcon(ref, entry),
     );

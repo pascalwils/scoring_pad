@@ -44,6 +44,18 @@ class SkullKingGameEngine extends GameEngine {
   Bounds<int> getPlayerNumberBounds(BuildContext context) =>
       Bounds(min: SkullKingGame.nbMinPlayers, max: SkullKingGame.getNbMaxPlayers(SkullKingRules.fromPreferences(context)));
 
+
+  @override
+  void endGame(BuildContext context) {
+    context.go(SkullKingEndScreen.path);
+  }
+
+  @override
+  String? getRulesFilename(BuildContext context) {
+    final pref = PrefService.of(context);
+    return "skull_king-${pref.get(skRulesPrefKey)}";
+  }
+
   SkullKingGame _createGame(BuildContext context, List<GamePlayer> players) {
     final pref = PrefService.of(context);
     final parameters = SkullKingGameParameters(
@@ -68,16 +80,5 @@ class SkullKingGameEngine extends GameEngine {
       startTime: DateTime.now(),
       playerGames: rounds,
     );
-  }
-
-  @override
-  void endGame(BuildContext context) {
-    context.go(SkullKingEndScreen.path);
-  }
-
-  @override
-  String getRulesFilename(BuildContext context) {
-    final pref = PrefService.of(context);
-    return "skull_king-${pref.get(skRulesPrefKey)}";
   }
 }

@@ -9,6 +9,7 @@ import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_round_field.dart';
 import '../../widgets/rules_widget.dart';
 import '../../widgets/score_widget.dart';
+import '../../widgets/widget_tools.dart';
 import 'skull_king_round_screen_state.dart';
 import 'skull_king_round_screen_state_provider.dart';
 import 'skull_king_player_tile.dart';
@@ -59,8 +60,8 @@ class SkullKingRoundScreen extends ConsumerWidget {
             label: tr.scoreboard,
           ),
           NavigationDestination(
-            selectedIcon: const Icon(Icons.scoreboard),
-            icon: const Icon(Icons.scoreboard_outlined),
+            selectedIcon: const Icon(Icons.gavel),
+            icon: const Icon(Icons.gavel_outlined),
             label: tr.rules,
           ),
         ],
@@ -116,7 +117,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
     final game = ref.read(currentGameManager).game as SkullKingGame;
     if (game.currentRound + 1 < game.nbRounds()) {
       return TextButton(
-        onPressed: () => _showNextRoundDialog(context, ref),
+        onPressed: () => WidgetTools.showNextRoundDialog(context, ref, _nextRound),
         child: Icon(
           Icons.navigate_next,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -136,41 +137,6 @@ class SkullKingRoundScreen extends ConsumerWidget {
         ),
       );
     }
-  }
-
-  void _showNextRoundDialog(BuildContext context, WidgetRef ref) {
-    AppLocalizations tr = AppLocalizations.of(context);
-
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text(tr.cancel),
-      onPressed: () => Navigator.of(context).pop(),
-    );
-    Widget continueButton = TextButton(
-      child: Text(tr.nextRound),
-      onPressed: () {
-        Navigator.of(context).pop();
-        _nextRound(ref);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(tr.startNextRoundTitle),
-      content: Text(tr.startNextRoundText),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   void _nextRound(WidgetRef ref) {

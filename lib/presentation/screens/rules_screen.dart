@@ -28,11 +28,7 @@ class RulesScreen extends ConsumerWidget {
           },
         ),
       ),
-      body: currentGameEngine != null
-          ? RulesWidget(gameEngine: currentGameEngine)
-          : Center(
-              child: Text(tr.noRulesForThisGame),
-            ),
+      body: RulesWidget(gameEngine: currentGameEngine),
     );
   }
 }

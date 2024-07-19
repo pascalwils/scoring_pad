@@ -18,7 +18,7 @@ class ButtonsMenu extends StatelessWidget {
   final double buttonWidth;
 
   const ButtonsMenu(List<ButtonsMenuItem> entries,
-      {this.buttonWidth = defaultButtonWidth, this.buttonSpacing = defaultButtonSpacing})
+      {super.key, this.buttonWidth = defaultButtonWidth, this.buttonSpacing = defaultButtonSpacing})
       : _entries = entries;
 
   @override

@@ -14,7 +14,7 @@ class PlayerPalette extends StatelessWidget {
 
   factory PlayerPalette.fromItems(List<Player> items, void Function(String key) listener) {
     List<Player> result = List.from(items);
-    result.insert(0, Player(name: addButtonKey));
+    result.insert(0, const Player(name: addButtonKey));
     return PlayerPalette._internal(items: result, listener: listener);
   }
 

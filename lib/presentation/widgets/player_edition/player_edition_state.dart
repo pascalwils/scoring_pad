@@ -1,13 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../common/field.dart';
 
-class PlayerEditionState {
-  final Field<String> name;
+part 'player_edition_state.freezed.dart';
 
-  const PlayerEditionState({required this.name});
+@freezed
+class PlayerEditionState with _$PlayerEditionState {
+  const PlayerEditionState._();
+
+  const factory PlayerEditionState({required Field<String> name}) = _PlayerEditionState;
 
   factory PlayerEditionState.empty() => const PlayerEditionState(name: Field(value: ''));
-
-  PlayerEditionState copyWith({Field<String>? name}) => PlayerEditionState(name: name ?? this.name);
 
   bool isValid() => name.isValid;
 }

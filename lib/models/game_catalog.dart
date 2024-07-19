@@ -1,11 +1,10 @@
 import 'dart:collection';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../game_engines/free_game_engine.dart';
 import 'game_category.dart';
 import 'game_type.dart';
 import '../game_engines/game_engine.dart';
-import '../game_engines/papayoo_game_engine.dart';
 import '../game_engines/skull_king_game_engine.dart';
 
 class GameCatalog {
@@ -20,11 +19,11 @@ class GameCatalog {
   GameCatalog._internal() {
     //_entries.putIfAbsent(GameCategory.Dice, () => List<GameType>.empty());
     //_entries.putIfAbsent(GameCategory.Card, () => List<GameType>.empty());
-    _entries.putIfAbsent(GameCategory.free, () => List<GameType>.empty());
     _entries.putIfAbsent(GameCategory.board, () => _createBoardGames());
 
     // _engines.putIfAbsent(GameType.papayoo, () => PapayooGameEngine());
     _engines.putIfAbsent(GameType.skullking, () => SkullKingGameEngine());
+    _engines.putIfAbsent(GameType.free, () => FreeGameEngine());
   }
 
   List<GameType> getGamesWithCategory(GameCategory category) => _entries[category]!;

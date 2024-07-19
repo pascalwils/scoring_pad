@@ -177,5 +177,9 @@
     "skRascalCannonball": "Use grapeshot + cannonball",
     "skGrapeshot": "Grapeshot",
     "skCannonball": "Cannonball",
-    "noRulesForThisGame": "No rules for this game."
+    "noRulesForThisGame": "No rules for this game.",
+    "freeGame": "User-defined Game",
+    "fgMaxScore": "Max Score",
+    "fgHighScoreWin": "The higher score wins",
+    "fgMaxScoreDefined": "Score per round"
 }

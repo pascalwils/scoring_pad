@@ -89,4 +89,38 @@ class WidgetTools {
       },
     );
   }
+
+  static void showNextRoundDialog(BuildContext context, WidgetRef ref, void Function(WidgetRef) nextRound) {
+    AppLocalizations tr = AppLocalizations.of(context);
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(tr.cancel),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+    Widget continueButton = TextButton(
+      child: Text(tr.nextRound),
+      onPressed: () {
+        Navigator.of(context).pop();
+        nextRound(ref);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(tr.startNextRoundTitle),
+      content: Text(tr.startNextRoundText),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

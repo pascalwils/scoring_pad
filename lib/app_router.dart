@@ -19,6 +19,8 @@ import 'presentation/screens/settings_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_edit_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_screen.dart';
 import 'presentation/screens/skull_king/skull_king_end_screen.dart';
+import 'presentation/screens/standard_game/standard_game_round_edit_screen.dart';
+import 'presentation/screens/standard_game/standard_game_round_screen.dart';
 
 final talker = Talker();
 
@@ -139,6 +141,32 @@ class AppRouter {
             ),
           );
         },
+      ),
+      GoRoute(
+        path: StandardGameRoundScreen.path,
+        pageBuilder: _createBuilder(const StandardGameRoundScreen()),
+        routes: [
+          GoRoute(
+            path: '${StandardGameRoundEditScreen.path}/:roundIndex',
+            pageBuilder: (context, state) {
+              final index = int.parse(state.pathParameters["roundIndex"]!);
+              talker.debug("Going to standard game round #$index edit screen");
+              return CustomTransitionPage<void>(
+                key: state.pageKey,
+                child: StandardGameRoundEditScreen(roundIndex: index),
+                transitionsBuilder: (_, animation, __, child) => SlideTransition(
+                  position: animation.drive(
+                    Tween<Offset>(
+                      begin: const Offset(0.0, 1.0),
+                      end: Offset.zero,
+                    ).chain(CurveTween(curve: Curves.easeIn)),
+                  ),
+                  child: child,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     ],
   );

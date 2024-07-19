@@ -3,7 +3,7 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, avoid_classes_with_only_static_members
 
 mixin Pubspec {
-  static final buildDate = DateTime.utc(2024, 6, 26, 21, 0, 23);
+  static final buildDate = DateTime.utc(2024, 7, 9, 19, 49, 4);
 
   static const name = 'scoring_pad';
 
@@ -89,6 +89,7 @@ mixin Pubspec {
       'assets/game-icons/',
       'assets/rules/',
       'README.md',
+      'README.fr.md',
     ],
   };
 

@@ -112,5 +112,9 @@
     "skRascalCannonball": "Chevrotine + boulet de canon",
     "skGrapeshot": "Chevrotine",
     "skCannonball": "Boulet de canon",
-    "noRulesForThisGame": "Pas de règles pour ce jeu."
+    "noRulesForThisGame": "Pas de règles pour ce jeu.",
+    "freeGame": "Jeu personnalisé",
+    "fgMaxScore": "Score maximum",
+    "fgHighScoreWin": "Le score le plus haut gagne",
+    "fgMaxScoreDefined": "Score par tour"
 }

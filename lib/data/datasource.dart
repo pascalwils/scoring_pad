@@ -1,5 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:scoring_pad/models/skull_king/skull_king_rules.dart';
+import 'package:scoring_pad/models/standard_game.dart';
+import 'package:scoring_pad/models/standard_game_parameters.dart';
 
 import '../models/player.dart';
 import '../models/game_state.dart';
@@ -32,6 +34,9 @@ Future<void> initDatasource() async {
   Hive.registerAdapter(SkullKingGameModeAdapter());
   Hive.registerAdapter(SkullKingParametersAdapter());
   Hive.registerAdapter(SkullKingRulesAdapter());
+
+  Hive.registerAdapter(StandardGameAdapter());
+  Hive.registerAdapter(StandardGameParametersAdapter());
 
   await Hive.openBox(favoriteBoxName);
   await Hive.openBox(playerBoxName);
