@@ -31,6 +31,7 @@ class SkullKingRoundEditScreenStateNotifier extends StateNotifier<SkullKingRound
       currentRound: roundIndex,
       nbCards: game.nbCards(roundIndex: roundIndex),
       nbRounds: game.nbRounds(),
+      nbWon: 0,
       parameters: game.parameters,
       players: game.players,
       scores: scores,

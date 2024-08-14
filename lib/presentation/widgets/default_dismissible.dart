@@ -6,9 +6,11 @@ import 'package:scoring_pad/presentation/graphic_tools.dart';
 class DefaultDismissible extends ConsumerWidget {
   final IconData icon;
   final Function() onDismissed;
+  final ConfirmDismissCallback? confirmDismiss;
   final Widget child;
 
-  const DefaultDismissible({required super.key, required this.icon, required this.onDismissed, required this.child});
+  const DefaultDismissible(
+      {required super.key, required this.icon, required this.onDismissed, this.confirmDismiss, required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +39,7 @@ class DefaultDismissible extends ConsumerWidget {
       onDismissed: (direction) {
         onDismissed();
       },
+      confirmDismiss: confirmDismiss,
       child: child,
     );
   }

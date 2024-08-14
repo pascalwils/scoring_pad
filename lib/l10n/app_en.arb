@@ -116,7 +116,7 @@
     "scoreboard": "Scoreboard",
     "nextRound": "Next Round",
     "startNextRoundTitle": "Start Next Round",
-    "startNextRoundText": "You can edit previous rounds bby taping the backward arrow icon.",
+    "startNextRoundText": "You can edit previous rounds by taping the backward arrow icon.",
     "disableNextRoundAlert": "Disable \"Start Next Round\" alert",
     "skEndMessage": "{playerName} is the Captain of the 7 Seas!",
     "@skEndMessage": {
@@ -181,5 +181,40 @@
     "freeGame": "User-defined Game",
     "fgMaxScore": "Max Score",
     "fgHighScoreWin": "The higher score wins",
-    "fgMaxScoreDefined": "Score per round"
+    "fgMaxScoreDefined": "Score per round",
+    "rounds": "Rounds",
+    "tricks": "Tricks: {trickNumber}",
+    "@tricks": {
+        "placeholders": {
+            "trickNumber": {
+                "type": "int"
+            }
+        }
+    },
+    "deleteCurrentInProgressGame": "The game you want to delete is in progress. Do you really want to delete it?",
+    "roundTotal": "Total: {number}",
+    "@roundTotal": {
+        "placeholders": {
+            "number": {
+                "type": "int"
+            }
+        }
+    },
+    "endGame": "End game",
+    "winnerMessage": "{playerName} won the game",
+    "@winnerMessage": {
+        "placeholders": {
+            "playerName": {
+                "type": "String"
+            }
+        }
+    },
+    "selectedGames": "{count, plural, zero{0 game selected} one{1 game selected} other{{count} games selected}}",
+    "@selectedGames": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    }
 }

@@ -14,6 +14,7 @@ class SkullKingRoundScreenState with _$SkullKingRoundScreenState {
     required int currentRound,
     required int nbCards,
     required int nbRounds,
+    required int nbWon,
     required SkullKingGameParameters parameters,
     required List<GamePlayer> players,
     required List<int> scores,

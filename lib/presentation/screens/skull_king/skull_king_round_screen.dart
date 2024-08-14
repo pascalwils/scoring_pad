@@ -90,6 +90,7 @@ class SkullKingRoundScreen extends ConsumerWidget {
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Text(tr.roundOnTotal(state.currentRound + 1, state.nbRounds), style: textStyle),
             Text(tr.cards(state.nbCards), style: textStyle),
+            Text(tr.tricks(state.nbWon), style: textStyle),
           ]),
         ),
         Expanded(

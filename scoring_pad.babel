@@ -260,6 +260,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>deleteCurrentInProgressGame</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>deletePlayer</name>
 						<description/>
 						<comment/>
@@ -321,6 +336,21 @@
 					</concept_node>
 					<concept_node>
 						<name>emptyPlayerList</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>endGame</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -920,6 +950,36 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>rounds</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>roundTotal</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>rules</name>
 						<description/>
 						<comment/>
@@ -951,6 +1011,21 @@
 					</concept_node>
 					<concept_node>
 						<name>scoreSettings</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>selectedGames</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -1715,6 +1790,21 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>tricks</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>undo</name>
 						<description/>
 						<comment/>
@@ -1746,6 +1836,21 @@
 					</concept_node>
 					<concept_node>
 						<name>warning</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>en-US</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>winnerMessage</name>
 						<description/>
 						<comment/>
 						<translations>

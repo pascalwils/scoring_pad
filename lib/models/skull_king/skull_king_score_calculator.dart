@@ -16,7 +16,7 @@ abstract class SkullKingScoreCalculator {
     toRoundIndex = toRoundIndex ?? game.currentRound;
     for (int i = 0; i <= toRoundIndex; i++) {
       final round = game.playerGames[playerIndex].getRound(i);
-      result += getScoreForRound(round, game.parameters.mode.nbCards[i]);
+      result += getScoreForRound(round, game.nbCards(roundIndex: i));
     }
     return result;
   }

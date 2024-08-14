@@ -19,6 +19,7 @@ import 'presentation/screens/settings_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_edit_screen.dart';
 import 'presentation/screens/skull_king/skull_king_round_screen.dart';
 import 'presentation/screens/skull_king/skull_king_end_screen.dart';
+import 'presentation/screens/standard_game/standard_game_end_screen.dart';
 import 'presentation/screens/standard_game/standard_game_round_edit_screen.dart';
 import 'presentation/screens/standard_game/standard_game_round_screen.dart';
 
@@ -167,6 +168,24 @@ class AppRouter {
             },
           ),
         ],
+      ),
+      GoRoute(
+        path: StandardGameEndScreen.path,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: StandardGameEndScreen(),
+            transitionsBuilder: (_, animation, __, child) => SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(1.0, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeIn)),
+              ),
+              child: child,
+            ),
+          );
+        },
       ),
     ],
   );

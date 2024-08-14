@@ -4,12 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../managers/current_game_manager.dart';
 import '../../managers/games_manager.dart';
+import '../../models/game.dart';
 
 class WidgetTools {
   // Prevent construction of this utility class
   WidgetTools._();
 
-  static Future<bool?> _showConfirmDialog(BuildContext context) async {
+  static Future<bool?> _showConfirmDialog(BuildContext context, String text) async {
     AppLocalizations tr = AppLocalizations.of(context);
     return showDialog<bool?>(
       context: context,
@@ -17,10 +18,7 @@ class WidgetTools {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(tr.warning),
-          content: Text(
-            tr.newGameWarningMessage,
-            softWrap: true,
-          ),
+          content: Text(text, softWrap: true),
           actions: [
             TextButton(
               child: Text(tr.no),
@@ -37,10 +35,11 @@ class WidgetTools {
   }
 
   static Future<bool> checkGameInProgress(BuildContext context, WidgetRef ref) async {
+    AppLocalizations tr = AppLocalizations.of(context);
     bool create = true;
     final gameInProgress = ref.watch(currentGameManager).isInProgress();
     if (gameInProgress) {
-      bool? ok = await _showConfirmDialog(context);
+      bool? ok = await _showConfirmDialog(context, tr.newGameWarningMessage);
       if (ok == null || !ok) {
         create = false;
       }
@@ -58,6 +57,27 @@ class WidgetTools {
       return true;
     }
     return false;
+  }
+
+  static Future<bool> checkInProgress(BuildContext context, WidgetRef ref, Game game) async {
+    AppLocalizations tr = AppLocalizations.of(context);
+    bool result = true;
+    final gameInProgress = ref.watch(currentGameManager).game == game;
+    if (gameInProgress) {
+      bool? ok = await _showConfirmDialog(context, tr.deleteCurrentInProgressGame);
+      if (ok == null || !ok) {
+        result = false;
+      }
+      if (result) {
+        if (!context.mounted) {
+          return false;
+        }
+        // Clear current game
+        ref.read(currentGameManager.notifier).clear();
+        ref.read(currentEngineProvider)?.endGame(context);
+      }
+    }
+    return result;
   }
 
   static Future<void> showAlertDialog({

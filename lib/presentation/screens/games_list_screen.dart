@@ -1,3 +1,4 @@
+import 'package:contextualactionbar/contextualactionbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +26,22 @@ class GamesListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final games = ref.watch(gamesManager);
-    return Scaffold(
+    return ContextualScaffold<Game>(
+      contextualAppBar: ContextualAppBar(
+        counterBuilder: (int itemsCount) {
+          return Text(tr.selectedGames(itemsCount));
+        },
+        contextualActions: [
+          ContextualAction(
+            itemsHandler: (List<Game> items) {
+              for (var item in items) {
+                _onDelete(context, ref, tr, item);
+              }
+            },
+            child: const Icon(Icons.delete),
+          ),
+        ],
+      ),
       appBar: AppBar(
         title: Text(tr.gamesList),
         leading: IconButton(
@@ -45,7 +61,11 @@ class GamesListScreen extends ConsumerWidget {
             onDismissed: () {
               _onDelete(context, ref, tr, game);
             },
-            child: _getContent(context, ref, tr, game),
+            confirmDismiss: (direction) async => await WidgetTools.checkInProgress(context, ref, game),
+            child: ContextualActionWidget<Game>(
+              data: game,
+              child: _getContent(context, ref, tr, game),
+            ),
           );
         },
         separatorBuilder: (context, index) => const Divider(),
@@ -54,7 +74,7 @@ class GamesListScreen extends ConsumerWidget {
   }
 
   String _getStringFromPlayers(List<Player> players) {
-    return players.map((e) => e.name).join(",");
+    return players.map((e) => e.name).join(", ");
   }
 
   Widget _getContent(BuildContext context, WidgetRef ref, AppLocalizations tr, Game game) {
@@ -95,18 +115,25 @@ class GamesListScreen extends ConsumerWidget {
     );
   }
 
-  void _onDelete(BuildContext context, WidgetRef ref, AppLocalizations tr, Game game) {
-    ref.read(gamesManager.notifier).removeGame(game);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(tr.gameDeleted),
-        action: SnackBarAction(
-          onPressed: () {
-            ref.read(gamesManager.notifier).undoRemove();
-          },
-          label: tr.undo,
+  void _onDelete(BuildContext context, WidgetRef ref, AppLocalizations tr, Game game) async {
+    bool delete = await WidgetTools.checkInProgress(context, ref, game);
+    if (delete) {
+      if (!context.mounted) {
+        talker.warning("Context not mounted");
+        return;
+      }
+      ref.read(gamesManager.notifier).removeGame(game);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(tr.gameDeleted),
+          action: SnackBarAction(
+            onPressed: () {
+              ref.read(gamesManager.notifier).undoRemove();
+            },
+            label: tr.undo,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

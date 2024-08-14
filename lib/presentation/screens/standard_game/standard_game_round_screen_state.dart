@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:scoring_pad/presentation/widgets/score_widget_state.dart';
 
-import '../../../models/game_player.dart';
 import '../../../models/standard_game_parameters.dart';
+import 'standard_game_player_round_state.dart';
 
 part 'standard_game_round_screen_state.freezed.dart';
 
@@ -12,9 +12,9 @@ class StandardGameRoundScreenState with _$StandardGameRoundScreenState {
     required int currentPageIndex,
     required int currentRound,
     required StandardGameParameters parameters,
-    required List<GamePlayer> players,
-    required List<int> scores,
-    required List<List<int>> rounds,
+    required List<StandardGamePlayerRoundState> players,
+    required int roundTotal,
+    int? remainder,
     required ScoreWidgetState scoreState,
   }) = _StandardGameRoundScreenState;
 }

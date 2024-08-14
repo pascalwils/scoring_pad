@@ -13,5 +13,6 @@ class StandardGameParameters with _$StandardGameParameters {
     @HiveField(0) @Default(true) bool highScoreWins,
     @HiveField(1) @Default(false) bool maxScoreDefined,
     @HiveField(2) @Default(0) int maxScore,
+    @HiveField(3, defaultValue: false) @Default(false) bool authorizedNegativeScore,
   }) = _StandardGameParameters;
 }

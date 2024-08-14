@@ -13,7 +13,7 @@ class PapayooGameEngine extends GameEngine {
   static const int nbMinPlayers = 3;
   static const int nbMaxPlayers = 8;
   static const parameters = const StandardGameParameters(
-    highScoreWins: true,
+    highScoreWins: false,
     maxScoreDefined: true,
     maxScore: 250,
   );

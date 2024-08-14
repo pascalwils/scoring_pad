@@ -6,6 +6,7 @@ import 'package:scoring_pad/presentation/screens/standard_game/standard_game_rou
 
 import '../../../models/standard_game.dart';
 import '../../widgets/score_widget_state.dart';
+import 'standard_game_player_round_state.dart';
 import 'standard_game_round_edit_screen.dart';
 import 'standard_game_round_screen.dart';
 
@@ -63,7 +64,44 @@ class StandardGameUiTools {
     required StandardGameRoundScreenState state,
     int? roundIndex,
   }) {
-    return game.copyWith();
+    var copyRounds = List<List<int>>.empty(growable: true);
+    for (int i = 0; i < game.players.length; i++) {
+      var playerRounds = List<int>.from(game.rounds[i], growable: true);
+      playerRounds[roundIndex ?? game.currentRound] = state.players[i].roundScore;
+      if(roundIndex == null) {
+        playerRounds.add(0);
+      }
+      copyRounds.add(playerRounds);
+    }
+    if (roundIndex == null) {
+      return game.copyWith(currentRound: game.currentRound + 1, rounds: copyRounds);
+    }
+    return game.copyWith(rounds: copyRounds);
+  }
+
+  static StandardGameRoundScreenState getStateFromGame(StandardGame game, int currentRound) {
+    List<StandardGamePlayerRoundState> players = List.empty(growable: true);
+    for (int i = 0; i < game.players.length; i++) {
+      final rounds = game.rounds[i];
+      players.add(
+        StandardGamePlayerRoundState(
+          name: game.players[i].name,
+          colorIndex: game.players[i].colorIndex,
+          totalScore: rounds.take(currentRound).fold(0, (a, b) => a + b),
+          roundScore: rounds[currentRound],
+        ),
+      );
+    }
+    int totalRoundScore = game.rounds.map((it) => it[currentRound]).fold(0, (a, b) => a + b);
+    return StandardGameRoundScreenState(
+      currentPageIndex: 0,
+      currentRound: currentRound,
+      parameters: game.parameters,
+      players: players,
+      roundTotal: totalRoundScore,
+      remainder: game.parameters.maxScoreDefined ? game.parameters.maxScore - totalRoundScore : null,
+      scoreState: StandardGameUiTools.getScoreStateFromGame(game),
+    );
   }
 
   static ScoreWidgetState getScoreStateFromGame(StandardGame game) {

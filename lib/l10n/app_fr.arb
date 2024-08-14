@@ -116,5 +116,12 @@
     "freeGame": "Jeu personnalisé",
     "fgMaxScore": "Score maximum",
     "fgHighScoreWin": "Le score le plus haut gagne",
-    "fgMaxScoreDefined": "Score par tour"
+    "fgMaxScoreDefined": "Score par tour",
+    "rounds": "Tours",
+    "tricks": "Plis : {trickNumber}",
+    "deleteCurrentInProgressGame": "La partie que vous voulez supprimer est en cours. Voulez-vous réellement la supprimer ?",
+    "roundTotal": "Total : {number}",
+    "endGame": "Terminer",
+    "winnerMessage": "{playerName} a gagné la partie",
+    "selectedGames": "{count, plural, zero{0 selectionnée} one{1 partie selectionnée} other{{count} parties selectionnées}}"
 }

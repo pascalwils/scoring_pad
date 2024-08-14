@@ -12,6 +12,7 @@ import 'package:scoring_pad/settings/pref_keys.dart';
 import '../managers/current_game_manager.dart';
 import '../models/standard_game.dart';
 import '../models/standard_game_parameters.dart';
+import '../presentation/screens/standard_game/standard_game_end_screen.dart';
 import '../presentation/screens/standard_game/standard_game_round_screen.dart';
 
 class FreeGameEngine extends GameEngine {
@@ -37,7 +38,7 @@ class FreeGameEngine extends GameEngine {
 
   @override
   void endGame(BuildContext context) {
-    // TODO: implement endGame
+    context.go(StandardGameEndScreen.path);
   }
 
   @override
@@ -57,7 +58,7 @@ class FreeGameEngine extends GameEngine {
       finished: false,
       startTime: DateTime.now(),
       parameters: parameters,
-      rounds: List.filled(players.length, List.empty()),
+      rounds: List.filled(players.length, List.filled(1, 0)),
     );
   }
 }

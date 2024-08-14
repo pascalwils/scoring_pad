@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scoring_pad/models/skull_king/skull_king_round_field.dart';
 import 'package:scoring_pad/presentation/screens/skull_king/skull_king_ui_tools.dart';
 import 'package:talker/talker.dart';
 
@@ -20,7 +21,7 @@ class SkullKingRoundScreenStateNotifier extends StateNotifier<SkullKingRoundScre
   void updateRound(int playerIndex, SkullKingPlayerRound round) {
     var copyRounds = List<SkullKingPlayerRound>.from(state.rounds);
     copyRounds[playerIndex] = round;
-    state = state.copyWith(rounds: copyRounds);
+    state = state.copyWith(rounds: copyRounds, nbWon: _getNbWon(copyRounds));
   }
 
   void updatePageIndex(int index) {
@@ -41,12 +42,17 @@ class SkullKingRoundScreenStateNotifier extends StateNotifier<SkullKingRoundScre
       currentRound: currentRound,
       nbCards: game.nbCards(),
       nbRounds: game.nbRounds(),
+      nbWon: _getNbWon(rounds),
       parameters: game.parameters,
       players: game.players,
       scores: scores,
       rounds: rounds,
       scoreState: SkullKingUiTools.getScoreStateFromGame(game),
     );
+  }
+
+  static int _getNbWon(List<SkullKingPlayerRound> rounds) {
+    return rounds.map((it) => it.getValue(SkullKingRoundField.won)).reduce((a, b) => a + b);
   }
 }
 
