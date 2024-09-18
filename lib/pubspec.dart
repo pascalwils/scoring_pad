@@ -3,13 +3,13 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, avoid_classes_with_only_static_members
 
 mixin Pubspec {
-  static final buildDate = DateTime.utc(2024, 7, 24, 19, 58, 39);
+  static final buildDate = DateTime.utc(2024, 9, 18, 20, 33, 34);
 
   static const name = 'scoring_pad';
 
   static const publish_to = 'none';
 
-  static const versionFull = '1.0.0+1';
+  static const versionFull = '1.0.0+3';
 
   static const version = '1.0.0';
 
@@ -21,7 +21,7 @@ mixin Pubspec {
 
   static const versionPatch = 0;
 
-  static const versionBuild = 1;
+  static const versionBuild = 3;
 
   static const versionPreRelease = '';
 
@@ -53,6 +53,7 @@ mixin Pubspec {
     'share_screenshot_widget': '^0.0.5',
     'about': '^2.1.3',
     'flutter_markdown': '^0.6.0',
+    'contextualactionbar': '^3.1.0',
     'cupertino_icons': '^1.0.6',
   };
 

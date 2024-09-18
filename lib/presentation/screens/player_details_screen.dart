@@ -149,18 +149,19 @@ class PlayerDetailsScreen extends ConsumerWidget {
     List<GameStatistics> result = [];
     for (Game game in games) {
       if (game.isFinished() && game.getPlayers().contains(player)) {
-        final playerIndex = game.getPlayers().indexOf(player);
         final type = game.getGameType();
         final statIndex = result.indexWhere((it) => it.type == type);
         final stat = statIndex >= 0 ? result[statIndex] : GameStatistics(type);
         if (statIndex == -1) {
           result.add(stat);
         }
+
         stat.nbPlayed++;
+
         final scores = game.getScores();
-        final playerScore = scores[playerIndex];
-        final maxScore = scores.reduce(max);
-        if (scores.indexOf(maxScore) == playerIndex || playerScore >= maxScore) {
+        final playerIndex = game.getPlayers().indexWhere((it) => it.name == player.name);
+        final playerScore = playerIndex < scores.length ? scores[playerIndex] : 0;
+        if (game.isWinner(player)) {
           stat.nbWon++;
         }
         if (stat.scoreMax == null || stat.scoreMax! < playerScore) {

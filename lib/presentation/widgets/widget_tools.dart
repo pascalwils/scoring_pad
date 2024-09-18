@@ -59,10 +59,10 @@ class WidgetTools {
     return false;
   }
 
-  static Future<bool> checkInProgress(BuildContext context, WidgetRef ref, Game game) async {
+  static Future<bool> checkInProgress(BuildContext context, WidgetRef ref, List<Game> games) async {
     AppLocalizations tr = AppLocalizations.of(context);
     bool result = true;
-    final gameInProgress = ref.watch(currentGameManager).game == game;
+    final gameInProgress = games.contains(ref.watch(currentGameManager).game);
     if (gameInProgress) {
       bool? ok = await _showConfirmDialog(context, tr.deleteCurrentInProgressGame);
       if (ok == null || !ok) {
@@ -129,6 +129,40 @@ class WidgetTools {
     AlertDialog alert = AlertDialog(
       title: Text(tr.startNextRoundTitle),
       content: Text(tr.startNextRoundText),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  static void showEndGameDialog(BuildContext context, WidgetRef ref, void Function(BuildContext, WidgetRef) endGame) {
+    AppLocalizations tr = AppLocalizations.of(context);
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(tr.cancel),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+    Widget continueButton = TextButton(
+      child: Text(tr.endGame),
+      onPressed: () {
+        Navigator.of(context).pop();
+        endGame(context, ref);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(tr.endGameTitle),
+      content: Text(tr.endGameText),
       actions: [
         cancelButton,
         continueButton,

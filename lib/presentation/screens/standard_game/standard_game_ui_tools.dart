@@ -63,20 +63,34 @@ class StandardGameUiTools {
     required StandardGame game,
     required StandardGameRoundScreenState state,
     int? roundIndex,
+    bool endGame = false,
   }) {
-    var copyRounds = List<List<int>>.empty(growable: true);
-    for (int i = 0; i < game.players.length; i++) {
-      var playerRounds = List<int>.from(game.rounds[i], growable: true);
-      playerRounds[roundIndex ?? game.currentRound] = state.players[i].roundScore;
-      if(roundIndex == null) {
-        playerRounds.add(0);
+    bool updateRound = true;
+    if (endGame) {
+      updateRound = !state.isEmpty();
+    }
+    if (updateRound) {
+      var copyRounds = List<List<int>>.empty(growable: true);
+      for (int i = 0; i < game.players.length; i++) {
+        var playerRounds = List<int>.from(game.rounds[i], growable: true);
+        playerRounds[roundIndex ?? game.currentRound] = state.players[i].roundScore;
+        if (roundIndex == null && !endGame) {
+          playerRounds.add(0);
+        }
+        copyRounds.add(playerRounds);
       }
-      copyRounds.add(playerRounds);
+      if (roundIndex == null && !endGame) {
+        return game.copyWith(currentRound: game.currentRound + 1, rounds: copyRounds);
+      }
+      return game.copyWith(rounds: copyRounds);
+    } else {
+      // clean last round if empty
+      if (game.rounds.every((it) => it.last == 0)) {
+        final newRounds = game.rounds.map((it) => it.take(it.length - 1).toList(growable: false)).toList(growable: false);
+        return game.copyWith(rounds: newRounds);
+      }
     }
-    if (roundIndex == null) {
-      return game.copyWith(currentRound: game.currentRound + 1, rounds: copyRounds);
-    }
-    return game.copyWith(rounds: copyRounds);
+    return game.copyWith();
   }
 
   static StandardGameRoundScreenState getStateFromGame(StandardGame game, int currentRound) {
@@ -109,13 +123,21 @@ class StandardGameUiTools {
     final playerScores = List<PlayerScore>.empty(growable: true);
     for (int i = 0; i < game.players.length; i++) {
       final scores = List<int>.empty(growable: true);
+      final playerRounds = game.rounds[i];
+      int total = 0;
       scores.add(0);
       for (int j = 0; j < currentRound; j++) {
-        scores.add(game.rounds[i][j]);
+        total += playerRounds[j];
+        scores.add(total);
       }
       playerScores.add(PlayerScore(player: game.players[i], scores: scores));
     }
-    playerScores.sort((s1, s2) => s2.scores.last.compareTo(s1.scores.last));
+    if (game.parameters.highScoreWins) {
+      playerScores.sort((s1, s2) => s2.scores.last.compareTo(s1.scores.last));
+    }
+    else {
+      playerScores.sort((s1, s2) => s1.scores.last.compareTo(s2.scores.last));
+    }
     return ScoreWidgetState(scores: playerScores);
   }
 }

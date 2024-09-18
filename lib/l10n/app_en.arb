@@ -200,7 +200,7 @@
             }
         }
     },
-    "endGame": "End game",
+    "endGame": "Finish",
     "winnerMessage": "{playerName} won the game",
     "@winnerMessage": {
         "placeholders": {
@@ -213,6 +213,25 @@
     "@selectedGames": {
         "placeholders": {
             "count": {
+                "type": "int"
+            }
+        }
+    },
+    "endGameTitle": "End of Game",
+    "endGameText": "Are you sure you want to finish the game?",
+    "editRound": "Edit Round {round}",
+    "@editRound": {
+        "placeholders": {
+            "round": {
+                "type": "int"
+            }
+        }
+    },
+    "fgAllowNegativeScore": "Allow negative score",
+    "gamesDeleted": "{nbGames, plural, zero{0} one{Game deleted} other{{nbGames} games deleted}}",
+    "@gamesDeleted": {
+        "placeholders": {
+            "nbGames": {
                 "type": "int"
             }
         }

@@ -20,3 +20,4 @@ const String skRascalCannonball = "sk_rascal_cannonball";
 const String fgHighScoreWin = "fg_high_score_wins";
 const String fgMaxScoreDefined = "fg_max_score_defined";
 const String fgMaxScore = "fg_max_score";
+const String fgAllowNegativeScore = "fg_allow_negative_score";

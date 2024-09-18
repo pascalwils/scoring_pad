@@ -55,8 +55,12 @@ class SkullKingRoundEditScreen extends ConsumerWidget {
         Container(
           padding: const EdgeInsets.all(4),
           color: Theme.of(context).colorScheme.primaryContainer,
-          child: Center(
-            child: Text("Edit round ${state.currentRound + 1}", style: textStyle),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(tr.editRound(state.currentRound + 1), style: textStyle),
+              Text(tr.tricks(state.nbWon), style: textStyle),
+            ],
           ),
         ),
         Expanded(

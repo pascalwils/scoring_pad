@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_player_round_state.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_ui_tools.dart';
 import 'package:scoring_pad/presentation/widgets/score_widget_state.dart';
@@ -34,6 +36,25 @@ class StandardGameRoundScreenStateNotifier extends StateNotifier<StandardGameRou
       state = tempState.copyWith(remainder: remainder, roundTotal: total);
     } else {
       state = tempState.copyWith(remainder: null, roundTotal: total);
+    }
+  }
+
+  void nextRound(WidgetRef ref) {
+    final game = ref.read(currentGameManager).game as StandardGame;
+    final updatedGame = StandardGameUiTools.updateGameFromState(game: game, state: state);
+    ref.read(currentGameManager.notifier).updateGame(updatedGame);
+    state = _getStateFromGame(updatedGame);
+  }
+
+  void endGame(BuildContext context, WidgetRef ref) {
+    final game = ref.read(currentGameManager).game as StandardGame;
+    if (game.currentRound > 0 || (!state.isEmpty() && state.canEndCurrentRound())) {
+      final updatedGame = StandardGameUiTools.updateGameFromState(game: game, state: state, endGame: true);
+      ref.read(currentGameManager.notifier).updateGame(updatedGame);
+      ref.read(currentEngineProvider)!.endGame(context);
+    } else {
+      ref.read(currentGameManager.notifier).clear();
+      context.go('/');
     }
   }
 

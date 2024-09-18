@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scoring_pad/presentation/screens/standard_game/standard_game_round_screen_state.dart';
 import 'package:scoring_pad/translation_support.dart';
 
 import '../../../managers/current_game_manager.dart';
@@ -26,7 +25,6 @@ class StandardGameRoundScreen extends ConsumerWidget {
     final state = ref.watch(standardGameRoundScreenProvider);
     final game = ref.read(currentGameManager).game as StandardGame;
     final hasRules = GameCatalog().getGameEngine(game.type)?.getRulesFilename(context) != null;
-    final nextEnabled = _canEndThisRound(state);
     List<Widget> bodies = _makeBodies(context, ref, hasRules);
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +43,7 @@ class StandardGameRoundScreen extends ConsumerWidget {
             }
           }),
           TextButton(
-            onPressed: nextEnabled ? () => _endGame(context, ref) : null,
+            onPressed: () => WidgetTools.showEndGameDialog(context, ref, _endGame),
             child: Icon(
               Icons.check,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -105,7 +103,7 @@ class StandardGameRoundScreen extends ConsumerWidget {
   Widget _buildListPage(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final state = ref.watch(standardGameRoundScreenProvider);
-    final nextEnabled = _canEndThisRound(state);
+    final nextEnabled = state.canEndCurrentRound();
     final textStyle = TextStyle(
       color: Theme.of(context).colorScheme.onPrimaryContainer,
       fontSize: 16,
@@ -159,23 +157,11 @@ class StandardGameRoundScreen extends ConsumerWidget {
     return RulesWidget(gameEngine: GameCatalog().getGameEngine(game.getGameType()));
   }
 
-  bool _canEndThisRound(StandardGameRoundScreenState state) {
-    return !state.parameters.maxScoreDefined || (state.roundTotal == state.parameters.maxScore);
-  }
-
   void _nextRound(WidgetRef ref) {
-    final game = ref.read(currentGameManager).game as StandardGame;
-    final state = ref.watch(standardGameRoundScreenProvider);
-    final updatedGame = StandardGameUiTools.updateGameFromState(game: game, state: state);
-    ref.read(currentGameManager.notifier).updateGame(updatedGame);
-    ref.read(standardGameRoundScreenProvider.notifier).update(updatedGame);
+    ref.read(standardGameRoundScreenProvider.notifier).nextRound(ref);
   }
 
   void _endGame(BuildContext context, WidgetRef ref) {
-    final game = ref.read(currentGameManager).game as StandardGame;
-    final state = ref.watch(standardGameRoundScreenProvider);
-    final updatedGame = StandardGameUiTools.updateGameFromState(game: game, state: state);
-    ref.read(currentGameManager.notifier).updateGame(updatedGame);
-    ref.read(currentEngineProvider)!.endGame(context);
+    ref.watch(standardGameRoundScreenProvider.notifier).endGame(context, ref);
   }
 }

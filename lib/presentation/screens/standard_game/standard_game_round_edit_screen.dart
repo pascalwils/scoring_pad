@@ -54,7 +54,7 @@ class StandardGameRoundEditScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(4),
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Center(
-            child: Text("Edit round ${state.currentRound + 1}", style: textStyle),
+            child: Text(tr.editRound(state.currentRound + 1), style: textStyle),
           ),
         ),
         Expanded(
@@ -66,6 +66,7 @@ class StandardGameRoundEditScreen extends ConsumerWidget {
                 callback: (newScore) {
                   ref.read(standardGameRoundEditScreenProvider(roundIndex).notifier).updateRoundScore(itemIndex, newScore);
                 },
+                remainder: state.remainder,
               );
             },
           ),

@@ -16,9 +16,20 @@ abstract class Game {
 
   GameType getGameType();
 
-  int compareTo(Game other) => getStartTime().millisecondsSinceEpoch.compareTo(other.getStartTime().millisecondsSinceEpoch);
+  bool isWinner(Player player);
 
   String getKey() {
     return getStartTime().millisecondsSinceEpoch.toString();
   }
+
+  int compareTo(Game other) => getStartTime().millisecondsSinceEpoch.compareTo(other.getStartTime().millisecondsSinceEpoch);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is Game && runtimeType == other.runtimeType && compareTo(other) == 0;
+
+  @override
+  int get hashCode => getStartTime().millisecondsSinceEpoch.hashCode;
+
+
 }

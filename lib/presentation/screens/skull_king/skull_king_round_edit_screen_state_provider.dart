@@ -4,6 +4,7 @@ import 'package:scoring_pad/presentation/widgets/score_widget_state.dart';
 import '../../../managers/current_game_manager.dart';
 import '../../../models/skull_king/skull_king_game.dart';
 import '../../../models/skull_king/skull_king_player_round.dart';
+import '../../../models/skull_king/skull_king_round_field.dart';
 import '../../../models/skull_king/skull_king_score_calculator.dart';
 import 'skull_king_round_screen_state.dart';
 
@@ -16,7 +17,7 @@ class SkullKingRoundEditScreenStateNotifier extends StateNotifier<SkullKingRound
   void updateRound(int playerIndex, SkullKingPlayerRound round) {
     var copyRounds = List<SkullKingPlayerRound>.from(state.rounds);
     copyRounds[playerIndex] = round;
-    state = state.copyWith(rounds: copyRounds);
+    state = state.copyWith(rounds: copyRounds, nbWon: _getNbWon(copyRounds));
   }
 
   static SkullKingRoundScreenState _getStateFromGame(SkullKingGame game, int roundIndex) {
@@ -31,7 +32,7 @@ class SkullKingRoundEditScreenStateNotifier extends StateNotifier<SkullKingRound
       currentRound: roundIndex,
       nbCards: game.nbCards(roundIndex: roundIndex),
       nbRounds: game.nbRounds(),
-      nbWon: 0,
+      nbWon: _getNbWon(rounds),
       parameters: game.parameters,
       players: game.players,
       scores: scores,
@@ -39,6 +40,10 @@ class SkullKingRoundEditScreenStateNotifier extends StateNotifier<SkullKingRound
       initialRounds: rounds,
       scoreState: ScoreWidgetState(scores: List.empty()),
     );
+  }
+
+  static int _getNbWon(List<SkullKingPlayerRound> rounds) {
+    return rounds.map((it) => it.getValue(SkullKingRoundField.won)).reduce((a, b) => a + b);
   }
 }
 

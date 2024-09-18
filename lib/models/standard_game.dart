@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:scoring_pad/models/standard_game_parameters.dart';
@@ -9,6 +11,7 @@ import 'player.dart';
 import 'game_type.dart';
 
 part 'standard_game.freezed.dart';
+
 part 'standard_game.g.dart';
 
 @freezed
@@ -31,7 +34,7 @@ sealed class StandardGame extends Game with _$StandardGame {
 
   @override
   List<int> getScores() {
-    return rounds.last;
+    return rounds.map((it) => it.fold(0, (a, b) => a + b)).toList(growable: false);
   }
 
   @override
@@ -42,6 +45,27 @@ sealed class StandardGame extends Game with _$StandardGame {
 
   @override
   GameType getGameType() => type;
+
+  @override
+  bool isWinner(Player player) {
+    if (isFinished()) {
+      final scores = getScores();
+      final playerIndex = players.indexWhere((it) => it.name == player.name);
+      final playerScore = scores[playerIndex];
+      if (parameters.highScoreWins) {
+        final maxScore = scores.reduce(max);
+        if (scores.indexOf(maxScore) == playerIndex || playerScore >= maxScore) {
+          return true;
+        }
+      } else {
+        final minScore = scores.reduce(min);
+        if (scores.indexOf(minScore) == playerIndex || playerScore <= minScore) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   @override
   Game setPlayers(List<Player> newPlayers) {

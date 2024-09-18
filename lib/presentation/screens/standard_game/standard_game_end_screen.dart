@@ -28,7 +28,7 @@ class StandardGameEndScreen extends ConsumerWidget {
         title: Text(tr.scoreboard),
         leading: StandardGameUiTools.buildUndoActionButton(
           context,
-          game.rounds.length,
+          game.rounds[0].length,
           tr,
           (StandardGame? updatedGame) {
             if (updatedGame != null) {
@@ -54,7 +54,7 @@ class StandardGameEndScreen extends ConsumerWidget {
               context.go("/");
             },
             child: Icon(
-              Icons.check,
+              Icons.close,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),

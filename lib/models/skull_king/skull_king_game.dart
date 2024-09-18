@@ -80,6 +80,20 @@ class SkullKingGame extends Game with _$SkullKingGame {
   GameType getGameType() => GameType.skullking;
 
   @override
+  bool isWinner(Player player) {
+    if (isFinished()) {
+      final scores = getScores();
+      final playerIndex = players.indexWhere((it) => it.name == player.name);
+      final playerScore = scores[playerIndex];
+      final maxScore = scores.reduce(max);
+      if (scores.indexOf(maxScore) == playerIndex || playerScore >= maxScore) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
   Game setPlayers(List<Player> newPlayers) {
     assert(newPlayers.length == players.length);
     List<GamePlayer> newGamePlayers = List.empty(growable: true);

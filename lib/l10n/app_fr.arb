@@ -123,5 +123,10 @@
     "roundTotal": "Total : {number}",
     "endGame": "Terminer",
     "winnerMessage": "{playerName} a gagné la partie",
-    "selectedGames": "{count, plural, zero{0 selectionnée} one{1 partie selectionnée} other{{count} parties selectionnées}}"
+    "selectedGames": "{count, plural, zero{0 selectionnée} one{1 partie selectionnée} other{{count} parties selectionnées}}",
+    "endGameTitle": "Fin de partie",
+    "endGameText": "Êtes-vous sûr de vouloir finir la partie ?",
+    "editRound": "Édition du tour {round}",
+    "fgAllowNegativeScore": "Permettre les scores négatifs",
+    "gamesDeleted": "{nbGames, plural, zero{Card: 0} one{Partie supprimée} other{{nbGames} parties supprimées}}"
 }

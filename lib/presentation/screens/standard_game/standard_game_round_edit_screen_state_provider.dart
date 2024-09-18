@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scoring_pad/presentation/widgets/score_widget_state.dart';
 
 import '../../../managers/current_game_manager.dart';
 import '../../../models/standard_game.dart';
@@ -13,7 +14,19 @@ class StandardGameRoundEditScreenStateNotifier extends StateNotifier<StandardGam
 
   StandardGameRoundEditScreenStateNotifier(this.game, this.roundIndex) : super(_getStateFromGame(game, roundIndex));
 
-  void updateRoundScore(int playerIndex, int newScore) {}
+  void updateRoundScore(int playerIndex, int newScore) {
+    final players = List<StandardGamePlayerRoundState>.from(state.players);
+    final clampedScore = state.parameters.authorizedNegativeScore ? newScore : max(0, newScore);
+    players[playerIndex] = state.players[playerIndex].copyWith(roundScore: clampedScore);
+    final tempState = state.copyWith(players: players);
+    final int total = tempState.players.map((it) => it.roundScore).fold(0, (a, b) => a + b);
+    if (state.parameters.maxScoreDefined) {
+      final int remainder = state.parameters.maxScore - total;
+      state = tempState.copyWith(remainder: remainder, roundTotal: total);
+    } else {
+      state = tempState.copyWith(remainder: null, roundTotal: total);
+    }
+  }
 
   static StandardGameRoundScreenState _getStateFromGame(StandardGame game, int roundIndex) {
     talker.debug("Update Standard game round screen for round #$roundIndex");

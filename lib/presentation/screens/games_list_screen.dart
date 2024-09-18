@@ -34,9 +34,7 @@ class GamesListScreen extends ConsumerWidget {
         contextualActions: [
           ContextualAction(
             itemsHandler: (List<Game> items) {
-              for (var item in items) {
-                _onDelete(context, ref, tr, item);
-              }
+              _onDeleteGames(context, ref, tr, items);
             },
             child: const Icon(Icons.delete),
           ),
@@ -59,9 +57,9 @@ class GamesListScreen extends ConsumerWidget {
             key: Key(game.getKey()),
             icon: Icons.delete,
             onDismissed: () {
-              _onDelete(context, ref, tr, game);
+              _onDeleteGames(context, ref, tr, [game]);
             },
-            confirmDismiss: (direction) async => await WidgetTools.checkInProgress(context, ref, game),
+            confirmDismiss: (direction) async => await WidgetTools.checkInProgress(context, ref, [game]),
             child: ContextualActionWidget<Game>(
               data: game,
               child: _getContent(context, ref, tr, game),
@@ -115,17 +113,17 @@ class GamesListScreen extends ConsumerWidget {
     );
   }
 
-  void _onDelete(BuildContext context, WidgetRef ref, AppLocalizations tr, Game game) async {
-    bool delete = await WidgetTools.checkInProgress(context, ref, game);
+  void _onDeleteGames(BuildContext context, WidgetRef ref, AppLocalizations tr, List<Game> games) async {
+    bool delete = await WidgetTools.checkInProgress(context, ref, games);
     if (delete) {
       if (!context.mounted) {
         talker.warning("Context not mounted");
         return;
       }
-      ref.read(gamesManager.notifier).removeGame(game);
+      ref.read(gamesManager.notifier).removeGames(games);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(tr.gameDeleted),
+          content: Text(tr.gamesDeleted(games.length)),
           action: SnackBarAction(
             onPressed: () {
               ref.read(gamesManager.notifier).undoRemove();

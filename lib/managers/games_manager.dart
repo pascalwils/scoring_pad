@@ -9,44 +9,52 @@ import '../models/game.dart';
 final talker = Talker();
 
 class GamesManager extends StateNotifier<List<Game>> {
-  Game? _removedGame;
+  final List<Game> _removedGames = List<Game>.empty(growable: true);
 
   GamesManager() : super(List.empty()) {
     _load();
   }
 
-  void removeGame(Game game) {
+  void removeGames(List<Game> gamesToRemove) {
+    _removedGames.clear();
     final games = List<Game>.of(state);
-    int index = games.indexWhere((it) => it.getKey() == game.getKey());
-    if (index >= 0) {
-      _removedGame = game;
-      games.removeAt(index);
-      state = games;
-      try {
-        final box = Hive.box(gamesBoxName);
-        box.delete(game.getKey());
-        talker.debug("Game removed");
-      } catch (e) {
-        talker.error("Unable to delete removed game from database", e);
-        rethrow;
+    final box = Hive.box(gamesBoxName);
+    for (Game g in gamesToRemove) {
+      int index = games.indexOf(g);
+      if (index >= 0) {
+        try {
+          box.delete(g.getKey());
+          _removedGames.add(g);
+          games.removeAt(index);
+        } catch (e) {
+          talker.error("Unable to delete removed game from database", e);
+        }
       }
     }
+    talker.debug("${_removedGames.length} game(s) removed");
+    state = games;
   }
 
   void undoRemove() {
-    if (_removedGame != null) {
-      var games = [...state, _removedGame!];
+    if (_removedGames.isNotEmpty) {
+      final games = List<Game>.of(state);
+      final box = Hive.box(gamesBoxName);
+      for (Game g in _removedGames) {
+        try {
+          box.put(g.getKey(), g);
+          games.add(g);
+        } catch (e) {
+          talker.error("Unable to put back removed game in database", e);
+          rethrow;
+        }
+      }
+
+      talker.debug("Game removable undone");
+
+      _removedGames.clear();
+
       games.sort((a, b) => a.compareTo(b));
       state = games;
-      try {
-        final box = Hive.box(gamesBoxName);
-        box.put(_removedGame!.getKey(), _removedGame!);
-        _removedGame = null;
-        talker.debug("Game removable undone");
-      } catch (e) {
-        talker.error("Unable to put back removed game in database", e);
-        rethrow;
-      }
     }
   }
 

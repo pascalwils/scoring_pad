@@ -27,6 +27,7 @@ Future<PrefServiceShared> prefServiceInit() async {
       fgHighScoreWin: true,
       fgMaxScoreDefined: false,
       fgMaxScore: 0,
+      fgAllowNegativeScore: false,
     },
   );
 }

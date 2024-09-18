@@ -54,7 +54,7 @@ class SkullKingEndScreen extends ConsumerWidget {
               context.go("/");
             },
             child: Icon(
-              Icons.check,
+              Icons.close,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),

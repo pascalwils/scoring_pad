@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-
 import '../game_engines/free_game_engine.dart';
+import '../game_engines/papayoo_game_engine.dart';
 import 'game_category.dart';
 import 'game_type.dart';
 import '../game_engines/game_engine.dart';
@@ -21,7 +21,7 @@ class GameCatalog {
     //_entries.putIfAbsent(GameCategory.Card, () => List<GameType>.empty());
     _entries.putIfAbsent(GameCategory.board, () => _createBoardGames());
 
-    // _engines.putIfAbsent(GameType.papayoo, () => PapayooGameEngine());
+    _engines.putIfAbsent(GameType.papayoo, () => PapayooGameEngine());
     _engines.putIfAbsent(GameType.skullking, () => SkullKingGameEngine());
     _engines.putIfAbsent(GameType.free, () => FreeGameEngine());
   }
@@ -32,7 +32,7 @@ class GameCatalog {
 
   List<GameType> _createBoardGames() {
     return [
-      // GameType.papayoo,
+      GameType.papayoo,
       // GameType.prophecy,
       GameType.skullking,
       // GameType.take5,

@@ -8,6 +8,8 @@ part 'standard_game_round_screen_state.freezed.dart';
 
 @freezed
 class StandardGameRoundScreenState with _$StandardGameRoundScreenState {
+  const StandardGameRoundScreenState._();
+
   const factory StandardGameRoundScreenState({
     required int currentPageIndex,
     required int currentRound,
@@ -17,4 +19,18 @@ class StandardGameRoundScreenState with _$StandardGameRoundScreenState {
     int? remainder,
     required ScoreWidgetState scoreState,
   }) = _StandardGameRoundScreenState;
+
+  bool isEmpty() {
+    // Check if last round is all 0
+    for (int i = 0; i < players.length; i++) {
+      if (players[i].roundScore != 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool canEndCurrentRound() {
+    return !parameters.maxScoreDefined || (roundTotal == parameters.maxScore);
+  }
 }

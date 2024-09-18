@@ -31,6 +31,11 @@ class FreeGameSettings extends StatelessWidget {
             PrefIntegerText(label: tr.fgMaxScore, pref: fgMaxScore),
           ],
         ),
+        PrefSwitch(
+          title: Text(tr.fgAllowNegativeScore),
+          switchActiveColor: Theme.of(context).colorScheme.primary,
+          pref: fgAllowNegativeScore,
+        ),
       ],
     );
   }

@@ -30,20 +30,20 @@ class StandardGamePlayerTile extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(onPressed: () => callback(state.roundScore - 1), child: const Text("-1")),
-                  TextButton(onPressed: () => callback(state.roundScore - 5), child: const Text("-5")),
-                  TextButton(onPressed: () => callback(state.roundScore - 10), child: const Text("-10")),
-                ],
-              ),
-              Expanded(
-                child: Ink(
-                  color: Colors.red,
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(onPressed: () => callback(state.roundScore - 1), child: const Text("-1")),
+                    TextButton(onPressed: () => callback(state.roundScore - 5), child: const Text("-5")),
+                    TextButton(onPressed: () => callback(state.roundScore - 10), child: const Text("-10")),
+                  ],
+                ),
+                Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                     child: Column(
@@ -68,16 +68,16 @@ class StandardGamePlayerTile extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(onPressed: () => callback(state.roundScore + 1), child: const Text("+1")),
-                  TextButton(onPressed: () => callback(state.roundScore + 5), child: const Text("+5")),
-                  TextButton(onPressed: () => callback(state.roundScore + 10), child: const Text("+10")),
-                ],
-              ),
-            ],
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(onPressed: () => callback(state.roundScore + 1), child: const Text("+1")),
+                    TextButton(onPressed: () => callback(state.roundScore + 5), child: const Text("+5")),
+                    TextButton(onPressed: () => callback(state.roundScore + 10), child: const Text("+10")),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
