@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pref/pref.dart';
-import 'package:scoring_pad/common/bounds.dart';
 import 'package:scoring_pad/game_engines/game_engine.dart';
 import 'package:scoring_pad/models/game_player.dart';
 import 'package:scoring_pad/models/game_type.dart';
-import 'package:scoring_pad/presentation/screens/game_settings/free_game_settings.dart';
-import 'package:scoring_pad/settings/pref_keys.dart';
 
 import '../managers/current_game_manager.dart';
 import '../models/standard_game.dart';

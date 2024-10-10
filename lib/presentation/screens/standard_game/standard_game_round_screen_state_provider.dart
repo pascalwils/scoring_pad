@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_player_round_state.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_ui_tools.dart';
-import 'package:scoring_pad/presentation/widgets/score_widget_state.dart';
 import 'package:talker/talker.dart';
 
 import '../../../managers/current_game_manager.dart';
