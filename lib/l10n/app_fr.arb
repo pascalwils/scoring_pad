@@ -128,5 +128,8 @@
     "endGameText": "Êtes-vous sûr de vouloir finir la partie ?",
     "editRound": "Édition du tour {round}",
     "fgAllowNegativeScore": "Permettre les scores négatifs",
-    "gamesDeleted": "{nbGames, plural, zero{Card: 0} one{Partie supprimée} other{{nbGames} parties supprimées}}"
+    "gamesDeleted": "{nbGames, plural, zero{Card: 0} one{Partie supprimée} other{{nbGames} parties supprimées}}",
+    "languageEnglish": "Anglais",
+    "languageFrench": "Français",
+    "prefLanguage": "Langue"
 }

@@ -2,7 +2,8 @@
 
 const String uiThemePrefKey = "ui_theme";
 const String uiColorPrefKey = "ui_color";
-const String graphCurveShapePrefKey ="graph_curve_shape";
+const String graphCurveShapePrefKey = "graph_curve_shape";
+const String localePrefKey = "locale";
 
 // Skullking
 

@@ -7,6 +7,7 @@ import 'app_router.dart';
 import 'data/datasource.dart';
 import 'settings/pref_init.dart';
 import 'settings/pref_keys.dart';
+import 'settings/pref_locale.dart';
 import 'settings/pref_theme.dart';
 
 void main() async {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routerConfig: AppRouter.router,
+      locale: PrefLocale.fromPreferences(context).getLocale(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );

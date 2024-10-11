@@ -235,5 +235,8 @@
                 "type": "int"
             }
         }
-    }
+    },
+    "languageEnglish": "English",
+    "languageFrench": "French",
+    "prefLanguage": "Language"
 }

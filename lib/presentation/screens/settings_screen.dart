@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pref/pref.dart';
 import 'package:scoring_pad/presentation/widgets/score_graph_widget.dart';
+import 'package:scoring_pad/settings/pref_locale.dart';
 
 import '../../settings/pref_keys.dart';
 import '../../settings/pref_theme.dart';
@@ -31,6 +32,27 @@ class SettingsScreen extends StatelessWidget {
         children: [
           PrefTitle(
             title: Text(tr.prefTitleAppearance),
+          ),
+          PrefDialogButton(
+            title: Text(tr.prefLanguage),
+            subtitle: Text(PrefLocale.fromPreferences(context).getTranslation(tr)),
+            dialog: PrefDialog(
+              title: Text(tr.prefLanguage),
+              cancel: Text(tr.cancel),
+              submit: Text(tr.ok),
+              children: [
+                PrefRadio(
+                  title: Text(tr.languageEnglish),
+                  value: PrefLocale.english.getId(),
+                  pref: localePrefKey,
+                ),
+                PrefRadio(
+                  title: Text(tr.languageFrench),
+                  value: PrefLocale.french.getId(),
+                  pref: localePrefKey,
+                ),
+              ],
+            ),
           ),
           PrefDialogButton(
             title: Text(tr.theme),
