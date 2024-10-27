@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.scoring_pad">
+    package="fr.pascalwils.scoring_pad">
    <application
         android:label="@string/appName"
         android:name="${applicationName}"

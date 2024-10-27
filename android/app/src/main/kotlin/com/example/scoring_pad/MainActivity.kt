@@ -1,4 +1,4 @@
-package com.example.scoring_pad
+package fr.pascalwils.scoring_pad
 
 import io.flutter.embedding.android.FlutterActivity
 
