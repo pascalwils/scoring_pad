@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scoring_pad/models/standard_game_parameters.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_round_screen_state.dart';
 
 import '../../../models/standard_game.dart';
@@ -79,7 +82,7 @@ class StandardGameUiTools {
         }
         copyRounds.add(playerRounds);
       }
-      if (roundIndex == null && !endGame) {
+      if ((roundIndex == null && !endGame) || endGame) {
         return game.copyWith(currentRound: game.currentRound + 1, rounds: copyRounds);
       }
       return game.copyWith(rounds: copyRounds);
@@ -113,9 +116,24 @@ class StandardGameUiTools {
       parameters: game.parameters,
       players: players,
       roundTotal: totalRoundScore,
-      remainder: game.parameters.maxScoreDefined ? game.parameters.maxScore - totalRoundScore : null,
-      scoreState: StandardGameUiTools.getScoreStateFromGame(game),
+      isGameEnd: _checkGameEnd(game.parameters, game),
+      remainder: game.parameters.roundScoreDefined ? game.parameters.roundScore - totalRoundScore : null,
+      scoreState: getScoreStateFromGame(game),
     );
+  }
+
+  static bool _checkGameEnd(StandardGameParameters parameters, StandardGame game) {
+    if (parameters.endScoreDefined) {
+      final currentRound = game.currentRound;
+      int maxScore = 0;
+      for (int i = 0; i < game.players.length; i++) {
+        final playerRounds = game.rounds[i];
+        int total = playerRounds.sublist(0, currentRound + 1).reduce((a, b) => a + b);
+        maxScore = max(maxScore, total);
+      }
+      return maxScore >= parameters.endScore;
+    }
+    return false;
   }
 
   static ScoreWidgetState getScoreStateFromGame(StandardGame game) {
@@ -134,8 +152,7 @@ class StandardGameUiTools {
     }
     if (game.parameters.highScoreWins) {
       playerScores.sort((s1, s2) => s2.scores.last.compareTo(s1.scores.last));
-    }
-    else {
+    } else {
       playerScores.sort((s1, s2) => s1.scores.last.compareTo(s2.scores.last));
     }
     return ScoreWidgetState(scores: playerScores);

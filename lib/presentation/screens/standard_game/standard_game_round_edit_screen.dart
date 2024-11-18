@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scoring_pad/presentation/screens/standard_game/standard_game_player_tile.dart';
 
+import '../../../translation_support.dart';
 import '../../../managers/current_game_manager.dart';
 import '../../../models/standard_game.dart';
 import 'standard_game_round_edit_screen_state_provider.dart';
@@ -19,6 +20,7 @@ class StandardGameRoundEditScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppLocalizations tr = AppLocalizations.of(context);
     final state = ref.watch(standardGameRoundEditScreenProvider(roundIndex));
+    final game = ref.read(currentGameManager).game as StandardGame;
     final textStyle = TextStyle(
       color: Theme.of(context).colorScheme.onPrimaryContainer,
       fontSize: 18,
@@ -26,7 +28,7 @@ class StandardGameRoundEditScreen extends ConsumerWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr.skullking),
+        title: Text(game.getGameType().getName(tr)),
         leading: TextButton(
           onPressed: () => context.pop(),
           child: Icon(

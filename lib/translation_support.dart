@@ -33,6 +33,8 @@ extension GameTypeTranslation on GameType {
         return loc.skullking;
       case GameType.take5:
         return loc.take5;
+      case GameType.hilo:
+        return loc.hilo;
       case GameType.free:
         return loc.freeGame;
     }

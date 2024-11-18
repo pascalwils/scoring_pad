@@ -20,8 +20,8 @@ class StandardGameRoundEditScreenStateNotifier extends StateNotifier<StandardGam
     players[playerIndex] = state.players[playerIndex].copyWith(roundScore: clampedScore);
     final tempState = state.copyWith(players: players);
     final int total = tempState.players.map((it) => it.roundScore).fold(0, (a, b) => a + b);
-    if (state.parameters.maxScoreDefined) {
-      final int remainder = state.parameters.maxScore - total;
+    if (state.parameters.roundScoreDefined) {
+      final int remainder = state.parameters.roundScore - total;
       state = tempState.copyWith(remainder: remainder, roundTotal: total);
     } else {
       state = tempState.copyWith(remainder: null, roundTotal: total);

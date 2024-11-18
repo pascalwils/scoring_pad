@@ -114,7 +114,7 @@
     "skCannonball": "Boulet de canon",
     "noRulesForThisGame": "Pas de règles pour ce jeu.",
     "freeGame": "Jeu personnalisé",
-    "fgMaxScore": "Score maximum",
+    "fgMaxScore": "Score",
     "fgHighScoreWin": "Le score le plus haut gagne",
     "fgMaxScoreDefined": "Score par tour",
     "rounds": "Tours",
@@ -131,5 +131,8 @@
     "gamesDeleted": "{nbGames, plural, zero{Card: 0} one{Partie supprimée} other{{nbGames} parties supprimées}}",
     "languageEnglish": "Anglais",
     "languageFrench": "Français",
-    "prefLanguage": "Langue"
+    "prefLanguage": "Langue",
+    "fgEndScore": "Score",
+    "fgEndScoreDefined": "Score de fin",
+    "hilo": "Hilo"
 }

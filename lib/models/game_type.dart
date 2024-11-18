@@ -15,13 +15,15 @@ enum GameType {
   @HiveField(3)
   skullking(150145),
   @HiveField(4)
-  free(-1);
+  free(-1),
+  @HiveField(5)
+  hilo(285893);
 
   const GameType(this.id);
 
   final num id;
 
   static GameType fromId(int id) {
-      return GameType.values.firstWhere((e) => e.id == id);
+    return GameType.values.firstWhere((e) => e.id == id);
   }
 }

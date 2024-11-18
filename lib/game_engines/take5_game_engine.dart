@@ -5,17 +5,16 @@ import '../common/bounds.dart';
 import '../models/standard_game_parameters.dart';
 import 'standard_game_engine.dart';
 
-class PapayooGameEngine extends StandardGameEngine {
-  static const int nbMinPlayers = 3;
-  static const int nbMaxPlayers = 8;
+class Take5GameEngine extends StandardGameEngine {
+  static const int nbMinPlayers = 2;
+  static const int nbMaxPlayers = 10;
   static const parameters = StandardGameParameters(
     highScoreWins: false,
-    roundScoreDefined: true,
-    roundScore: 250,
-    authorizedNegativeScore: false,
+    endScoreDefined: true,
+    endScore: 67,
   );
 
-  PapayooGameEngine() : super(GameType.papayoo);
+  Take5GameEngine() : super(GameType.take5);
 
   @override
   Widget? getSettingsWidget() => null;
@@ -30,6 +29,6 @@ class PapayooGameEngine extends StandardGameEngine {
 
   @override
   String? getRulesFilename(BuildContext context) {
-    return "papayoo";
+    return "take5";
   }
 }

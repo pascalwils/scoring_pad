@@ -19,6 +19,8 @@ const String skRascalCannonball = "sk_rascal_cannonball";
 // Free Game
 
 const String fgHighScoreWin = "fg_high_score_wins";
-const String fgMaxScoreDefined = "fg_max_score_defined";
-const String fgMaxScore = "fg_max_score";
+const String fgRoundScoreDefined = "fg_round_score_defined";
+const String fgRoundScore = "fg_round_score";
 const String fgAllowNegativeScore = "fg_allow_negative_score";
+const String fgEndScoreDefined = "fg_end_score_defined";
+const String fgEndScore = "fg_end_score";

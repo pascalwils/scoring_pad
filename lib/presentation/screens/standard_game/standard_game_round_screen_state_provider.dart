@@ -9,6 +9,7 @@ import 'package:talker/talker.dart';
 
 import '../../../managers/current_game_manager.dart';
 import '../../../models/standard_game.dart';
+import '../../../models/standard_game_parameters.dart';
 import 'standard_game_round_screen_state.dart';
 
 final talker = Talker();
@@ -29,13 +30,22 @@ class StandardGameRoundScreenStateNotifier extends StateNotifier<StandardGameRou
     final clampedScore = state.parameters.authorizedNegativeScore ? newScore : max(0, newScore);
     players[playerIndex] = state.players[playerIndex].copyWith(roundScore: clampedScore);
     final tempState = state.copyWith(players: players);
-    final int total = tempState.players.map((it) => it.roundScore).fold(0, (a, b) => a + b);
-    if (state.parameters.maxScoreDefined) {
-      final int remainder = state.parameters.maxScore - total;
-      state = tempState.copyWith(remainder: remainder, roundTotal: total);
+    final total = tempState.players.map((it) => it.roundScore).fold(0, (a, b) => a + b);
+    final isGameEnd = _checkGameEnd(state.parameters, tempState.players);
+    if (state.parameters.roundScoreDefined) {
+      final int remainder = state.parameters.roundScore - total;
+      state = tempState.copyWith(remainder: remainder, roundTotal: total, isGameEnd: isGameEnd);
     } else {
-      state = tempState.copyWith(remainder: null, roundTotal: total);
+      state = tempState.copyWith(remainder: null, roundTotal: total, isGameEnd: isGameEnd);
     }
+  }
+
+  static bool _checkGameEnd(StandardGameParameters parameters, List<StandardGamePlayerRoundState> players) {
+    if (parameters.endScoreDefined) {
+      final maxScore = players.map((it) => it.totalScore + it.roundScore).reduce(max);
+      return maxScore >= parameters.endScore;
+    }
+    return false;
   }
 
   void nextRound(WidgetRef ref) {

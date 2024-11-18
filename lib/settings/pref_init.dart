@@ -27,9 +27,11 @@ Future<PrefServiceShared> prefServiceInit() async {
       skRascalCannonball: false,
       // free game
       fgHighScoreWin: true,
-      fgMaxScoreDefined: false,
-      fgMaxScore: 0,
+      fgRoundScoreDefined: false,
+      fgRoundScore: 0,
       fgAllowNegativeScore: false,
+      fgEndScoreDefined: false,
+      fgEndScore: 0,
     },
   );
 }

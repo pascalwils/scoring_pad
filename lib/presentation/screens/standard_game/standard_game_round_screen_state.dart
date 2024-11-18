@@ -16,6 +16,7 @@ class StandardGameRoundScreenState with _$StandardGameRoundScreenState {
     required StandardGameParameters parameters,
     required List<StandardGamePlayerRoundState> players,
     required int roundTotal,
+    required bool isGameEnd,
     int? remainder,
     required ScoreWidgetState scoreState,
   }) = _StandardGameRoundScreenState;
@@ -31,6 +32,6 @@ class StandardGameRoundScreenState with _$StandardGameRoundScreenState {
   }
 
   bool canEndCurrentRound() {
-    return !parameters.maxScoreDefined || (roundTotal == parameters.maxScore);
+    return !parameters.roundScoreDefined || (roundTotal == parameters.roundScore);
   }
 }

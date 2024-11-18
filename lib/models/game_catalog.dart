@@ -1,7 +1,9 @@
 import 'dart:collection';
 
 import '../game_engines/free_game_engine.dart';
+import '../game_engines/hilo_game_engine.dart';
 import '../game_engines/papayoo_game_engine.dart';
+import '../game_engines/take5_game_engine.dart';
 import 'game_category.dart';
 import 'game_type.dart';
 import '../game_engines/game_engine.dart';
@@ -23,6 +25,8 @@ class GameCatalog {
 
     _engines.putIfAbsent(GameType.papayoo, () => PapayooGameEngine());
     _engines.putIfAbsent(GameType.skullking, () => SkullKingGameEngine());
+    _engines.putIfAbsent(GameType.take5, () => Take5GameEngine());
+    _engines.putIfAbsent(GameType.hilo, () => HiloGameEngine());
     _engines.putIfAbsent(GameType.free, () => FreeGameEngine());
   }
 
@@ -35,7 +39,8 @@ class GameCatalog {
       GameType.papayoo,
       // GameType.prophecy,
       GameType.skullking,
-      // GameType.take5,
+      GameType.take5,
+      GameType.hilo,
     ];
   }
 }

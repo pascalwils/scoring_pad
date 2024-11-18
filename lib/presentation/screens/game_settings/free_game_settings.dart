@@ -22,19 +22,31 @@ class FreeGameSettings extends StatelessWidget {
         PrefSwitch(
           title: Text(tr.fgMaxScoreDefined),
           switchActiveColor: Theme.of(context).colorScheme.primary,
-          pref: fgMaxScoreDefined,
+          pref: fgRoundScoreDefined,
         ),
         PrefHiderGeneric<bool>(
           nullValue: false,
-          pref: fgMaxScoreDefined,
+          pref: fgRoundScoreDefined,
           children: [
-            PrefIntegerText(label: tr.fgMaxScore, pref: fgMaxScore),
+            PrefIntegerText(label: tr.fgMaxScore, pref: fgRoundScore),
           ],
         ),
         PrefSwitch(
           title: Text(tr.fgAllowNegativeScore),
           switchActiveColor: Theme.of(context).colorScheme.primary,
           pref: fgAllowNegativeScore,
+        ),
+        PrefSwitch(
+          title: Text(tr.fgEndScoreDefined),
+          switchActiveColor: Theme.of(context).colorScheme.primary,
+          pref: fgEndScoreDefined,
+        ),
+        PrefHiderGeneric<bool>(
+          nullValue: false,
+          pref: fgEndScoreDefined,
+          children: [
+            PrefIntegerText(label: tr.fgEndScore, pref: fgEndScore),
+          ],
         ),
       ],
     );

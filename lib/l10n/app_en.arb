@@ -179,7 +179,7 @@
     "skCannonball": "Cannonball",
     "noRulesForThisGame": "No rules for this game.",
     "freeGame": "User-defined Game",
-    "fgMaxScore": "Max Score",
+    "fgMaxScore": "Score",
     "fgHighScoreWin": "The higher score wins",
     "fgMaxScoreDefined": "Score per round",
     "rounds": "Rounds",
@@ -238,5 +238,8 @@
     },
     "languageEnglish": "English",
     "languageFrench": "French",
-    "prefLanguage": "Language"
+    "prefLanguage": "Language",
+    "fgEndScore": "Score",
+    "fgEndScoreDefined": "End Score",
+    "hilo": "Hilo"
 }

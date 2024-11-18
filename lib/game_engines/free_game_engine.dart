@@ -22,9 +22,11 @@ class FreeGameEngine extends StandardGameEngine {
     final pref = PrefService.of(context);
     return StandardGameParameters(
       highScoreWins: pref.get(fgHighScoreWin),
-      maxScoreDefined: pref.get(fgMaxScoreDefined),
-      maxScore: pref.get(fgMaxScore),
+      roundScoreDefined: pref.get(fgRoundScoreDefined),
+      roundScore: pref.get(fgRoundScore),
       authorizedNegativeScore: pref.get(fgAllowNegativeScore),
+      endScoreDefined: pref.get(fgEndScoreDefined),
+      endScore: pref.get(fgEndScore),
     );
   }
 }

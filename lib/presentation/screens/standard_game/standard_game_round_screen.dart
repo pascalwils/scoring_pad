@@ -43,7 +43,7 @@ class StandardGameRoundScreen extends ConsumerWidget {
             }
           }),
           TextButton(
-            onPressed: () => WidgetTools.showEndGameDialog(context, ref, _endGame),
+            onPressed: state.isGameEnd ? () => _endGame(context, ref) : () => WidgetTools.showEndGameDialog(context, ref, _endGame),
             child: Icon(
               Icons.check,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -123,8 +123,12 @@ class StandardGameRoundScreen extends ConsumerWidget {
               Text(tr.roundNumber(state.currentRound + 1), style: textStyle),
               Text(tr.roundTotal(state.roundTotal), style: textStyle),
               TextButton(
-                onPressed: nextEnabled ? () => WidgetTools.showNextRoundDialog(context, ref, _nextRound) : null,
-                child: const Icon(Icons.navigate_next),
+                onPressed: state.isGameEnd
+                    ? () => _endGame(context, ref)
+                    : nextEnabled
+                        ? () => WidgetTools.showNextRoundDialog(context, ref, _nextRound)
+                        : null,
+                child: state.isGameEnd ? const Icon(Icons.check) : const Icon(Icons.navigate_next),
               ),
             ],
           ),
