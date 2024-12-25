@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:scoring_pad/managers/current_game_manager.dart';
 import 'package:scoring_pad/models/game_catalog.dart';
 import 'package:scoring_pad/models/player.dart';
-import 'package:scoring_pad/translation_support.dart';
+import 'package:scoring_pad/presentation/graphic_tools.dart';
 import 'package:talker/talker.dart';
 
 import '../../managers/games_manager.dart';
@@ -100,13 +100,12 @@ class GamesListScreen extends ConsumerWidget {
       child: ListTile(
         title: Row(
           children: [
-            Text(game.getGameType().getName(tr)),
-            const SizedBox(width: 8),
-            Text(DateFormat.yMMMd().format(game.getStartTime())),
+            Text(DateFormat.yMMMd(Localizations.localeOf(context).toString()).format(game.getStartTime())),
             const SizedBox(width: 8),
             Text(DateFormat.Hms().format(game.getStartTime())),
           ],
         ),
+        leading: game.getGameType().getIcon(),
         subtitle: Text(_getStringFromPlayers(game.getPlayers())),
         trailing: game.isFinished() ? const Icon(Icons.done) : null,
       ),
