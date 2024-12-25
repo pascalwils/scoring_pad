@@ -123,7 +123,7 @@ class StandardGameUiTools {
   }
 
   static bool _checkGameEnd(StandardGameParameters parameters, StandardGame game) {
-    if (parameters.endScoreDefined) {
+    if (!game.isFinished() && parameters.endScoreDefined) {
       final currentRound = game.currentRound;
       int maxScore = 0;
       for (int i = 0; i < game.players.length; i++) {
