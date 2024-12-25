@@ -3,25 +3,25 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, avoid_classes_with_only_static_members
 
 mixin Pubspec {
-  static final buildDate = DateTime.utc(2024, 12, 23, 20, 7, 39);
+  static final buildDate = DateTime.utc(2024, 12, 25, 11, 6, 9);
 
   static const name = 'scoring_pad';
 
   static const publish_to = 'none';
 
-  static const versionFull = '1.0.0+5';
+  static const versionFull = '1.1.0';
 
-  static const version = '1.0.0';
+  static const version = '1.1.0';
 
-  static const versionSmall = '1.0';
+  static const versionSmall = '1.1';
 
   static const versionMajor = 1;
 
-  static const versionMinor = 0;
+  static const versionMinor = 1;
 
   static const versionPatch = 0;
 
-  static const versionBuild = 5;
+  static const versionBuild = 0;
 
   static const versionPreRelease = '';
 
